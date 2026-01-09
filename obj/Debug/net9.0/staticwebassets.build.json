@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "rOi2Dd8mEjinM4g4YcpN1F13UcuIqiDGHbXstCNng+g=",
+  "Hash": "EekM5ZwFsebxfu3BASzHcvFmhaAAHcPYlULHmQoHdzA=",
   "Source": "GlowNic",
   "BasePath": "_content/GlowNic",
   "Mode": "Default",
@@ -603,6 +603,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/images/logo3.png"
+    },
+    {
+      "Identity": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/images/logo4.png",
+      "SourceId": "GlowNic",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/",
+      "BasePath": "_content/GlowNic",
+      "RelativePath": "images/logo4#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "8tb9ipwu1d",
+      "Integrity": "9IWv19m3ixqGBNc/r+2qdGX0cKgBKz3e8yxjpM04Iyo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/images/logo4.png"
     },
     {
       "Identity": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/js/admin/barbers-management.js",
@@ -1928,6 +1949,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-LWgmC+23zOKxS8xCBaS1C4S33MMWHgu8Y/89RSZOgLE="
+        }
+      ]
+    },
+    {
+      "Route": "images/logo4.8tb9ipwu1d.png",
+      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/images/logo4.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "483254"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"9IWv19m3ixqGBNc/r+2qdGX0cKgBKz3e8yxjpM04Iyo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 09 Jan 2026 22:08:26 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8tb9ipwu1d"
+        },
+        {
+          "Name": "label",
+          "Value": "images/logo4.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-9IWv19m3ixqGBNc/r+2qdGX0cKgBKz3e8yxjpM04Iyo="
+        }
+      ]
+    },
+    {
+      "Route": "images/logo4.png",
+      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/images/logo4.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "483254"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"9IWv19m3ixqGBNc/r+2qdGX0cKgBKz3e8yxjpM04Iyo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 09 Jan 2026 22:08:26 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-9IWv19m3ixqGBNc/r+2qdGX0cKgBKz3e8yxjpM04Iyo="
         }
       ]
     },

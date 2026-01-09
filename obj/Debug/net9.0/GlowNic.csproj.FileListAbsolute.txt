@@ -192,3 +192,4 @@
 /home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/GlowNic.pdb
 /home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/GlowNic.genruntimeconfig.cache
 /home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/ref/GlowNic.dll
+/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/GlowNic.sourcelink.json

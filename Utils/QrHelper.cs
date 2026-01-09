@@ -18,12 +18,12 @@ public static class QrHelper
         if (configuration != null)
         {
             var baseUrl = configuration["AppSettings:PublicBarberBaseUrl"] 
-                ?? "https://barbepro.encuentrame.org";
+                ?? "https://glownic.encuentrame.org";
             return $"{baseUrl}/b/{slug}";
         }
         
         // Fallback por defecto - apunta a la vista web bonita
-        return $"https://barbepro.encuentrame.org/b/{slug}";
+        return $"https://glownic.encuentrame.org/b/{slug}";
     }
 
     /// <summary>
