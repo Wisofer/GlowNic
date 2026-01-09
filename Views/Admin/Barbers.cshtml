@@ -1,0 +1,484 @@
+@using GlowNic.Models.DTOs.Responses
+@{
+    ViewData["Title"] = "Gestión de Salones";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var barbers = ViewBag.Barbers as List<BarberSummaryDto> ?? new List<BarberSummaryDto>();
+}
+
+<div class="container mx-auto p-3 sm:p-4 max-w-7xl">
+    <!-- Header Compacto -->
+    <div class="mb-4 flex justify-between items-center">
+        <div>
+            <h1 class="text-xl sm:text-2xl font-bold text-pink mb-1">💅 Gestión de Salones</h1>
+            <p class="text-xs text-gray-400">Administra todos los salones del sistema</p>
+        </div>
+        <button id="btnCrearSalón" class="btn btn-sm btn-pink">
+            ➕ Crear Salón
+        </button>
+    </div>
+
+    <!-- Estadísticas Rápidas Compactas -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 mb-4">
+        <div class="bg-gradient-to-br from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 rounded-xl p-3 border border-pink/20 shadow-sm">
+            <div class="text-xs text-gray-500 mb-1">💅 Total Salones</div>
+            <div class="text-xl font-bold text-pink">@barbers.Count</div>
+        </div>
+        <div class="bg-gradient-to-br from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 rounded-xl p-3 border border-pink/20 shadow-sm">
+            <div class="text-xs text-gray-500 mb-1">✅ Activos</div>
+            <div class="text-xl font-bold text-success">@barbers.Count(b => b.IsActive)</div>
+        </div>
+        <div class="bg-gradient-to-br from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 rounded-xl p-3 border border-pink/20 shadow-sm">
+            <div class="text-xs text-gray-500 mb-1">⏸️ Inactivos</div>
+            <div class="text-xl font-bold text-error">@barbers.Count(b => !b.IsActive)</div>
+        </div>
+        <div class="bg-gradient-to-br from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 rounded-xl p-3 border border-pink/20 shadow-sm">
+            <div class="text-xs text-gray-500 mb-1">📅 Total Citas</div>
+            <div class="text-xl font-bold text-pink">@barbers.Sum(b => b.TotalAppointments)</div>
+        </div>
+    </div>
+
+    <!-- Búsqueda y Filtros Compactos -->
+    <div class="mb-3 flex gap-2 flex-wrap">
+        <input type="text" id="searchBarbers" placeholder="🔍 Buscar salón..." 
+               class="input input-bordered input-sm flex-1 min-w-[200px]">
+        <select id="filterStatus" class="select select-bordered select-sm">
+            <option value="">Todos</option>
+            <option value="active">Solo activos</option>
+            <option value="inactive">Solo inactivos</option>
+        </select>
+    </div>
+
+    <!-- Tabla de Salones Compacta -->
+    <div class="bg-gradient-to-br from-base-100 to-base-200 rounded-xl border border-pink/20 shadow-sm">
+        <div class="overflow-x-auto">
+            <table id="barbersTable" class="table table-sm table-zebra">
+                <thead>
+                    <tr class="bg-base-200">
+                        <th class="text-xs font-semibold text-pink">💅 Nombre</th>
+                        <th class="text-xs font-semibold">Negocio</th>
+                        <th class="text-xs font-semibold">Teléfono</th>
+                        <th class="text-xs font-semibold text-center w-16">Citas</th>
+                        <th class="text-xs font-semibold text-right w-28">Ingresos</th>
+                        <th class="text-xs font-semibold text-center w-20">Estado</th>
+                        <th class="text-xs font-semibold text-center w-36">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="barbersTableBody">
+                    @foreach (var barber in barbers)
+                    {
+                        <tr data-barber-id="@barber.Id" data-name="@barber.Name.ToLower()" data-business="@(barber.BusinessName?.ToLower() ?? "")" data-phone="@(barber.Phone?.ToLower() ?? "")" data-status="@(barber.IsActive ? "active" : "inactive")">
+                            <td class="text-sm font-medium">@barber.Name</td>
+                            <td class="text-xs text-gray-500">@(barber.BusinessName ?? "-")</td>
+                            <td class="text-xs text-gray-500">@(barber.Phone ?? "-")</td>
+                            <td class="text-center text-sm font-medium">@barber.TotalAppointments</td>
+                            <td class="text-right text-sm font-semibold text-pink">$@barber.TotalRevenue.ToString("N2")</td>
+                            <td class="text-center">
+                                @if (barber.IsActive)
+                                {
+                                    <span class="badge badge-success badge-sm">Activo</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-error badge-sm">Inactivo</span>
+                                }
+                            </td>
+                            <td class="text-center">
+                                <div class="flex gap-1 justify-center items-center">
+                                    <button data-action="view" data-id="@barber.Id" data-name="@barber.Name"
+                                            class="btn btn-xs btn-pink min-w-[28px] h-7" title="Ver Detalles">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                        </svg>
+                                    </button>
+                                    <button data-action="edit" data-id="@barber.Id" data-name="@barber.Name" data-business="@(barber.BusinessName ?? "")" data-phone="@(barber.Phone ?? "")"
+                                            class="btn btn-xs btn-info min-w-[28px] h-7" title="Editar">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                                        </svg>
+                                    </button>
+                                    <button data-action="toggle" data-id="@barber.Id" data-active="@barber.IsActive.ToString().ToLower()"
+                                            class="btn btn-xs @(barber.IsActive ? "btn-warning" : "btn-success") min-w-[28px] h-7" 
+                                            title="@(barber.IsActive ? "Desactivar" : "Activar")">
+                                        @if (barber.IsActive)
+                                        {
+                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/>
+                                            </svg>
+                                        }
+                                        else
+                                        {
+                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                            </svg>
+                                        }
+                                    </button>
+                                    <button data-action="delete" data-id="@barber.Id" data-name="@barber.Name"
+                                            class="btn btn-xs btn-error min-w-[32px] h-8" title="Eliminar">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal para Crear Salón -->
+<dialog id="modalCrearSalón" class="modal">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg mb-4 text-pink">Crear Nuevo Salón</h3>
+        <form id="formCrearSalón" class="space-y-4">
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Email</span>
+                </label>
+                <input type="email" name="email" class="input input-bordered" required placeholder="salón@example.com"/>
+            </div>
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Contraseña</span>
+                </label>
+                <div class="flex gap-2">
+                    <input type="password" id="passwordInput" name="password" class="input input-bordered flex-1" required placeholder="Mínimo 6 caracteres" minlength="6"/>
+                    <button type="button" id="btnGeneratePassword" class="btn btn-outline btn-sm" title="Generar contraseña">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                        </svg>
+                    </button>
+                    <button type="button" id="copyPasswordBtn" class="btn btn-outline btn-sm" title="Copiar contraseña" style="display: none;">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Nombre</span>
+                </label>
+                <input type="text" name="name" class="input input-bordered" required placeholder="Juan Pérez"/>
+            </div>
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Nombre del Negocio (Opcional)</span>
+                </label>
+                <input type="text" name="businessName" class="input input-bordered" placeholder="Barbería Central"/>
+            </div>
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Teléfono</span>
+                </label>
+                <input type="tel" name="phone" class="input input-bordered" required placeholder="1234567890"/>
+            </div>
+            <div class="modal-action">
+                <button type="button" id="btnCloseCreateModal" class="btn btn-ghost">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Crear Salón</button>
+            </div>
+        </form>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+    </form>
+</dialog>
+
+
+<!-- Modal para Editar Salón -->
+<dialog id="modalEditarSalón" class="modal">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg mb-4 text-pink">Editar Salón</h3>
+        <form id="formEditarSalón" class="space-y-4">
+            <input type="hidden" id="editBarberId" name="id"/>
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Nombre</span>
+                </label>
+                <input type="text" id="editBarberName" name="name" class="input input-bordered" required placeholder="Juan Pérez"/>
+            </div>
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Nombre del Negocio (Opcional)</span>
+                </label>
+                <input type="text" id="editBarberBusiness" name="businessName" class="input input-bordered" placeholder="Barbería Central"/>
+            </div>
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Teléfono</span>
+                </label>
+                <input type="tel" id="editBarberPhone" name="phone" class="input input-bordered" required placeholder="1234567890"/>
+            </div>
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Nueva Contraseña (Opcional)</span>
+                    <span class="label-text-alt text-gray-400">Dejar vacío para mantener la contraseña actual</span>
+                </label>
+                <div class="flex gap-2">
+                    <input type="password" id="editPasswordInput" name="password" class="input input-bordered flex-1" placeholder="Mínimo 6 caracteres" minlength="6"/>
+                    <button type="button" id="btnGenerateEditPassword" class="btn btn-outline btn-sm" title="Generar contraseña">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                        </svg>
+                    </button>
+                    <button type="button" id="copyEditPasswordBtn" class="btn btn-outline btn-sm" title="Copiar contraseña" style="display: none;">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-action">
+                <button type="button" id="btnCloseEditModal" class="btn btn-ghost">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+    </form>
+</dialog>
+
+<!-- Modal para Eliminar Salón -->
+<dialog id="modalEliminarSalón" class="modal">
+    <div class="modal-box max-w-2xl">
+        <div class="text-center mb-6">
+            <div class="text-6xl mb-4">⚠️</div>
+            <h3 class="font-bold text-3xl mb-4 text-error">ELIMINAR BARBERO PERMANENTEMENTE</h3>
+        </div>
+        
+        <div class="bg-error/10 border-2 border-error rounded-lg p-6 mb-6">
+            <p class="text-lg font-semibold mb-4 text-error">
+                ¿Estás completamente seguro de eliminar a <strong id="barberNameToDelete" class="text-2xl">este salón</strong>?
+            </p>
+            
+            <div class="bg-base-200 rounded-lg p-4 mb-4">
+                <p class="font-bold text-base mb-3 text-warning">⚠️ ESTA ACCIÓN ELIMINARÁ PERMANENTEMENTE:</p>
+                <ul class="list-disc list-inside space-y-2 text-sm">
+                    <li><strong>Todas las citas</strong> del salón</li>
+                    <li><strong>Todos los servicios</strong> configurados</li>
+                    <li><strong>Todos los ingresos y egresos</strong> (transacciones financieras)</li>
+                    <li><strong>Todas las estadísticas</strong> y reportes</li>
+                    <li><strong>Todos los horarios de trabajo</strong> configurados</li>
+                    <li><strong>Todos los tiempos bloqueados</strong></li>
+                    <li><strong>Todos los empleados</strong> y sus cuentas asociadas</li>
+                    <li><strong>La cuenta de usuario</strong> del salón (el email quedará libre)</li>
+                    <li><strong>TODOS los datos</strong> relacionados con este salón</li>
+                </ul>
+            </div>
+            
+            <div class="bg-error/20 border border-error rounded p-4">
+                <p class="text-base font-bold text-error">
+                    ⛔ ESTA ACCIÓN NO SE PUEDE DESHACER ⛔
+                </p>
+                <p class="text-sm mt-2">
+                    Una vez eliminado, todos los datos serán borrados permanentemente de la base de datos.
+                </p>
+            </div>
+        </div>
+        
+        <div class="modal-action">
+            <button id="btnCancelDelete" class="btn btn-ghost btn-lg">Cancelar</button>
+            <button id="btnConfirmDelete" class="btn btn-error btn-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+                SÍ, ELIMINAR PERMANENTEMENTE
+            </button>
+        </div>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+    </form>
+</dialog>
+
+<!-- Modal para ver detalles del salón -->
+<dialog id="modalVerSalón" class="modal">
+    <div class="modal-box w-11/12 max-w-7xl max-h-[90vh] overflow-y-auto">
+        <h3 class="font-bold text-2xl mb-6 text-pink" id="barberDetailsTitle">Detalles del Salón</h3>
+        
+        <!-- Loading -->
+        <div id="barberDetailsLoading" class="text-center py-12">
+            <span class="loading loading-spinner loading-lg"></span>
+            <p class="mt-4 text-gray-500">Cargando información...</p>
+        </div>
+        
+        <!-- Contenido -->
+        <div id="barberDetailsContent" class="hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Columna Izquierda: Información del Salón -->
+                <div class="lg:col-span-1 space-y-6">
+                    <!-- Información del Salón -->
+                    <div class="bg-base-200 rounded-xl p-5 border border-base-300">
+                        <h4 class="font-bold text-lg mb-4 text-pink border-b border-base-300 pb-2">Información del Salón</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="text-xs text-gray-500 uppercase tracking-wide">Nombre</label>
+                                <p class="font-semibold text-base mt-1" id="detailBarberName">-</p>
+                            </div>
+                            <div>
+                                <label class="text-xs text-gray-500 uppercase tracking-wide">Email</label>
+                                <p class="font-medium text-sm mt-1 break-all" id="detailBarberEmail">-</p>
+                            </div>
+                            <div>
+                                <label class="text-xs text-gray-500 uppercase tracking-wide">Negocio</label>
+                                <p class="font-medium text-base mt-1" id="detailBarberBusiness">-</p>
+                            </div>
+                            <div>
+                                <label class="text-xs text-gray-500 uppercase tracking-wide">Teléfono</label>
+                                <p class="font-medium text-base mt-1" id="detailBarberPhone">-</p>
+                            </div>
+                            <div>
+                                <label class="text-xs text-gray-500 uppercase tracking-wide">Slug</label>
+                                <p class="font-mono text-sm mt-1 text-gray-400" id="detailBarberSlug">-</p>
+                            </div>
+                            <div>
+                                <label class="text-xs text-gray-500 uppercase tracking-wide">Estado</label>
+                                <p class="font-medium text-base mt-1" id="detailBarberStatus">-</p>
+                            </div>
+                            <div>
+                                <label class="text-xs text-gray-500 uppercase tracking-wide">Fecha de Registro</label>
+                                <p class="font-medium text-sm mt-1" id="detailBarberCreated">-</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Servicios -->
+                    <div class="bg-base-200 rounded-xl p-5 border border-base-300">
+                        <h4 class="font-bold text-lg mb-4 text-pink border-b border-base-300 pb-2">Servicios</h4>
+                        <div id="detailServices" class="space-y-2">
+                            <p class="text-sm text-gray-500">Cargando servicios...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Columna Derecha: Estadísticas y Finanzas -->
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- Estadísticas del Día -->
+                    <div class="bg-base-200 rounded-xl p-5 border border-base-300">
+                        <h4 class="font-bold text-lg mb-4 text-pink border-b border-base-300 pb-2">Hoy</h4>
+                        <div class="grid grid-cols-4 gap-4">
+                            <div class="bg-base-100 rounded-lg p-4 text-center border border-base-300">
+                                <div class="text-xs text-gray-500 mb-2">Citas</div>
+                                <div class="text-2xl font-bold text-pink" id="detailTodayAppointments">0</div>
+                            </div>
+                            <div class="bg-base-100 rounded-lg p-4 text-center border border-base-300">
+                                <div class="text-xs text-gray-500 mb-2">Completadas</div>
+                                <div class="text-2xl font-bold text-success" id="detailTodayCompleted">0</div>
+                            </div>
+                            <div class="bg-base-100 rounded-lg p-4 text-center border border-base-300">
+                                <div class="text-xs text-gray-500 mb-2">Pendientes</div>
+                                <div class="text-2xl font-bold text-warning" id="detailTodayPending">0</div>
+                            </div>
+                            <div class="bg-base-100 rounded-lg p-4 text-center border border-base-300">
+                                <div class="text-xs text-gray-500 mb-2">Ingresos</div>
+                                <div class="text-2xl font-bold text-pink" id="detailTodayIncome">$0.00</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Estadísticas de la Semana y Mes -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Esta Semana -->
+                        <div class="bg-base-200 rounded-xl p-5 border border-base-300">
+                            <h4 class="font-bold text-base mb-3 text-pink">Esta Semana</h4>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="bg-base-100 rounded-lg p-3 text-center border border-base-300">
+                                    <div class="text-xs text-gray-500 mb-1">Citas</div>
+                                    <div class="text-xl font-bold text-pink" id="detailWeekAppointments">0</div>
+                                </div>
+                                <div class="bg-base-100 rounded-lg p-3 text-center border border-base-300">
+                                    <div class="text-xs text-gray-500 mb-1">Ingresos</div>
+                                    <div class="text-xl font-bold text-success" id="detailWeekIncome">$0.00</div>
+                                </div>
+                                <div class="bg-base-100 rounded-lg p-3 text-center border border-base-300">
+                                    <div class="text-xs text-gray-500 mb-1">Egresos</div>
+                                    <div class="text-xl font-bold text-error" id="detailWeekExpenses">$0.00</div>
+                                </div>
+                                <div class="bg-base-100 rounded-lg p-3 text-center border border-base-300">
+                                    <div class="text-xs text-gray-500 mb-1">Ganancia</div>
+                                    <div class="text-xl font-bold text-pink" id="detailWeekProfit">$0.00</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Este Mes -->
+                        <div class="bg-base-200 rounded-xl p-5 border border-base-300">
+                            <h4 class="font-bold text-base mb-3 text-pink">Este Mes</h4>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="bg-base-100 rounded-lg p-3 text-center border border-base-300">
+                                    <div class="text-xs text-gray-500 mb-1">Citas</div>
+                                    <div class="text-xl font-bold text-pink" id="detailMonthAppointments">0</div>
+                                </div>
+                                <div class="bg-base-100 rounded-lg p-3 text-center border border-base-300">
+                                    <div class="text-xs text-gray-500 mb-1">Ingresos</div>
+                                    <div class="text-xl font-bold text-success" id="detailMonthIncome">$0.00</div>
+                                </div>
+                                <div class="bg-base-100 rounded-lg p-3 text-center border border-base-300">
+                                    <div class="text-xs text-gray-500 mb-1">Egresos</div>
+                                    <div class="text-xl font-bold text-error" id="detailMonthExpenses">$0.00</div>
+                                </div>
+                                <div class="bg-base-100 rounded-lg p-3 text-center border border-base-300">
+                                    <div class="text-xs text-gray-500 mb-1">Ganancia</div>
+                                    <div class="text-xl font-bold text-pink" id="detailMonthProfit">$0.00</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Resumen Financiero Total -->
+                    <div class="bg-base-200 rounded-xl p-5 border border-base-300">
+                        <h4 class="font-bold text-lg mb-4 text-pink border-b border-base-300 pb-2">Resumen Financiero Total</h4>
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="bg-base-100 rounded-lg p-4 text-center border border-base-300">
+                                <div class="text-xs text-gray-500 mb-2">Ingresos Totales</div>
+                                <div class="text-2xl font-bold text-success" id="detailTotalIncome">$0.00</div>
+                            </div>
+                            <div class="bg-base-100 rounded-lg p-4 text-center border border-base-300">
+                                <div class="text-xs text-gray-500 mb-2">Egresos Totales</div>
+                                <div class="text-2xl font-bold text-error" id="detailTotalExpenses">$0.00</div>
+                            </div>
+                            <div class="bg-base-100 rounded-lg p-4 text-center border border-base-300">
+                                <div class="text-xs text-gray-500 mb-2">Ganancia Neta</div>
+                                <div class="text-2xl font-bold text-pink" id="detailNetProfit">$0.00</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Citas Recientes y Próximas -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Citas Recientes -->
+                        <div class="bg-base-200 rounded-xl p-5 border border-base-300">
+                            <h4 class="font-bold text-base mb-3 text-pink border-b border-base-300 pb-2">Citas Recientes</h4>
+                            <div id="detailRecentAppointments" class="space-y-2">
+                                <p class="text-sm text-gray-500">Cargando citas...</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Próximas Citas -->
+                        <div class="bg-base-200 rounded-xl p-5 border border-base-300">
+                            <h4 class="font-bold text-base mb-3 text-pink border-b border-base-300 pb-2">Próximas Citas</h4>
+                            <div id="detailUpcomingAppointments" class="space-y-2">
+                                <p class="text-sm text-gray-500">Cargando citas...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal-action mt-6">
+            <button id="btnCloseViewModal" class="btn btn-pink">Cerrar</button>
+        </div>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+    </form>
+</dialog>
+
+<script src="~/js/admin/barbers-management.js"></script>
+

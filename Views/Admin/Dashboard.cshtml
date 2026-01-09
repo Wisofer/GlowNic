@@ -1,0 +1,1003 @@
+@using GlowNic.Models.DTOs.Responses
+@{
+    ViewData["Title"] = "Panel de Administración";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var dashboard = ViewBag.Dashboard as AdminDashboardDto;
+}
+
+<div class="container mx-auto p-3 sm:p-4 max-w-7xl">
+    <!-- Header Compacto -->
+    <div class="mb-4">
+        <h1 class="text-xl sm:text-2xl font-bold text-pink mb-1">✨ Panel de Administración</h1>
+        <p class="text-xs text-gray-400">Bienvenida, @ViewBag.Nombre</p>
+    </div>
+    
+    <!-- Estadísticas Principales Compactas -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 mb-4">
+        <div class="bg-gradient-to-br from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 rounded-xl p-3 border border-pink/20 shadow-sm">
+            <div class="text-xs text-gray-500 mb-1">💅 Total Salones</div>
+            <div class="text-xl font-bold text-pink">@(dashboard?.TotalBarbers ?? 0)</div>
+            <div class="text-xs text-gray-400 mt-1">@(dashboard?.ActiveBarbers ?? 0) activos</div>
+        </div>
+        
+        <div class="bg-gradient-to-br from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 rounded-xl p-3 border border-pink/20 shadow-sm">
+            <div class="text-xs text-gray-500 mb-1">📅 Total Citas</div>
+            <div class="text-xl font-bold text-pink">@(dashboard?.TotalAppointments ?? 0)</div>
+            <div class="text-xs text-gray-400 mt-1">@(dashboard?.PendingAppointments ?? 0) pendientes</div>
+        </div>
+        
+        <div class="bg-gradient-to-br from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 rounded-xl p-3 border border-pink/20 shadow-sm">
+            <div class="text-xs text-gray-500 mb-1">💰 Ingresos Totales</div>
+            <div class="text-xl font-bold text-pink">$@((dashboard?.TotalRevenue ?? 0).ToString("N2"))</div>
+            <div class="text-xs text-gray-400 mt-1">Todos los tiempos</div>
+        </div>
+        
+        <div class="bg-gradient-to-br from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 rounded-xl p-3 border border-pink/20 shadow-sm">
+            <div class="text-xs text-gray-500 mb-1">✅ Estado Citas</div>
+            <div class="text-lg font-semibold text-success">@(dashboard?.ConfirmedAppointments ?? 0)</div>
+            <div class="text-xs text-gray-400 mt-1">Confirmadas</div>
+        </div>
+    </div>
+    
+    <!-- Resumen de Citas Compacto -->
+    <div class="grid grid-cols-3 gap-2 mb-4">
+        <div class="bg-base-200 rounded-lg p-2 border border-base-300">
+            <div class="flex items-center justify-between">
+                <span class="text-xs text-gray-500">⏳ Pendientes</span>
+                <span class="text-base font-semibold text-warning">@(dashboard?.PendingAppointments ?? 0)</span>
+            </div>
+        </div>
+        <div class="bg-base-200 rounded-lg p-2 border border-base-300">
+            <div class="flex items-center justify-between">
+                <span class="text-xs text-gray-500">✓ Confirmadas</span>
+                <span class="text-base font-semibold text-success">@(dashboard?.ConfirmedAppointments ?? 0)</span>
+            </div>
+        </div>
+        <div class="bg-base-200 rounded-lg p-2 border border-base-300">
+            <div class="flex items-center justify-between">
+                <span class="text-xs text-gray-500">✗ Canceladas</span>
+                <span class="text-base font-semibold text-error">@(dashboard?.CancelledAppointments ?? 0)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gráficos Compactos -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 mb-4">
+        <!-- Gráfico de Ingresos (Últimos 7 días) -->
+        <div class="bg-gradient-to-br from-base-100 to-base-200 rounded-xl border border-pink/20 shadow-sm p-3">
+            <div class="flex justify-between items-center mb-2">
+                <h3 class="text-xs font-bold text-pink">💰 Ingresos 7 Días</h3>
+                <button onclick="exportChart('incomeChart', 'Ingresos')" class="btn btn-xs btn-ghost p-0 h-6 w-6 min-h-0" title="Exportar">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                    </svg>
+                </button>
+            </div>
+            <div style="height: 120px; position: relative;">
+                <canvas id="incomeChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Gráfico de Estados de Citas -->
+        <div class="bg-gradient-to-br from-base-100 to-base-200 rounded-xl border border-pink/20 shadow-sm p-3">
+            <div class="flex justify-between items-center mb-2">
+                <h3 class="text-xs font-bold text-pink">📊 Estados Citas</h3>
+                <button onclick="exportChart('appointmentsChart', 'Citas')" class="btn btn-xs btn-ghost p-0 h-6 w-6 min-h-0" title="Exportar">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                    </svg>
+                </button>
+            </div>
+            <div style="height: 150px; position: relative;">
+                <canvas id="appointmentsChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Top 5 Salones por Ingresos -->
+        <div class="bg-gradient-to-br from-base-100 to-base-200 rounded-xl border border-pink/20 shadow-sm p-3">
+            <div class="flex justify-between items-center mb-2">
+                <h3 class="text-xs font-bold text-pink">🏆 Top 5 Salones</h3>
+                <button onclick="exportChart('topBarbersChart', 'TopSalones')" class="btn btn-xs btn-ghost p-0 h-6 w-6 min-h-0" title="Exportar">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                    </svg>
+                </button>
+            </div>
+            <div style="height: 120px; position: relative;">
+                <canvas id="topBarbersChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Gráfico de Citas por Día -->
+        <div class="bg-gradient-to-br from-base-100 to-base-200 rounded-xl border border-pink/20 shadow-sm p-3">
+            <div class="flex justify-between items-center mb-2">
+                <h3 class="text-xs font-bold text-pink">📈 Citas 7 Días</h3>
+                <button onclick="exportChart('appointmentsByDayChart', 'CitasPorDia')" class="btn btn-xs btn-ghost p-0 h-6 w-6 min-h-0" title="Exportar">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                    </svg>
+                </button>
+            </div>
+            <div style="height: 150px; position: relative;">
+                <canvas id="appointmentsByDayChart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal para ver detalles del salón -->
+    <dialog id="modalVerSalón" class="modal">
+        <div class="modal-box w-11/12 max-w-7xl max-h-[90vh] overflow-y-auto">
+            <h3 class="font-bold text-2xl mb-6 text-pink" id="barberDetailsTitle">Detalles del Salón</h3>
+            
+            <!-- Loading -->
+            <div id="barberDetailsLoading" class="text-center py-12">
+                <span class="loading loading-spinner loading-lg"></span>
+                <p class="mt-4 text-gray-500">Cargando información...</p>
+            </div>
+            
+            <!-- Contenido -->
+            <div id="barberDetailsContent" class="hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Columna Izquierda: Información del Salón -->
+                    <div class="lg:col-span-1 space-y-6">
+                        <!-- Información del Salón -->
+                        <div class="bg-gradient-to-br from-base-200 to-base-300 rounded-xl p-4 border border-pink/20">
+                            <h4 class="font-bold text-base mb-3 text-pink border-b border-base-300 pb-2">💅 Información del Salón</h4>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="text-xs text-gray-500 uppercase tracking-wide">Nombre</label>
+                                    <p class="font-semibold text-base mt-1" id="detailBarberName">-</p>
+                                </div>
+                                <div>
+                                    <label class="text-xs text-gray-500 uppercase tracking-wide">Email</label>
+                                    <p class="font-medium text-sm mt-1 break-all" id="detailBarberEmail">-</p>
+                                </div>
+                                <div>
+                                    <label class="text-xs text-gray-500 uppercase tracking-wide">Negocio</label>
+                                    <p class="font-medium text-base mt-1" id="detailBarberBusiness">-</p>
+                                </div>
+                                <div>
+                                    <label class="text-xs text-gray-500 uppercase tracking-wide">Teléfono</label>
+                                    <p class="font-medium text-base mt-1" id="detailBarberPhone">-</p>
+                                </div>
+                                <div>
+                                    <label class="text-xs text-gray-500 uppercase tracking-wide">Slug</label>
+                                    <p class="font-mono text-sm mt-1 text-gray-400" id="detailBarberSlug">-</p>
+                                </div>
+                                <div>
+                                    <label class="text-xs text-gray-500 uppercase tracking-wide">Estado</label>
+                                    <p class="font-medium text-base mt-1" id="detailBarberStatus">-</p>
+                                </div>
+                                <div>
+                                    <label class="text-xs text-gray-500 uppercase tracking-wide">Fecha de Registro</label>
+                                    <p class="font-medium text-sm mt-1" id="detailBarberCreated">-</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Servicios -->
+                        <div class="bg-base-200 rounded-xl p-5 border border-base-300">
+                            <h4 class="font-bold text-lg mb-4 text-pink border-b border-base-300 pb-2">Servicios</h4>
+                            <div id="detailServices" class="space-y-2">
+                                <p class="text-sm text-gray-500">Cargando servicios...</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Columna Derecha: Estadísticas y Finanzas -->
+                    <div class="lg:col-span-2 space-y-6">
+                        <!-- Estadísticas del Día -->
+                        <div class="bg-base-200 rounded-xl p-5 border border-base-300">
+                            <h4 class="font-bold text-lg mb-4 text-pink border-b border-base-300 pb-2">Hoy</h4>
+                            <div class="grid grid-cols-4 gap-4">
+                                <div class="bg-base-100 rounded-lg p-4 text-center border border-base-300">
+                                    <div class="text-xs text-gray-500 mb-2">Citas</div>
+                                    <div class="text-2xl font-bold text-pink" id="detailTodayAppointments">0</div>
+                                </div>
+                                <div class="bg-base-100 rounded-lg p-4 text-center border border-base-300">
+                                    <div class="text-xs text-gray-500 mb-2">Completadas</div>
+                                    <div class="text-2xl font-bold text-success" id="detailTodayCompleted">0</div>
+                                </div>
+                                <div class="bg-base-100 rounded-lg p-4 text-center border border-base-300">
+                                    <div class="text-xs text-gray-500 mb-2">Pendientes</div>
+                                    <div class="text-2xl font-bold text-warning" id="detailTodayPending">0</div>
+                                </div>
+                                <div class="bg-base-100 rounded-lg p-4 text-center border border-base-300">
+                                    <div class="text-xs text-gray-500 mb-2">Ingresos</div>
+                                    <div class="text-2xl font-bold text-pink" id="detailTodayIncome">$0.00</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Estadísticas de la Semana y Mes -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Esta Semana -->
+                            <div class="bg-base-200 rounded-xl p-5 border border-base-300">
+                                <h4 class="font-bold text-base mb-3 text-pink">Esta Semana</h4>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="bg-base-100 rounded-lg p-3 text-center border border-base-300">
+                                        <div class="text-xs text-gray-500 mb-1">Citas</div>
+                                        <div class="text-xl font-bold text-pink" id="detailWeekAppointments">0</div>
+                                    </div>
+                                    <div class="bg-base-100 rounded-lg p-3 text-center border border-base-300">
+                                        <div class="text-xs text-gray-500 mb-1">Ingresos</div>
+                                        <div class="text-xl font-bold text-success" id="detailWeekIncome">$0.00</div>
+                                    </div>
+                                    <div class="bg-base-100 rounded-lg p-3 text-center border border-base-300">
+                                        <div class="text-xs text-gray-500 mb-1">Egresos</div>
+                                        <div class="text-xl font-bold text-error" id="detailWeekExpenses">$0.00</div>
+                                    </div>
+                                    <div class="bg-base-100 rounded-lg p-3 text-center border border-base-300">
+                                        <div class="text-xs text-gray-500 mb-1">Ganancia</div>
+                                        <div class="text-xl font-bold text-pink" id="detailWeekProfit">$0.00</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Este Mes -->
+                            <div class="bg-base-200 rounded-xl p-5 border border-base-300">
+                                <h4 class="font-bold text-base mb-3 text-pink">Este Mes</h4>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="bg-base-100 rounded-lg p-3 text-center border border-base-300">
+                                        <div class="text-xs text-gray-500 mb-1">Citas</div>
+                                        <div class="text-xl font-bold text-pink" id="detailMonthAppointments">0</div>
+                                    </div>
+                                    <div class="bg-base-100 rounded-lg p-3 text-center border border-base-300">
+                                        <div class="text-xs text-gray-500 mb-1">Ingresos</div>
+                                        <div class="text-xl font-bold text-success" id="detailMonthIncome">$0.00</div>
+                                    </div>
+                                    <div class="bg-base-100 rounded-lg p-3 text-center border border-base-300">
+                                        <div class="text-xs text-gray-500 mb-1">Egresos</div>
+                                        <div class="text-xl font-bold text-error" id="detailMonthExpenses">$0.00</div>
+                                    </div>
+                                    <div class="bg-base-100 rounded-lg p-3 text-center border border-base-300">
+                                        <div class="text-xs text-gray-500 mb-1">Ganancia</div>
+                                        <div class="text-xl font-bold text-pink" id="detailMonthProfit">$0.00</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Resumen Financiero Total -->
+                        <div class="bg-base-200 rounded-xl p-5 border border-base-300">
+                            <h4 class="font-bold text-lg mb-4 text-pink border-b border-base-300 pb-2">Resumen Financiero Total</h4>
+                            <div class="grid grid-cols-3 gap-4">
+                                <div class="bg-base-100 rounded-lg p-4 text-center border border-base-300">
+                                    <div class="text-xs text-gray-500 mb-2">Ingresos Totales</div>
+                                    <div class="text-2xl font-bold text-success" id="detailTotalIncome">$0.00</div>
+                                </div>
+                                <div class="bg-base-100 rounded-lg p-4 text-center border border-base-300">
+                                    <div class="text-xs text-gray-500 mb-2">Egresos Totales</div>
+                                    <div class="text-2xl font-bold text-error" id="detailTotalExpenses">$0.00</div>
+                                </div>
+                                <div class="bg-base-100 rounded-lg p-4 text-center border border-base-300">
+                                    <div class="text-xs text-gray-500 mb-2">Ganancia Neta</div>
+                                    <div class="text-2xl font-bold text-pink" id="detailNetProfit">$0.00</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Citas Recientes y Próximas -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Citas Recientes -->
+                            <div class="bg-base-200 rounded-xl p-5 border border-base-300">
+                                <h4 class="font-bold text-base mb-3 text-pink border-b border-base-300 pb-2">Citas Recientes</h4>
+                                <div id="detailRecentAppointments" class="space-y-2">
+                                    <p class="text-sm text-gray-500">Cargando citas...</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Próximas Citas -->
+                            <div class="bg-base-200 rounded-xl p-5 border border-base-300">
+                                <h4 class="font-bold text-base mb-3 text-pink border-b border-base-300 pb-2">Próximas Citas</h4>
+                                <div id="detailUpcomingAppointments" class="space-y-2">
+                                    <p class="text-sm text-gray-500">Cargando citas...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-action mt-6">
+                <button onclick="document.getElementById('modalVerSalón').close()" class="btn btn-pink">Cerrar</button>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+    
+    <!-- Modal para editar salón -->
+    <dialog id="modalEditarSalón" class="modal">
+        <div class="modal-box">
+            <h3 class="font-bold text-lg mb-4">Editar Salón</h3>
+            <form id="formEditarSalón" class="space-y-4">
+                <input type="hidden" id="editBarberId" name="barberId"/>
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">Nombre</span>
+                    </label>
+                    <input type="text" id="editBarberName" name="name" class="input input-bordered" required placeholder="Juan Pérez"/>
+                </div>
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">Nombre del Negocio (opcional)</span>
+                    </label>
+                    <input type="text" id="editBarberBusinessName" name="businessName" class="input input-bordered" placeholder="Barbería Central"/>
+                </div>
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">Teléfono</span>
+                    </label>
+                    <input type="tel" id="editBarberPhone" name="phone" class="input input-bordered" required placeholder="1234567890"/>
+                </div>
+                <div class="modal-action">
+                    <button type="button" onclick="document.getElementById('modalEditarSalón').close()" class="btn btn-ghost">Cancelar</button>
+                    <button type="submit" class="btn btn-pink">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+    
+    <!-- Modal para confirmar eliminación -->
+    <dialog id="modalEliminarSalón" class="modal">
+        <div class="modal-box max-w-2xl">
+            <div class="text-center mb-6">
+                <div class="text-6xl mb-4">⚠️</div>
+                <h3 class="font-bold text-3xl mb-4 text-error">ELIMINAR BARBERO PERMANENTEMENTE</h3>
+            </div>
+            
+            <div class="bg-error/10 border-2 border-error rounded-lg p-6 mb-6">
+                <p class="text-lg font-semibold mb-4 text-error">
+                    ¿Estás completamente seguro de eliminar a <strong id="barberNameToDelete" class="text-2xl">este salón</strong>?
+                </p>
+                
+                <div class="bg-base-200 rounded-lg p-4 mb-4">
+                    <p class="font-bold text-base mb-3 text-warning">⚠️ ESTA ACCIÓN ELIMINARÁ PERMANENTEMENTE:</p>
+                    <ul class="list-disc list-inside space-y-2 text-sm">
+                        <li><strong>Todas las citas</strong> del salón</li>
+                        <li><strong>Todos los servicios</strong> configurados</li>
+                        <li><strong>Todos los ingresos y egresos</strong> (transacciones financieras)</li>
+                        <li><strong>Todas las estadísticas</strong> y reportes</li>
+                        <li><strong>Todos los horarios de trabajo</strong> configurados</li>
+                        <li><strong>Todos los tiempos bloqueados</strong></li>
+                        <li><strong>Todos los empleados</strong> y sus cuentas asociadas</li>
+                        <li><strong>La cuenta de usuario</strong> del salón (el email quedará libre)</li>
+                        <li><strong>TODOS los datos</strong> relacionados con este salón</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-error/20 border border-error rounded p-4">
+                    <p class="text-base font-bold text-error">
+                        ⛔ ESTA ACCIÓN NO SE PUEDE DESHACER ⛔
+                    </p>
+                    <p class="text-sm mt-2">
+                        Una vez eliminado, todos los datos serán borrados permanentemente de la base de datos.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="modal-action">
+                <button onclick="document.getElementById('modalEliminarSalón').close()" class="btn btn-ghost btn-lg">Cancelar</button>
+                <button id="btnConfirmDelete" class="btn btn-error btn-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                    SÍ, ELIMINAR PERMANENTEMENTE
+                </button>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+    
+    <script>
+        let barberIdToDelete = null;
+        
+        // Función para ver detalles del salón
+        async function viewBarberDetails(barberId, barberName) {
+            document.getElementById('barberDetailsTitle').textContent = `Detalles: ${barberName}`;
+            document.getElementById('barberDetailsLoading').classList.remove('hidden');
+            document.getElementById('barberDetailsContent').classList.add('hidden');
+            document.getElementById('modalVerSalón').showModal();
+            
+            try {
+                console.log('Cargando detalles del salón:', barberId);
+                
+                // Obtener dashboard del salón
+                const dashboardResponse = await fetch(`/admin/barbers/${barberId}/dashboard`);
+                console.log('Dashboard response status:', dashboardResponse.status);
+                let dashboard = null;
+                if (dashboardResponse.ok) {
+                    dashboard = await dashboardResponse.json();
+                    console.log('Dashboard data:', dashboard);
+                } else {
+                    const errorText = await dashboardResponse.text();
+                    console.error('Error en dashboard:', errorText);
+                }
+                
+                // Obtener resumen financiero
+                const financeResponse = await fetch(`/admin/barbers/${barberId}/finances/summary`);
+                console.log('Finance response status:', financeResponse.status);
+                let finance = null;
+                if (financeResponse.ok) {
+                    finance = await financeResponse.json();
+                    console.log('Finance data:', finance);
+                } else {
+                    const errorText = await financeResponse.text();
+                    console.error('Error en finance:', errorText);
+                }
+                
+                // Obtener servicios
+                const servicesResponse = await fetch(`/admin/barbers/${barberId}/services`);
+                console.log('Services response status:', servicesResponse.status);
+                let services = [];
+                if (servicesResponse.ok) {
+                    services = await servicesResponse.json();
+                    console.log('Services data:', services);
+                } else {
+                    const errorText = await servicesResponse.text();
+                    console.error('Error en services:', errorText);
+                }
+                
+                // Obtener citas
+                const appointmentsResponse = await fetch(`/admin/barbers/${barberId}/appointments`);
+                console.log('Appointments response status:', appointmentsResponse.status);
+                let appointments = [];
+                if (appointmentsResponse.ok) {
+                    appointments = await appointmentsResponse.json();
+                    console.log('Appointments data:', appointments);
+                } else {
+                    const errorText = await appointmentsResponse.text();
+                    console.error('Error en appointments:', errorText);
+                }
+                
+                // Llenar información del salón
+                if (dashboard && dashboard.barber) {
+                    document.getElementById('detailBarberName').textContent = dashboard.barber.name || '-';
+                    document.getElementById('detailBarberBusiness').textContent = dashboard.barber.businessName || '-';
+                    document.getElementById('detailBarberPhone').textContent = dashboard.barber.phone || '-';
+                    document.getElementById('detailBarberSlug').textContent = dashboard.barber.slug || '-';
+                    if (dashboard.barber.email) {
+                        const emailElement = document.getElementById('detailBarberEmail');
+                        if (emailElement) {
+                            emailElement.textContent = dashboard.barber.email;
+                        }
+                    }
+                    document.getElementById('detailBarberStatus').innerHTML = dashboard.barber.isActive 
+                        ? '<span class="badge badge-success badge-xs">Activo</span>' 
+                        : '<span class="badge badge-error badge-xs">Inactivo</span>';
+                    if (dashboard.barber.createdAt) {
+                        const date = new Date(dashboard.barber.createdAt);
+                        document.getElementById('detailBarberCreated').textContent = date.toLocaleDateString('es-ES');
+                    }
+                } else {
+                    console.warn('No se recibió dashboard, intentando obtener información básica del salón...');
+                    // Si no hay dashboard, intentar obtener información básica del salón desde la API
+                    try {
+                        const barberResponse = await fetch(`/api/admin/barbers/${barberId}`);
+                        if (barberResponse.ok) {
+                            const barber = await barberResponse.json();
+                            document.getElementById('detailBarberName').textContent = barber.name || '-';
+                            document.getElementById('detailBarberBusiness').textContent = barber.businessName || '-';
+                            document.getElementById('detailBarberPhone').textContent = barber.phone || '-';
+                            document.getElementById('detailBarberSlug').textContent = barber.slug || '-';
+                            if (barber.email) {
+                                const emailElement = document.getElementById('detailBarberEmail');
+                                if (emailElement) {
+                                    emailElement.textContent = barber.email;
+                                }
+                            }
+                            document.getElementById('detailBarberStatus').innerHTML = barber.isActive 
+                                ? '<span class="badge badge-success badge-xs">Activo</span>' 
+                                : '<span class="badge badge-error badge-xs">Inactivo</span>';
+                            if (barber.createdAt) {
+                                const date = new Date(barber.createdAt);
+                                document.getElementById('detailBarberCreated').textContent = date.toLocaleDateString('es-ES');
+                            }
+                        }
+                    } catch (err) {
+                        console.error('Error al obtener información básica del salón:', err);
+                    }
+                }
+                
+                // Llenar estadísticas del día
+                if (dashboard && dashboard.today) {
+                    document.getElementById('detailTodayAppointments').textContent = dashboard.today.appointments || 0;
+                    document.getElementById('detailTodayCompleted').textContent = dashboard.today.completed || 0;
+                    document.getElementById('detailTodayPending').textContent = dashboard.today.pending || 0;
+                    document.getElementById('detailTodayIncome').textContent = '$' + (dashboard.today.income || 0).toFixed(2);
+                }
+                
+                // Llenar estadísticas de la semana
+                if (dashboard && dashboard.thisWeek) {
+                    document.getElementById('detailWeekAppointments').textContent = dashboard.thisWeek.appointments || 0;
+                    document.getElementById('detailWeekIncome').textContent = '$' + (dashboard.thisWeek.income || 0).toFixed(2);
+                    document.getElementById('detailWeekExpenses').textContent = '$' + (dashboard.thisWeek.expenses || 0).toFixed(2);
+                    document.getElementById('detailWeekProfit').textContent = '$' + (dashboard.thisWeek.profit || 0).toFixed(2);
+                }
+                
+                // Llenar estadísticas del mes
+                if (dashboard && dashboard.thisMonth) {
+                    document.getElementById('detailMonthAppointments').textContent = dashboard.thisMonth.appointments || 0;
+                    document.getElementById('detailMonthIncome').textContent = '$' + (dashboard.thisMonth.income || 0).toFixed(2);
+                    document.getElementById('detailMonthExpenses').textContent = '$' + (dashboard.thisMonth.expenses || 0).toFixed(2);
+                    document.getElementById('detailMonthProfit').textContent = '$' + (dashboard.thisMonth.profit || 0).toFixed(2);
+                }
+                
+                // Llenar resumen financiero total
+                if (finance) {
+                    document.getElementById('detailTotalIncome').textContent = '$' + (finance.totalIncome || 0).toFixed(2);
+                    document.getElementById('detailTotalExpenses').textContent = '$' + (finance.totalExpenses || 0).toFixed(2);
+                    document.getElementById('detailNetProfit').textContent = '$' + (finance.netProfit || 0).toFixed(2);
+                }
+                
+                // Llenar servicios
+                const servicesHtml = services.length > 0 
+                    ? services.map(s => `
+                        <div class="flex justify-between items-center p-3 bg-base-100 rounded-lg border border-base-300 mb-2">
+                            <div>
+                                <span class="font-medium text-sm">${s.name}</span>
+                                <span class="text-xs text-gray-500 ml-2">${s.durationMinutes} min</span>
+                            </div>
+                            <span class="text-sm font-bold text-pink">$${s.price.toFixed(2)}</span>
+                        </div>
+                    `).join('')
+                    : '<p class="text-sm text-gray-500 text-center py-4">No hay servicios registrados</p>';
+                document.getElementById('detailServices').innerHTML = servicesHtml;
+                
+                // Llenar citas recientes
+                const formatAppointment = (a) => `
+                    <div class="p-3 bg-base-100 rounded-lg border border-base-300 mb-2">
+                        <div class="flex justify-between items-start mb-1">
+                            <div class="flex-1">
+                                <div class="font-medium text-sm">${a.clientName || 'Sin nombre'}</div>
+                                <div class="text-xs text-gray-500 mt-1">${a.serviceName || 'Sin servicio'}</div>
+                            </div>
+                            <span class="badge badge-sm ${a.status === 'Completed' || a.status === 'Confirmed' ? 'badge-success' : a.status === 'Pending' ? 'badge-warning' : 'badge-info'}">${a.status || 'N/A'}</span>
+                        </div>
+                        <div class="text-xs text-gray-400 mt-2">${a.date || ''} ${a.time || ''}</div>
+                    </div>
+                `;
+                
+                if (dashboard && dashboard.recentAppointments && dashboard.recentAppointments.length > 0) {
+                    const recentHtml = dashboard.recentAppointments.map(formatAppointment).join('');
+                    document.getElementById('detailRecentAppointments').innerHTML = recentHtml;
+                } else if (appointments && appointments.length > 0) {
+                    // Usar citas obtenidas directamente si no hay en dashboard
+                    const recentAppts = appointments.filter(a => {
+                        const appDate = new Date(a.date);
+                        const today = new Date();
+                        return appDate < today;
+                    }).slice(0, 5);
+                    
+                    const recentHtml = recentAppts.length > 0
+                        ? recentAppts.map(formatAppointment).join('')
+                        : '<p class="text-sm text-gray-500 text-center py-4">No hay citas recientes</p>';
+                    document.getElementById('detailRecentAppointments').innerHTML = recentHtml;
+                } else {
+                    document.getElementById('detailRecentAppointments').innerHTML = '<p class="text-sm text-gray-500 text-center py-4">No hay citas recientes</p>';
+                }
+                
+                // Llenar próximas citas
+                const formatUpcomingAppointment = (a) => `
+                    <div class="p-3 bg-base-100 rounded-lg border border-base-300 mb-2">
+                        <div class="flex justify-between items-start mb-1">
+                            <div class="flex-1">
+                                <div class="font-medium text-sm">${a.clientName || 'Sin nombre'}</div>
+                                <div class="text-xs text-gray-500 mt-1">${a.serviceName || 'Sin servicio'}</div>
+                            </div>
+                            <span class="badge badge-sm ${a.status === 'Confirmed' ? 'badge-success' : 'badge-warning'}">${a.status || 'N/A'}</span>
+                        </div>
+                        <div class="text-xs text-gray-400 mt-2">${a.date || ''} ${a.time || ''}</div>
+                    </div>
+                `;
+                
+                if (dashboard && dashboard.upcomingAppointments && dashboard.upcomingAppointments.length > 0) {
+                    const upcomingHtml = dashboard.upcomingAppointments.map(formatUpcomingAppointment).join('');
+                    document.getElementById('detailUpcomingAppointments').innerHTML = upcomingHtml;
+                } else if (appointments && appointments.length > 0) {
+                    // Usar citas obtenidas directamente si no hay en dashboard
+                    const upcomingAppts = appointments.filter(a => {
+                        const appDate = new Date(a.date);
+                        const today = new Date();
+                        return appDate >= today;
+                    }).slice(0, 5);
+                    
+                    const upcomingHtml = upcomingAppts.length > 0
+                        ? upcomingAppts.map(formatUpcomingAppointment).join('')
+                        : '<p class="text-sm text-gray-500 text-center py-4">No hay próximas citas</p>';
+                    document.getElementById('detailUpcomingAppointments').innerHTML = upcomingHtml;
+                } else {
+                    document.getElementById('detailUpcomingAppointments').innerHTML = '<p class="text-sm text-gray-500 text-center py-4">No hay próximas citas</p>';
+                }
+                
+                // Mostrar contenido
+                // Ocultar loading y mostrar contenido
+                document.getElementById('barberDetailsLoading').classList.add('hidden');
+                document.getElementById('barberDetailsContent').classList.remove('hidden');
+                
+            } catch (error) {
+                console.error('Error al cargar detalles:', error);
+                document.getElementById('barberDetailsLoading').innerHTML = 
+                    '<p class="text-error">Error al cargar la información del salón: ' + error.message + '</p>';
+            }
+        }
+        
+        // Función para editar salón
+        function editBarber(id, name, businessName, phone) {
+            document.getElementById('editBarberId').value = id;
+            document.getElementById('editBarberName').value = name || '';
+            document.getElementById('editBarberBusinessName').value = businessName || '';
+            document.getElementById('editBarberPhone').value = phone || '';
+            document.getElementById('modalEditarSalón').showModal();
+        }
+        
+        // Función para guardar cambios del salón
+        document.getElementById('formEditarSalón').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const barberId = document.getElementById('editBarberId').value;
+            
+            const name = formData.get('name')?.toString().trim() || '';
+            const businessName = formData.get('businessName')?.toString().trim() || null;
+            const phone = formData.get('phone')?.toString().trim() || '';
+            
+            if (!name || !phone) {
+                alert('Por favor completa todos los campos requeridos');
+                return;
+            }
+            
+            const requestData = {
+                name: name,
+                businessName: businessName || null,
+                phone: phone
+            };
+            
+            console.log('Editando salón:', barberId, requestData);
+            
+            try {
+                // Intentar primero con PUT, si falla usar POST
+                let response = await fetch(`/admin/barbers/${barberId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestData)
+                });
+                
+                // Si falla con 404, intentar con POST
+                if (response.status === 404) {
+                    response = await fetch(`/admin/barbers/${barberId}/update`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(requestData)
+                    });
+                }
+                
+                const result = await response.json();
+                console.log('Respuesta del servidor:', result);
+                
+                if (result.success) {
+                    alert('Salón actualizado exitosamente');
+                    document.getElementById('modalEditarSalón').close();
+                    e.target.reset();
+                    setTimeout(() => {
+                        location.reload();
+                    }, 500);
+                } else {
+                    alert('Error: ' + (result.message || 'No se pudo actualizar el salón'));
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al actualizar salón: ' + error.message);
+            }
+        });
+        
+        // Función para cambiar estado del salón
+        async function toggleBarberStatus(barberId, isActive) {
+            if (!confirm(`¿Estás seguro de que deseas ${isActive ? 'desactivar' : 'activar'} este salón?`)) {
+                return;
+            }
+            
+            try {
+                // Intentar primero con PUT, si falla usar POST
+                let response = await fetch(`/admin/barbers/${barberId}/status`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        isActive: !isActive
+                    })
+                });
+                
+                // Si falla con 404, intentar con POST
+                if (response.status === 404) {
+                    response = await fetch(`/admin/barbers/${barberId}/status`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            isActive: !isActive
+                        })
+                    });
+                }
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('Estado del salón actualizado exitosamente');
+                    location.reload();
+                } else {
+                    alert('Error: ' + (result.message || 'No se pudo actualizar el estado'));
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al actualizar el estado: ' + error.message);
+            }
+        }
+        
+        // Función para confirmar eliminación
+        function confirmDeleteBarber(barberId, barberName) {
+            barberIdToDelete = barberId;
+            document.getElementById('barberNameToDelete').textContent = barberName || 'este salón';
+            document.getElementById('modalEliminarSalón').showModal();
+        }
+        
+        // Función para eliminar salón
+        async function deleteBarber() {
+            if (!barberIdToDelete) return;
+            
+            try {
+                // Intentar primero con DELETE, si falla usar POST
+                let response = await fetch(`/admin/barbers/${barberIdToDelete}`, {
+                    method: 'DELETE'
+                });
+                
+                // Si falla con 404, intentar con POST
+                if (response.status === 404) {
+                    response = await fetch(`/admin/barbers/${barberIdToDelete}/delete`, {
+                        method: 'POST'
+                    });
+                }
+                
+                // Verificar si la respuesta tiene contenido
+                let result;
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    result = await response.json();
+                } else {
+                    // Si no hay contenido (204 No Content), crear resultado exitoso
+                    if (response.ok || response.status === 204) {
+                        result = { success: true, message: 'Salón eliminado exitosamente' };
+                    } else {
+                        result = { success: false, message: 'Error al eliminar el salón' };
+                    }
+                }
+                
+                if (result.success) {
+                    alert('Salón eliminado exitosamente');
+                    document.getElementById('modalEliminarSalón').close();
+                    location.reload();
+                } else {
+                    alert('Error: ' + (result.message || 'No se pudo eliminar el salón'));
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                // Si el error es por JSON vacío pero la respuesta fue exitosa
+                if (error.message.includes('JSON') && error.message.includes('end')) {
+                    alert('Salón eliminado exitosamente');
+                    document.getElementById('modalEliminarSalón').close();
+                    location.reload();
+                } else {
+                    alert('Error al eliminar salón: ' + error.message);
+                }
+            }
+        }
+        
+        // Asignar evento al botón de confirmar eliminación
+        document.getElementById('btnConfirmDelete').addEventListener('click', deleteBarber);
+        
+        // Gráficos con Chart.js
+        let incomeChart, appointmentsChart, topBarbersChart, appointmentsByDayChart;
+
+        async function loadCharts() {
+            try {
+                // Cargar datos para gráficos
+                const [incomeData, appointmentsData, topBarbersData, appointmentsByDayData] = await Promise.all([
+                    fetch('/admin/api/charts/income').then(r => r.json()),
+                    fetch('/admin/api/charts/appointments-status').then(r => r.json()),
+                    fetch('/admin/api/charts/top-barbers').then(r => r.json()),
+                    fetch('/admin/api/charts/appointments-by-day').then(r => r.json())
+                ]);
+
+                // Gráfico de Ingresos (Línea)
+                const incomeCtx = document.getElementById('incomeChart');
+                if (incomeCtx) {
+                    incomeChart = new Chart(incomeCtx, {
+                        type: 'line',
+                        data: {
+                            labels: incomeData.labels || [],
+                            datasets: [{
+                                label: 'Ingresos ($)',
+                                data: incomeData.values || [],
+                                borderColor: 'rgb(234, 179, 8)',
+                                backgroundColor: 'rgba(234, 179, 8, 0.1)',
+                                tension: 0.4,
+                                fill: true
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { 
+                                    display: true,
+                                    position: 'bottom',
+                                    labels: {
+                                        boxWidth: 10,
+                                        font: { size: 9 }
+                                    }
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    ticks: { font: { size: 9 } }
+                                },
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        font: { size: 9 },
+                                        callback: function(value) {
+                                            return '$' + value.toFixed(0);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // Gráfico de Estados de Citas (Pastel)
+                const appointmentsCtx = document.getElementById('appointmentsChart');
+                if (appointmentsCtx) {
+                    appointmentsChart = new Chart(appointmentsCtx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: appointmentsData.labels || [],
+                            datasets: [{
+                                data: appointmentsData.values || [],
+                                backgroundColor: [
+                                    'rgba(234, 179, 8, 0.8)',   // Warning (Pendientes)
+                                    'rgba(59, 130, 246, 0.8)',  // Info (Confirmadas)
+                                    'rgba(34, 197, 94, 0.8)',   // Success (Completadas)
+                                    'rgba(239, 68, 68, 0.8)'    // Error (Canceladas)
+                                ]
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { 
+                                    position: 'bottom',
+                                    labels: {
+                                        boxWidth: 8,
+                                        font: { size: 8 },
+                                        padding: 5
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // Top 5 Salones (Barras)
+                const topBarbersCtx = document.getElementById('topBarbersChart');
+                if (topBarbersCtx) {
+                    topBarbersChart = new Chart(topBarbersCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: topBarbersData.labels || [],
+                            datasets: [{
+                                label: 'Ingresos ($)',
+                                data: topBarbersData.values || [],
+                                backgroundColor: 'rgba(234, 179, 8, 0.8)'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false }
+                            },
+                            scales: {
+                                x: {
+                                    ticks: { font: { size: 9 } }
+                                },
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        font: { size: 9 },
+                                        callback: function(value) {
+                                            return '$' + value.toFixed(0);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // Citas por Día (Barras)
+                const appointmentsByDayCtx = document.getElementById('appointmentsByDayChart');
+                if (appointmentsByDayCtx) {
+                    appointmentsByDayChart = new Chart(appointmentsByDayCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: appointmentsByDayData.labels || [],
+                            datasets: [{
+                                label: 'Citas',
+                                data: appointmentsByDayData.values || [],
+                                backgroundColor: 'rgba(59, 130, 246, 0.8)'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false }
+                            },
+                            scales: {
+                                x: {
+                                    ticks: { font: { size: 9 } }
+                                },
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        font: { size: 9 },
+                                        stepSize: 1
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error('Error al cargar gráficos:', error);
+            }
+        }
+
+        // Exportar gráfico como imagen
+        function exportChart(chartId, filename) {
+            const canvas = document.getElementById(chartId);
+            if (!canvas) return;
+            
+            const url = canvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.download = `${filename}_${new Date().toISOString().split('T')[0]}.png`;
+            link.href = url;
+            link.click();
+        }
+
+        // Cargar gráficos cuando el DOM esté listo
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadCharts);
+        } else {
+            loadCharts();
+        }
+    </script>
+    
+    <!-- Chart.js -->
+    <script src="~/lib/chart.js/chart.umd.min.js"></script>
+</div>
+

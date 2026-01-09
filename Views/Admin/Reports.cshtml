@@ -1,0 +1,196 @@
+@using GlowNic.Models.DTOs.Responses
+@{
+    ViewData["Title"] = "Reportes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var barbers = ViewBag.Barbers as List<BarberDto> ?? new List<BarberDto>();
+}
+
+<div class="container mx-auto p-3 sm:p-4 max-w-7xl">
+    <!-- Header Compacto -->
+    <div class="mb-4">
+        <h1 class="text-xl sm:text-2xl font-bold text-pink mb-1">📊 Reportes</h1>
+        <p class="text-xs text-gray-400">Análisis y reportes del sistema</p>
+    </div>
+
+    <!-- Tabs Compactas -->
+    <div class="tabs tabs-boxed mb-4 bg-base-200/50">
+        <a class="tab tab-active text-sm" onclick="showTab('barber')">💅 Por Salón</a>
+        <a class="tab text-sm" onclick="showTab('employee')">👥 Por Empleado</a>
+        <a class="tab text-sm" onclick="showTab('financial')">💰 Financieros</a>
+        <a class="tab text-sm" onclick="showTab('appointments')">📅 De Citas</a>
+    </div>
+
+    <!-- Contenido de Tabs -->
+    <!-- Tab: Por Salón -->
+    <div id="tab-barber" class="tab-content">
+        <div class="bg-gradient-to-br from-base-100 to-base-200 rounded-xl border border-pink/20 p-4 shadow-sm">
+            <h2 class="text-lg font-bold mb-3 text-pink">💅 Reportes por Salón</h2>
+            <div class="mb-4 flex gap-2">
+                <select id="reportBarber" class="select select-bordered flex-1">
+                    <option value="">Seleccionar salón...</option>
+                    @foreach (var barber in barbers)
+                    {
+                        <option value="@barber.Id">@barber.Name</option>
+                    }
+                </select>
+                <input type="date" id="reportStartDate" class="input input-bordered" placeholder="Fecha inicio">
+                <input type="date" id="reportEndDate" class="input input-bordered" placeholder="Fecha fin">
+                <button onclick="loadBarberReport()" class="btn btn-primary">Generar Reporte</button>
+            </div>
+            <div id="barberReportResult" class="mt-4">
+                <p class="text-gray-400 text-center">Selecciona un salón y genera el reporte</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab: Por Empleado -->
+    <div id="tab-employee" class="tab-content hidden">
+        <div class="bg-base-100 rounded-lg border border-base-300 p-6">
+            <h2 class="text-xl font-bold mb-4">Reportes por Empleado</h2>
+            <div class="mb-4 flex gap-2">
+                <select id="reportBarberForEmployee" class="select select-bordered flex-1">
+                    <option value="">Seleccionar salón...</option>
+                    @foreach (var barber in barbers)
+                    {
+                        <option value="@barber.Id">@barber.Name</option>
+                    }
+                </select>
+                <input type="date" id="reportStartDateEmployee" class="input input-bordered" placeholder="Fecha inicio">
+                <input type="date" id="reportEndDateEmployee" class="input input-bordered" placeholder="Fecha fin">
+                <button onclick="loadEmployeeReport()" class="btn btn-primary">Generar Reporte</button>
+            </div>
+            <div id="employeeReportResult" class="mt-4">
+                <p class="text-gray-400 text-center">Selecciona un salón y genera el reporte</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab: Financieros -->
+    <div id="tab-financial" class="tab-content hidden">
+        <div class="bg-base-100 rounded-lg border border-base-300 p-6">
+            <h2 class="text-xl font-bold mb-4">Reportes Financieros</h2>
+            <div class="mb-4 flex gap-2">
+                <select id="reportBarberFinancial" class="select select-bordered flex-1">
+                    <option value="">Seleccionar salón...</option>
+                    @foreach (var barber in barbers)
+                    {
+                        <option value="@barber.Id">@barber.Name</option>
+                    }
+                </select>
+                <input type="date" id="reportStartDateFinancial" class="input input-bordered" placeholder="Fecha inicio">
+                <input type="date" id="reportEndDateFinancial" class="input input-bordered" placeholder="Fecha fin">
+                <button onclick="loadFinancialReport()" class="btn btn-primary">Generar Reporte</button>
+            </div>
+            <div id="financialReportResult" class="mt-4">
+                <p class="text-gray-400 text-center">Selecciona un salón y genera el reporte</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab: De Citas -->
+    <div id="tab-appointments" class="tab-content hidden">
+        <div class="bg-base-100 rounded-lg border border-base-300 p-6">
+            <h2 class="text-xl font-bold mb-4">Reportes de Citas</h2>
+            <div class="mb-4 flex gap-2">
+                <select id="reportBarberAppointments" class="select select-bordered flex-1">
+                    <option value="">Seleccionar salón...</option>
+                    @foreach (var barber in barbers)
+                    {
+                        <option value="@barber.Id">@barber.Name</option>
+                    }
+                </select>
+                <input type="date" id="reportStartDateAppointments" class="input input-bordered" placeholder="Fecha inicio">
+                <input type="date" id="reportEndDateAppointments" class="input input-bordered" placeholder="Fecha fin">
+                <button onclick="loadAppointmentsReport()" class="btn btn-primary">Generar Reporte</button>
+            </div>
+            <div id="appointmentsReportResult" class="mt-4">
+                <p class="text-gray-400 text-center">Selecciona un salón y genera el reporte</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showTab(tabName) {
+        // Ocultar todos los tabs
+        document.querySelectorAll('.tab-content').forEach(tab => {
+            tab.classList.add('hidden');
+        });
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.classList.remove('tab-active');
+        });
+        
+        // Mostrar el tab seleccionado
+        document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+        event.target.classList.add('tab-active');
+    }
+
+    function loadBarberReport() {
+        const barberId = document.getElementById('reportBarber').value;
+        const startDate = document.getElementById('reportStartDate').value;
+        const endDate = document.getElementById('reportEndDate').value;
+        
+        if (!barberId) {
+            alert('Selecciona un salón');
+            return;
+        }
+        
+        document.getElementById('barberReportResult').innerHTML = '<div class="loading loading-spinner"></div>';
+        // Implementar carga de reporte
+        setTimeout(() => {
+            document.getElementById('barberReportResult').innerHTML = '<p class="text-center">Reporte generado (implementar llamada API)</p>';
+        }, 1000);
+    }
+
+    function loadEmployeeReport() {
+        const barberId = document.getElementById('reportBarberForEmployee').value;
+        const startDate = document.getElementById('reportStartDateEmployee').value;
+        const endDate = document.getElementById('reportEndDateEmployee').value;
+        
+        if (!barberId) {
+            alert('Selecciona un salón');
+            return;
+        }
+        
+        document.getElementById('employeeReportResult').innerHTML = '<div class="loading loading-spinner"></div>';
+        // Implementar carga de reporte
+        setTimeout(() => {
+            document.getElementById('employeeReportResult').innerHTML = '<p class="text-center">Reporte generado (implementar llamada API)</p>';
+        }, 1000);
+    }
+
+    function loadFinancialReport() {
+        const barberId = document.getElementById('reportBarberFinancial').value;
+        const startDate = document.getElementById('reportStartDateFinancial').value;
+        const endDate = document.getElementById('reportEndDateFinancial').value;
+        
+        if (!barberId) {
+            alert('Selecciona un salón');
+            return;
+        }
+        
+        document.getElementById('financialReportResult').innerHTML = '<div class="loading loading-spinner"></div>';
+        // Implementar carga de reporte
+        setTimeout(() => {
+            document.getElementById('financialReportResult').innerHTML = '<p class="text-center">Reporte generado (implementar llamada API)</p>';
+        }, 1000);
+    }
+
+    function loadAppointmentsReport() {
+        const barberId = document.getElementById('reportBarberAppointments').value;
+        const startDate = document.getElementById('reportStartDateAppointments').value;
+        const endDate = document.getElementById('reportEndDateAppointments').value;
+        
+        if (!barberId) {
+            alert('Selecciona un salón');
+            return;
+        }
+        
+        document.getElementById('appointmentsReportResult').innerHTML = '<div class="loading loading-spinner"></div>';
+        // Implementar carga de reporte
+        setTimeout(() => {
+            document.getElementById('appointmentsReportResult').innerHTML = '<p class="text-center">Reporte generado (implementar llamada API)</p>';
+        }, 1000);
+    }
+</script>
+

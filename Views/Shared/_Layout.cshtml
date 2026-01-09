@@ -1,0 +1,734 @@
+@using System.Security.Claims
+@using GlowNic.Utils
+@{
+    var estaAutenticado = User.Identity?.IsAuthenticated ?? false;
+    var nombreUsuario = User.Identity?.Name ?? Context.Session.GetString("NombreUsuario") ?? "";
+    var rolUsuario = User.FindFirst("Rol")?.Value ?? Context.Session.GetString("RolUsuario") ?? "";
+    var temaActual = Context.Session.GetString("Tema") ?? "claro";
+}
+
+<!DOCTYPE html>
+<html lang="es" data-theme="business">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - GlowNic</title>
+    <!-- Script para aplicar tema ANTES de renderizar (evita flash) -->
+    <script src="~/js/layout/layout-theme.js" asp-append-version="true"></script>
+    <!-- Script inline del sidebar (debe cargarse ANTES del body para evitar flash) -->
+    <script src="~/js/layout/layout-sidebar-inline.js" asp-append-version="true"></script>
+    <!-- Tailwind CSS (Local) -->
+    <script src="~/lib/tailwindcss/tailwind.min.js"></script>
+    <!-- DaisyUI (Local) -->
+    <link href="~/lib/daisyui/full.min.css" rel="stylesheet" type="text/css" />
+    <!-- Fuente moderna y elegante para todo el sistema -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'pink': '#ec4899',
+                        'pink-light': '#f472b6',
+                        'purple': '#c026d3',
+                        'salon-primary': '#ec4899',
+                        'salon-secondary': '#c026d3',
+                        'salon-accent': '#f472b6',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Sistema de Notificaciones -->
+    <link rel="stylesheet" href="~/css/notifications.css" asp-append-version="true" />
+    <style>
+        /* Tipografía moderna - Poppins para todo el sistema */
+        * {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+        }
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+        button, .btn, input, select, textarea {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+        }
+        
+        /* Colores Rosas/Púrpura para GlowNic */
+        .text-pink { color: #ec4899 !important; }
+        .text-pink-light { color: #f472b6 !important; }
+        .border-pink { border-color: #ec4899 !important; }
+        .bg-pink { background-color: #ec4899 !important; }
+        .btn-pink { 
+            background: linear-gradient(135deg, #ec4899 0%, #c026d3 50%, #d946ef 100%);
+            border-color: #ec4899;
+            color: white;
+        }
+        .btn-pink:hover {
+            background: linear-gradient(135deg, #d946ef 0%, #ec4899 50%, #c026d3 100%);
+            border-color: #f472b6;
+        }
+        .toggle-pink:checked { background-color: #ec4899; }
+        .toggle-pink:checked:hover { background-color: #f472b6; }
+        .badge-pink { background-color: #ec4899; color: white; }
+        .ring-pink\/30 { --tw-ring-color: rgba(236, 72, 153, 0.3); }
+        
+        /* Gradientes elegantes */
+        .bg-gradient-pink {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(192, 38, 211, 0.1) 100%);
+        }
+        
+        /* Sidebar Base - Adaptable al zoom */
+        #sidebar {
+            position: fixed !important;
+            height: 100vh !important;
+            height: 100dvh !important; /* Dynamic viewport height para móviles */
+            top: 0 !important;
+            left: 0 !important;
+            will-change: transform, width;
+            display: flex !important;
+            flex-direction: column !important;
+            overflow: hidden !important;
+            z-index: 50;
+        }
+        
+        /* Sidebar Colapsable - Más compacto */
+        #sidebar.sidebar-collapsed {
+            width: 3.5rem !important; /* 56px - más compacto */
+            min-width: 3.5rem !important;
+        }
+        
+        /* Sidebar Expandido - Desktop */
+        #sidebar.sidebar-expanded {
+            width: 14rem !important; /* 224px */
+            min-width: 14rem !important;
+        }
+        
+        /* Responsive: Tablet (640px - 1023px) */
+        @@media (min-width: 640px) and (max-width: 1023px) {
+            #sidebar.sidebar-expanded {
+                width: 14rem !important;
+                min-width: 14rem !important;
+            }
+            #sidebar.sidebar-collapsed {
+                width: 3.5rem !important;
+                min-width: 3.5rem !important;
+            }
+            #mainContent.sidebar-collapsed-margin {
+                margin-left: 3.5rem !important;
+            }
+        }
+        
+        /* Responsive: Móvil (hasta 639px) */
+        @@media (max-width: 639px) {
+            #sidebar {
+                width: 16rem !important;
+                min-width: 16rem !important;
+                transform: translateX(-100%) !important;
+            }
+            #sidebar.sidebar-expanded {
+                width: 16rem !important;
+                min-width: 16rem !important;
+            }
+            #sidebar.sidebar-collapsed {
+                width: 3rem !important; /* 48px - más compacto en móvil */
+                min-width: 3rem !important;
+            }
+            #mainContent {
+                margin-left: 0 !important;
+            }
+            #mainContent.sidebar-collapsed-margin {
+                margin-left: 0 !important;
+            }
+        }
+        
+        /* Ocultar texto cuando está colapsado */
+        #sidebar.sidebar-collapsed .sidebar-text {
+            display: none !important;
+        }
+        
+        /* Logo más compacto cuando está colapsado */
+        #sidebar.sidebar-collapsed .sidebar-logo-container {
+            padding: 0.375rem !important;
+            justify-content: center !important;
+            flex-shrink: 0;
+            min-height: 3rem !important;
+            height: 3rem !important;
+        }
+        
+        #sidebar.sidebar-collapsed .sidebar-logo-link {
+            justify-content: center !important;
+            padding: 0;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        #sidebar.sidebar-collapsed .sidebar-logo-link .avatar {
+            margin: 0 auto;
+            width: 2.25rem !important;
+            height: 2.25rem !important;
+        }
+        
+        #sidebar.sidebar-collapsed .sidebar-logo-link .avatar > div {
+            width: 2.25rem !important;
+            height: 2.25rem !important;
+        }
+        
+        /* Responsive: Logo en móvil cuando está colapsado */
+        @@media (max-width: 639px) {
+            #sidebar.sidebar-collapsed .sidebar-logo-container {
+                padding: 0.25rem !important;
+                height: 2.5rem !important;
+                min-height: 2.5rem !important;
+            }
+            #sidebar.sidebar-collapsed .sidebar-logo-link .avatar {
+                width: 2rem !important;
+                height: 2rem !important;
+            }
+            #sidebar.sidebar-collapsed .sidebar-logo-link .avatar > div {
+                width: 2rem !important;
+                height: 2rem !important;
+            }
+        }
+        
+        /* Items del menú más compactos cuando está colapsado */
+        #sidebar.sidebar-collapsed .sidebar-item {
+            justify-content: center !important;
+            padding: 0.5rem !important;
+            margin: 0.125rem 0 !important;
+            width: 100%;
+            min-width: auto;
+            min-height: 2.5rem !important;
+            height: auto !important;
+        }
+        
+        #sidebar.sidebar-collapsed .sidebar-item span:first-child {
+            margin: 0 !important;
+            font-size: 1.25rem !important; /* Iconos ligeramente más pequeños */
+        }
+        
+        /* Ocultar títulos de sección cuando está colapsado */
+        #sidebar.sidebar-collapsed .menu-title {
+            display: none !important;
+        }
+        
+        /* Ocultar información del usuario cuando está colapsado */
+        #sidebar.sidebar-collapsed .sidebar-user-section {
+            padding: 0.375rem !important;
+            border-top: 1px solid hsl(var(--bc) / 0.1);
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        
+        #sidebar.sidebar-collapsed .sidebar-user-info {
+            display: none !important;
+        }
+        
+        /* Botón de logout más compacto cuando está colapsado */
+        #sidebar.sidebar-collapsed .sidebar-logout-btn {
+            padding: 0.5rem !important;
+            justify-content: center !important;
+            width: 100%;
+            min-width: auto;
+            flex-shrink: 0;
+            min-height: 2.5rem !important;
+            height: auto !important;
+        }
+        
+        #sidebar.sidebar-collapsed .sidebar-logout-btn svg {
+            margin: 0 !important;
+            width: 1rem !important;
+            height: 1rem !important;
+        }
+        
+        /* Responsive: Botón logout en móvil cuando está colapsado */
+        @@media (max-width: 639px) {
+            #sidebar.sidebar-collapsed .sidebar-user-section {
+                padding: 0.25rem !important;
+            }
+            #sidebar.sidebar-collapsed .sidebar-logout-btn {
+                padding: 0.375rem !important;
+                min-height: 2.25rem !important;
+            }
+        }
+        
+        /* Nav con scroll cuando es necesario */
+        #sidebar nav {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: hsl(var(--bc) / 0.2) transparent;
+        }
+        
+        /* Estilo de scrollbar personalizado */
+        #sidebar nav::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        #sidebar nav::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        #sidebar nav::-webkit-scrollbar-thumb {
+            background: hsl(var(--bc) / 0.2);
+            border-radius: 2px;
+        }
+        
+        #sidebar nav::-webkit-scrollbar-thumb:hover {
+            background: hsl(var(--bc) / 0.3);
+        }
+        
+        /* Ocultar scrollbar cuando está colapsado */
+        #sidebar.sidebar-collapsed nav {
+            overflow-y: auto !important;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        #sidebar.sidebar-collapsed nav::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* Centrar el menú cuando está colapsado */
+        #sidebar.sidebar-collapsed .menu {
+            padding: 0.375rem 0 !important;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.125rem !important;
+        }
+        
+        #sidebar.sidebar-collapsed .menu li {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        /* Responsive: Ajustar padding del menú en móvil cuando está colapsado */
+        @@media (max-width: 639px) {
+            #sidebar.sidebar-collapsed .menu {
+                padding: 0.25rem 0 !important;
+                gap: 0.125rem !important;
+            }
+            #sidebar.sidebar-collapsed .sidebar-item {
+                padding: 0.375rem !important;
+                margin: 0.0625rem 0 !important;
+                min-height: 2.25rem !important;
+            }
+            #sidebar.sidebar-collapsed .sidebar-item span:first-child {
+                font-size: 1.125rem !important;
+            }
+        }
+        
+        /* Restaurar texto cuando está expandido */
+        #sidebar.sidebar-expanded .sidebar-text {
+            display: block;
+            opacity: 1;
+            width: auto;
+            transition: opacity 0.3s ease 0.1s;
+        }
+        
+        /* Adaptabilidad al zoom - usar unidades relativas */
+        @@media (min-resolution: 120dpi) {
+            #sidebar.sidebar-collapsed {
+                width: 3.5rem !important;
+            }
+            #sidebar.sidebar-expanded {
+                width: 14rem !important;
+            }
+        }
+        
+        
+        /* Contenido principal - Base: sin margen por defecto */
+        #mainContent {
+            margin-left: 0 !important;
+            width: 100% !important;
+            transition: margin-left 0.3s ease-in-out !important;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* Desktop: márgenes cuando el sidebar está abierto */
+        @@media (min-width: 1024px) {
+            /* Cuando el sidebar está expandido y abierto - se aplica vía JavaScript */
+            #mainContent.sidebar-open-expanded {
+                margin-left: 14rem !important;
+            }
+            
+            /* Cuando el sidebar está colapsado y abierto - se aplica vía JavaScript */
+            #mainContent.sidebar-open-collapsed,
+            #mainContent.sidebar-collapsed-margin {
+                margin-left: 3.5rem !important;
+            }
+        }
+        
+        /* Tablet: márgenes adaptativos cuando el sidebar está abierto */
+        @@media (min-width: 640px) and (max-width: 1023px) {
+            /* Cuando el sidebar está expandido y abierto */
+            #mainContent.sidebar-open-expanded {
+                margin-left: 14rem !important;
+            }
+            
+            /* Cuando el sidebar está colapsado y abierto */
+            #mainContent.sidebar-open-collapsed,
+            #mainContent.sidebar-collapsed-margin {
+                margin-left: 3.5rem !important;
+            }
+        }
+        
+        /* Móvil: siempre sin margen (el sidebar usa overlay) */
+        @@media (max-width: 639px) {
+            #mainContent {
+                margin-left: 0 !important;
+                width: 100% !important;
+            }
+            /* Remover clases de sidebar abierto en móvil */
+            #mainContent.sidebar-open-expanded,
+            #mainContent.sidebar-open-collapsed {
+                margin-left: 0 !important;
+            }
+        }
+        
+        /* Estilos para tabs */
+        .tab-content {
+            display: block;
+        }
+        .tab-content.hidden {
+            display: none;
+        }
+        
+        /* Estilos para sidebar activo */
+        .sidebar-item.active {
+            background-color: hsl(var(--p) / 0.1);
+            color: hsl(var(--p));
+        }
+        
+        /* Los tooltips se manejan con JavaScript (layout-sidebar-tooltips.js) */
+        
+        /* Estilos para títulos del menú (Caja, Admin) */
+        .menu-title {
+            color: hsl(var(--bc));
+        }
+        
+        .menu-title .sidebar-text {
+            color: hsl(var(--bc) / 0.7);
+            font-weight: 600;
+        }
+        
+        /* Asegurar visibilidad en temas oscuros y claros */
+        #sidebar .menu-title span {
+            color: hsl(var(--bc) / 0.7) !important;
+        }
+        
+        /* Responsive: Tablas con scroll horizontal en móvil */
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .table-responsive table {
+            min-width: 640px; /* Ancho mínimo para mantener legibilidad */
+        }
+        
+        /* Responsive: Cards y contenedores */
+        @@media (max-width: 640px) {
+            .card-body {
+                padding: 1rem !important;
+            }
+            
+            .btn-group {
+                flex-wrap: wrap;
+            }
+            
+            .btn-group .btn {
+                flex: 1 1 auto;
+                min-width: 0;
+            }
+        }
+        
+        /* Responsive: Grids */
+        @@media (max-width: 768px) {
+            .grid-responsive {
+                grid-template-columns: 1fr !important;
+            }
+        }
+        
+        /* Responsive: Textos y títulos */
+        @@media (max-width: 640px) {
+            h1, h2 {
+                font-size: 1.5rem !important;
+            }
+            
+            h3 {
+                font-size: 1.25rem !important;
+            }
+        }
+    </style>
+    <script>
+        // Script para aplicar el tema DaisyUI desde localStorage
+        // El primer script en el head ya lo aplica, este es solo de respaldo
+        (function() {
+            try {
+                var theme = localStorage.getItem('tema') || 'business';
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch(e) {}
+        })();
+    </script>
+</head>
+<body class="bg-base-100 antialiased">
+    <div class="flex min-h-screen">
+        <!-- Overlay móvil -->
+        <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden transition-opacity backdrop-blur-sm" onclick="closeSidebar()"></div>
+
+        <!-- Sidebar -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-56 sm:w-64 sidebar-expanded bg-base-200 border-r border-base-300 shadow-xl flex flex-col transform transition-all duration-300 ease-in-out" style="transform: translateX(-100%); height: 100vh; overflow: hidden;">
+            <!-- Logo -->
+            <div class="h-16 flex items-center justify-center px-2 border-b border-base-300 bg-base-300/50 sidebar-logo-container">
+                <a href="/" class="flex items-center gap-3 group sidebar-logo-link">
+                    <div class="avatar placeholder">
+                        <div class="bg-primary text-primary-content rounded-xl w-10 h-10 group-hover:scale-105 transition-transform flex items-center justify-center overflow-hidden">
+                            <img src="~/images/logo3.png" alt="Logo" class="w-full h-full object-contain" />
+                        </div>
+                    </div>
+                    <div class="sidebar-text">
+                        <span class="text-lg font-black"><span class="text-white">Glow</span><span class="text-pink">Nic</span></span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Navegación con DaisyUI -->
+            <nav class="flex-1 overflow-y-auto py-4">
+                @{
+                    var rolUsuario = SecurityHelper.GetUserRole(User);
+                    var esAdmin = SecurityHelper.IsAdministrator(User);
+                    var esNormal = SecurityHelper.HasRole(User, "Normal");
+                    var esCaja = SecurityHelper.HasRole(User, "Caja");
+                    var esMecanico = SecurityHelper.HasRole(User, "Mecánico");
+                }
+
+                <ul class="menu menu-sm px-2 gap-1">
+                    @* Menú de Administración - Panel completo *@
+                    @if (esAdmin)
+                    {
+                        <li>
+                            <a href="/admin/dashboard" class="sidebar-item @(ViewContext.RouteData.Values["action"]?.ToString() == "Dashboard" ? "active" : "")" data-tooltip="Dashboard">
+                                <span class="text-lg">📊</span>
+                                <span class="sidebar-text">Dashboard</span>
+                            </a>
+                        </li>
+                        
+                        <li class="menu-title sidebar-text">
+                            <span>Gestión</span>
+                        </li>
+                        
+                        <li>
+                            <a href="/admin/barbers" class="sidebar-item @(ViewContext.RouteData.Values["action"]?.ToString() == "Barbers" ? "active" : "")" data-tooltip="Salones">
+                                <span class="text-lg">👥</span>
+                                <span class="sidebar-text">Salones</span>
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="/admin/employees" class="sidebar-item @(ViewContext.RouteData.Values["action"]?.ToString() == "Employees" ? "active" : "")" data-tooltip="Empleados">
+                                <span class="text-lg">👤</span>
+                                <span class="sidebar-text">Empleados</span>
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="/admin/appointments" class="sidebar-item @(ViewContext.RouteData.Values["action"]?.ToString() == "Appointments" ? "active" : "")" data-tooltip="Citas">
+                                <span class="text-lg">📅</span>
+                                <span class="sidebar-text">Citas</span>
+                            </a>
+                        </li>
+                        
+                        <li class="menu-title sidebar-text">
+                            <span>Análisis</span>
+                        </li>
+                        
+                        <li>
+                            <a href="/admin/reports" class="sidebar-item @(ViewContext.RouteData.Values["action"]?.ToString() == "Reports" ? "active" : "")" data-tooltip="Reportes">
+                                <span class="text-lg">📈</span>
+                                <span class="sidebar-text">Reportes</span>
+                            </a>
+                        </li>
+                        
+                        <li class="menu-title sidebar-text">
+                            <span>Sistema</span>
+                        </li>
+                        
+                        <li>
+                            <a href="/admin/settings" class="sidebar-item @(ViewContext.RouteData.Values["action"]?.ToString() == "Settings" ? "active" : "")" data-tooltip="Configuración">
+                                <span class="text-lg">⚙️</span>
+                                <span class="sidebar-text">Configuración</span>
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="/swagger" class="sidebar-item" data-tooltip="API Swagger" target="_blank">
+                                <span class="text-lg">🔌</span>
+                                <span class="sidebar-text">API</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+
+            <!-- Usuario -->
+            @if (estaAutenticado)
+            {
+                <div class="border-t border-base-300 p-4 sidebar-user-section">
+                    <div class="flex items-center gap-3 mb-3 p-2 rounded-box bg-base-300/50 sidebar-user-info">
+                        <div class="avatar placeholder">
+                            <div class="bg-primary text-primary-content rounded-full w-9 h-9">
+                                <span class="text-sm font-bold">@(nombreUsuario.Length > 0 ? nombreUsuario[0].ToString().ToUpper() : "U")</span>
+                            </div>
+                        </div>
+                        <div class="flex-1 min-w-0 sidebar-text">
+                            <p class="text-sm font-bold truncate">@nombreUsuario</p>
+                            <p class="text-xs opacity-60 uppercase">@rolUsuario</p>
+                        </div>
+                    </div>
+                    <form action="/logout" method="post">
+                        <button type="submit" class="btn btn-error btn-sm btn-block gap-2 sidebar-logout-btn">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                            </svg>
+                            <span class="sidebar-text">Cerrar Sesión</span>
+                        </button>
+                    </form>
+                </div>
+            }
+        </aside>
+
+        <!-- Contenido Principal -->
+        <div id="mainContent" class="flex-1 flex flex-col min-h-screen transition-all duration-300 ease-in-out">
+            <!-- Header -->
+            <header class="navbar bg-base-200 border-b border-base-300 min-h-14 px-2 sm:px-4">
+                <div class="flex-none">
+                    <button type="button" onclick="toggleSidebar()" id="hamburgerBtn" class="btn btn-ghost btn-sm btn-square">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="flex-1 px-2 min-w-0">
+                    <span class="text-base sm:text-lg font-bold truncate">@ViewData["Title"]</span>
+                </div>
+                @if (estaAutenticado)
+                {
+                    <div class="flex-none flex items-center gap-1 sm:gap-2">
+                        <!-- Controles del App Bar -->
+                        <div class="flex items-center gap-1">
+                            <!-- Botón Zoom Out -->
+                            <button type="button" id="btnZoomOut" class="btn btn-ghost btn-sm btn-square tooltip tooltip-bottom" data-tip="Zoom Out">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10H7" />
+                                </svg>
+                            </button>
+                            
+                            <!-- Indicador de Zoom -->
+                            <span id="zoomIndicator" class="text-xs font-semibold min-w-[3rem] text-center">100%</span>
+                            
+                            <!-- Botón Zoom In -->
+                            <button type="button" id="btnZoomIn" class="btn btn-ghost btn-sm btn-square tooltip tooltip-bottom" data-tip="Zoom In">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
+                                </svg>
+                            </button>
+                            
+                            <!-- Separador -->
+                            <div class="divider divider-horizontal h-6 mx-1"></div>
+                            
+                            <!-- Botón Toggle Tema -->
+                            <button type="button" id="btnToggleTheme" class="btn btn-ghost btn-sm btn-square tooltip tooltip-bottom" data-tip="Cambiar Tema">
+                                <svg id="iconThemeLight" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                                </svg>
+                                <svg id="iconThemeDark" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <!-- Información del Usuario -->
+                        <div class="hidden sm:flex gap-2">
+                            <div class="divider divider-horizontal h-6 mx-1"></div>
+                            <div class="badge badge-ghost badge-sm sm:badge-lg gap-1 sm:gap-2">
+                                <div class="avatar placeholder">
+                                    <div class="bg-primary text-primary-content rounded-full w-4 h-4 sm:w-5 sm:h-5">
+                                        <span class="text-xs font-bold">@(nombreUsuario.Length > 0 ? nombreUsuario[0].ToString().ToUpper() : "U")</span>
+                                    </div>
+                                </div>
+                                <span class="font-semibold text-xs sm:text-sm hidden md:inline">@nombreUsuario</span>
+                                <span class="badge badge-primary badge-xs sm:badge-sm">@rolUsuario</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </header>
+
+            <!-- Alertas Globales de Stock Mínimo -->
+            @* Vista parcial eliminada - No aplica para GlowNic *@
+
+            <!-- Main Content -->
+            <main class="flex-1 bg-base-100">
+                <div class="p-3 sm:p-4 md:p-6">
+                    @RenderBody()
+                </div>
+            </main>
+            
+            <!-- Loader Global -->
+            @await Html.PartialAsync("_Loader")
+
+            <!-- Footer -->
+            <footer class="footer footer-center p-3 bg-base-200 border-t border-base-300 text-base-content">
+                <aside>
+                    <p class="text-xs opacity-60">
+                        Desarrollado por <a href="https://www.cowib.es/" target="_blank" rel="noopener noreferrer" class="font-bold hover:text-primary transition-colors">COWIB</a>
+                    </p>
+                </aside>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Cache Manager: Sistema de gestión de caché -->
+    <script src="~/js/cache/cache-manager.js" asp-append-version="true"></script>
+    
+    <!-- JavaScript Sidebar -->
+    <!-- Utilidades del sidebar (debe cargarse antes del script principal) -->
+    <script src="~/js/layout/layout-sidebar-utils.js" asp-append-version="true"></script>
+    <script src="~/js/layout/layout-sidebar.js" asp-append-version="true"></script>
+    <script src="~/js/layout/layout-sidebar-tooltips.js" asp-append-version="true"></script>
+    
+    <!-- JavaScript App Bar Controls -->
+    <script src="~/js/layout/layout-appbar.js" asp-append-version="true"></script>
+
+    <!-- Keep-Alive: Renovar sesión automáticamente para evitar cierres inesperados -->
+    @if (estaAutenticado)
+    {
+        <script src="~/js/layout/layout-keepalive.js" asp-append-version="true"></script>
+    }
+
+    @await RenderSectionAsync("Scripts", required: false)
+    <!-- Sistema de Notificaciones -->
+    <script src="~/js/notifications.js" asp-append-version="true"></script>
+    <script src="~/js/tempdata-sounds.js" asp-append-version="true"></script>
+    <script src="~/js/confirm-forms.js" asp-append-version="true"></script>
+    <script src="~/js/precio-protection.js" asp-append-version="true"></script>
+    <script src="~/js/layout/layout-notifications.js" asp-append-version="true"></script>
+</body>
+</html>
+
+

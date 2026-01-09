@@ -1,0 +1,56 @@
+@{
+    ViewData["Title"] = "Inicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mx-auto p-3 sm:p-4 max-w-5xl">
+    <div class="card bg-gradient-to-br from-base-100 to-base-200 shadow-xl border border-pink/20">
+        <div class="card-body p-4">
+            <h1 class="card-title text-xl sm:text-2xl mb-3">
+                <span class="text-pink">✨ Bienvenida</span>, @ViewBag.Nombre
+            </h1>
+            
+            <div class="divider my-3"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div class="stat bg-gradient-to-br from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 rounded-xl p-3 border border-pink/20">
+                    <div class="stat-title text-xs">Rol</div>
+                    <div class="stat-value text-lg text-pink">@ViewBag.Rol</div>
+                </div>
+                
+                <div class="stat bg-gradient-to-br from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 rounded-xl p-3 border border-pink/20">
+                    <div class="stat-title text-xs">Sistema</div>
+                    <div class="stat-value text-lg text-pink">GlowNic</div>
+                </div>
+                
+                <div class="stat bg-gradient-to-br from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 rounded-xl p-3 border border-pink/20">
+                    <div class="stat-title text-xs">Estado</div>
+                    <div class="stat-value text-lg text-success">Activo</div>
+                </div>
+            </div>
+            
+            <div class="mt-5">
+                <h2 class="text-lg font-bold mb-3 text-pink">🚀 Accesos Rápidos</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <a href="/swagger" class="btn btn-sm btn-pink" target="_blank">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+                        </svg>
+                        API Swagger
+                    </a>
+                    
+                    @if (ViewBag.Rol == "Administrador")
+                    {
+                        <a href="/admin/dashboard" class="btn btn-sm btn-pink">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                            </svg>
+                            Panel Admin
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,23 @@
+{
+  "version": "1.0",
+  "defaultProvider": "jsdelivr",
+  "libraries": [
+    {
+      "provider": "jsdelivr",
+      "library": "daisyui@4.12.14",
+      "destination": "wwwroot/lib/daisyui",
+      "files": [
+        "dist/full.min.css"
+      ]
+    },
+    {
+      "provider": "jsdelivr",
+      "library": "chart.js@4.4.0",
+      "destination": "wwwroot/lib/chart.js",
+      "files": [
+        "dist/chart.umd.min.js"
+      ]
+    }
+  ]
+}
+

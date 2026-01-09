@@ -1,0 +1,327 @@
+@{
+    ViewData["Title"] = "Configuración";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mx-auto p-3 sm:p-4 max-w-5xl">
+    <!-- Header Compacto -->
+    <div class="mb-4">
+        <h1 class="text-xl sm:text-2xl font-bold text-pink mb-1">⚙️ Configuración</h1>
+        <p class="text-xs text-gray-400">Ajustes del sistema</p>
+    </div>
+
+    <!-- Tabs Compactas -->
+    <div class="tabs tabs-boxed mb-4 bg-base-200/50">
+        <a class="tab tab-active text-sm" onclick="showTab('general')">General</a>
+        <a class="tab text-sm" onclick="showTab('appearance')">Apariencia</a>
+        <a class="tab text-sm" onclick="showTab('categories')">Categorías</a>
+        <a class="tab text-sm" onclick="showTab('notifications')">Notificaciones</a>
+    </div>
+
+    <!-- Contenido de Tabs -->
+    <!-- Tab: General -->
+    <div id="tab-general" class="tab-content">
+        <div class="bg-gradient-to-br from-base-100 to-base-200 rounded-xl border border-pink/20 p-4 shadow-sm">
+            <h2 class="text-lg font-bold mb-3 text-pink">📋 Información General</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div class="form-control">
+                    <label class="label py-1">
+                        <span class="label-text text-xs font-medium">Sistema</span>
+                    </label>
+                    <input type="text" class="input input-bordered input-sm" value="GlowNic" readonly>
+                </div>
+                <div class="form-control">
+                    <label class="label py-1">
+                        <span class="label-text text-xs font-medium">Versión</span>
+                    </label>
+                    <input type="text" class="input input-bordered input-sm" value="1.0.0" readonly>
+                </div>
+                <div class="form-control">
+                    <label class="label py-1">
+                        <span class="label-text text-xs font-medium">Zona Horaria</span>
+                    </label>
+                    <select class="select select-bordered select-sm">
+                        <option>UTC-6 (Nicaragua)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab: Apariencia -->
+    <div id="tab-appearance" class="tab-content hidden">
+        <div class="bg-gradient-to-br from-base-100 to-base-200 rounded-xl border border-pink/20 p-4 shadow-sm">
+            <h2 class="text-lg font-bold mb-3 text-pink">🎨 Apariencia</h2>
+            <p class="text-xs text-gray-500 mb-4">El tema se guarda automáticamente</p>
+            
+            <div class="space-y-3">
+                <div>
+                    <label class="label py-1">
+                        <span class="label-text text-xs font-semibold">Tema de la Aplicación</span>
+                    </label>
+                    <p class="text-xs text-gray-500 mb-3">Selecciona un tema elegante</p>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <!-- Tema Rosa Elegante -->
+                        <div class="border-2 border-pink/30 rounded-lg p-3 hover:border-pink transition-all cursor-pointer bg-gradient-to-br from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20" onclick="cambiarTema('luxury')" id="theme-luxury">
+                            <div class="text-center mb-2">
+                                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-pink-400 to-purple-500 mx-auto mb-2 flex items-center justify-center shadow-lg">
+                                    <span class="text-white text-xl">💅</span>
+                                </div>
+                                <h3 class="font-semibold text-sm">Elegante</h3>
+                                <p class="text-xs text-gray-500">Rosa & Púrpura</p>
+                            </div>
+                            <button id="btnTemaLuxury" class="btn btn-xs btn-pink w-full mt-2">Seleccionar</button>
+                        </div>
+                        
+                        <!-- Tema Claro -->
+                        <div class="border-2 border-base-300 rounded-lg p-3 hover:border-pink transition-all cursor-pointer" onclick="cambiarTema('corporate')" id="theme-corporate">
+                            <div class="text-center mb-2">
+                                <div class="w-10 h-10 rounded-lg bg-base-300 mx-auto mb-2 flex items-center justify-center">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                                    </svg>
+                                </div>
+                                <h3 class="font-semibold text-sm">Claro</h3>
+                                <p class="text-xs text-gray-500">Limpio</p>
+                            </div>
+                            <button id="btnTemaClaro" class="btn btn-xs btn-outline w-full mt-2">Seleccionar</button>
+                        </div>
+                        
+                        <!-- Tema Oscuro -->
+                        <div class="border-2 border-base-300 rounded-lg p-3 hover:border-pink transition-all cursor-pointer" onclick="cambiarTema('business')" id="theme-business">
+                            <div class="text-center mb-2">
+                                <div class="w-10 h-10 rounded-lg bg-base-300 mx-auto mb-2 flex items-center justify-center">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                                    </svg>
+                                </div>
+                                <h3 class="font-semibold text-sm">Oscuro</h3>
+                                <p class="text-xs text-gray-500">Profesional</p>
+                            </div>
+                            <button id="btnTemaOscuro" class="btn btn-xs btn-outline w-full mt-2">Seleccionar</button>
+                        </div>
+                        
+                        <!-- Tema Night -->
+                        <div class="border-2 border-base-300 rounded-lg p-3 hover:border-pink transition-all cursor-pointer" onclick="cambiarTema('night')" id="theme-night">
+                            <div class="text-center mb-2">
+                                <div class="w-10 h-10 rounded-lg bg-base-300 mx-auto mb-2 flex items-center justify-center">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                                    </svg>
+                                </div>
+                                <h3 class="font-semibold text-sm">Night</h3>
+                                <p class="text-xs text-gray-500">Nocturno</p>
+                            </div>
+                            <button id="btnTemaNight" class="btn btn-xs btn-outline w-full mt-2">Seleccionar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab: Categorías -->
+    <div id="tab-categories" class="tab-content hidden">
+        <div class="bg-gradient-to-br from-base-100 to-base-200 rounded-xl border border-pink/20 p-4 shadow-sm">
+            <h2 class="text-lg font-bold mb-3 text-pink">🏷️ Categorías de Transacciones</h2>
+            <div class="mb-3">
+                <div class="flex gap-2">
+                    <input type="text" id="newCategory" class="input input-bordered input-sm flex-1" placeholder="Nueva categoría...">
+                    <button onclick="addCategory()" class="btn btn-sm btn-pink">➕ Agregar</button>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2" id="categoriesList">
+                <div class="flex items-center justify-between p-2 bg-base-200 rounded-lg border border-base-300">
+                    <span class="text-sm">Alquiler</span>
+                    <button class="btn btn-xs btn-error btn-circle">×</button>
+                </div>
+                <div class="flex items-center justify-between p-2 bg-base-200 rounded-lg border border-base-300">
+                    <span class="text-sm">Servicios Públicos</span>
+                    <button class="btn btn-xs btn-error btn-circle">×</button>
+                </div>
+                <div class="flex items-center justify-between p-2 bg-base-200 rounded-lg border border-base-300">
+                    <span class="text-sm">Materiales</span>
+                    <button class="btn btn-xs btn-error btn-circle">×</button>
+                </div>
+                <div class="flex items-center justify-between p-2 bg-base-200 rounded-lg border border-base-300">
+                    <span class="text-sm">Salarios</span>
+                    <button class="btn btn-xs btn-error btn-circle">×</button>
+                </div>
+                <div class="flex items-center justify-between p-2 bg-base-200 rounded-lg border border-base-300">
+                    <span class="text-sm">Marketing</span>
+                    <button class="btn btn-xs btn-error btn-circle">×</button>
+                </div>
+                <div class="flex items-center justify-between p-2 bg-base-200 rounded-lg border border-base-300">
+                    <span class="text-sm">Productos</span>
+                    <button class="btn btn-xs btn-error btn-circle">×</button>
+                </div>
+                <div class="flex items-center justify-between p-2 bg-base-200 rounded-lg border border-base-300">
+                    <span class="text-sm">Otros</span>
+                    <button class="btn btn-xs btn-error btn-circle">×</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab: Notificaciones -->
+    <div id="tab-notifications" class="tab-content hidden">
+        <div class="bg-gradient-to-br from-base-100 to-base-200 rounded-xl border border-pink/20 p-4 shadow-sm">
+            <h2 class="text-lg font-bold mb-3 text-pink">🔔 Notificaciones</h2>
+            <div class="space-y-3">
+                <div class="form-control">
+                    <label class="label cursor-pointer py-2">
+                        <span class="label-text text-sm">📧 Notificaciones por Email</span>
+                        <input type="checkbox" class="toggle toggle-pink" checked>
+                    </label>
+                </div>
+                <div class="form-control">
+                    <label class="label cursor-pointer py-2">
+                        <span class="label-text text-sm">📅 Nuevas Citas</span>
+                        <input type="checkbox" class="toggle toggle-pink" checked>
+                    </label>
+                </div>
+                <div class="form-control">
+                    <label class="label cursor-pointer py-2">
+                        <span class="label-text text-sm">💰 Pagos</span>
+                        <input type="checkbox" class="toggle toggle-pink" checked>
+                    </label>
+                </div>
+                <div class="form-control">
+                    <label class="label cursor-pointer py-2">
+                        <span class="label-text text-sm">⏰ Recordatorios</span>
+                        <input type="checkbox" class="toggle toggle-pink">
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showTab(tabName) {
+        var tabs = document.querySelectorAll('.tab-content');
+        for (var i = 0; i < tabs.length; i++) {
+            tabs[i].classList.add('hidden');
+        }
+        var tabButtons = document.querySelectorAll('.tab');
+        for (var i = 0; i < tabButtons.length; i++) {
+            tabButtons[i].classList.remove('tab-active');
+        }
+        
+        document.getElementById('tab-' + tabName).classList.remove('hidden');
+        event.target.classList.add('tab-active');
+        
+        // Si es el tab de apariencia, inicializar los botones de tema
+        if (tabName === 'appearance') {
+            inicializarTemas();
+        }
+    }
+
+    function addCategory() {
+        var input = document.getElementById('newCategory');
+        var category = input.value.trim();
+        
+        if (!category) {
+            alert('Ingresa un nombre para la categoría');
+            return;
+        }
+        
+        var list = document.getElementById('categoriesList');
+        var newItem = document.createElement('div');
+        newItem.className = 'flex items-center justify-between p-2 bg-base-200 rounded-lg border border-base-300';
+        newItem.innerHTML = '<span class="text-sm">' + category + '</span><button class="btn btn-xs btn-error btn-circle" onclick="this.parentElement.remove()">×</button>';
+        list.appendChild(newItem);
+        input.value = '';
+    }
+
+    // Gestión de Temas
+    function cambiarTema(tema) {
+        if (window.aplicarTema) {
+            window.aplicarTema(tema);
+        } else {
+            document.documentElement.setAttribute('data-theme', tema);
+            try {
+                localStorage.setItem('tema', tema);
+            } catch (e) {
+                console.warn('Error al guardar tema:', e);
+            }
+        }
+        actualizarBotonesTema(tema);
+        
+        // Intentar guardar en servidor (opcional)
+        fetch('/admin/settings/theme', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ theme: tema })
+        }).catch(function(err) {
+            console.warn('No se pudo guardar tema en servidor:', err);
+        });
+    }
+
+    function actualizarBotonesTema(tema) {
+        var botones = {
+            'business': document.getElementById('btnTemaOscuro'),
+            'corporate': document.getElementById('btnTemaClaro'),
+            'night': document.getElementById('btnTemaNight'),
+            'luxury': document.getElementById('btnTemaLuxury')
+        };
+        
+        var cards = {
+            'business': document.getElementById('theme-business'),
+            'corporate': document.getElementById('theme-corporate'),
+            'night': document.getElementById('theme-night'),
+            'luxury': document.getElementById('theme-luxury')
+        };
+        
+        for (var key in botones) {
+            if (botones[key]) {
+                if (key === tema) {
+                    if (key === 'luxury') {
+                        botones[key].classList.remove('btn-outline');
+                        botones[key].classList.add('btn-pink');
+                    } else {
+                        botones[key].classList.remove('btn-outline');
+                        botones[key].classList.add('btn-primary');
+                    }
+                    botones[key].textContent = '✓ Seleccionado';
+                } else {
+                    botones[key].classList.add('btn-outline');
+                    botones[key].classList.remove('btn-primary', 'btn-pink');
+                    botones[key].textContent = key === 'luxury' ? 'Seleccionar' : 'Seleccionar';
+                }
+            }
+        }
+        
+        for (var key in cards) {
+            if (cards[key]) {
+                if (key === tema) {
+                    if (key === 'luxury') {
+                        cards[key].classList.add('border-pink', 'ring-2', 'ring-pink/30');
+                    } else {
+                        cards[key].classList.add('border-primary');
+                    }
+                    cards[key].classList.remove('border-base-300');
+                } else {
+                    cards[key].classList.remove('border-primary', 'border-pink', 'ring-2', 'ring-pink/30');
+                    cards[key].classList.add('border-base-300');
+                }
+            }
+        }
+    }
+
+    function inicializarTemas() {
+        try {
+            var temaGuardado = localStorage.getItem('tema') || 'business';
+            actualizarBotonesTema(temaGuardado);
+        } catch (e) {
+            console.warn('Error al inicializar temas:', e);
+        }
+    }
+
+    // Inicializar temas al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+        inicializarTemas();
+    });
+</script>
+

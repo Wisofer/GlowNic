@@ -1,0 +1,229 @@
+@using GlowNic.Models.DTOs.Responses
+@{
+    ViewData["Title"] = "Gestión de Citas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var appointments = ViewBag.Appointments as List<AppointmentDto> ?? new List<AppointmentDto>();
+    var barbers = ViewBag.Barbers as List<BarberDto> ?? new List<BarberDto>();
+}
+
+<div class="container mx-auto p-3 sm:p-4 max-w-7xl">
+    <!-- Header Compacto -->
+    <div class="mb-4">
+        <h1 class="text-xl sm:text-2xl font-bold text-pink mb-1">📅 Gestión de Citas</h1>
+        <p class="text-xs text-gray-400">Vista global de todas las citas</p>
+    </div>
+
+    <!-- Estadísticas Rápidas Compactas -->
+    <div class="grid grid-cols-2 lg:grid-cols-5 gap-2 mb-4">
+        <div class="bg-gradient-to-br from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 rounded-xl p-3 border border-pink/20 shadow-sm">
+            <div class="text-xs text-gray-500 mb-1">📅 Total Citas</div>
+            <div class="text-xl font-bold text-pink">@appointments.Count</div>
+        </div>
+        <div class="bg-gradient-to-br from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 rounded-xl p-3 border border-pink/20 shadow-sm">
+            <div class="text-xs text-gray-500 mb-1">⏳ Pendientes</div>
+            <div class="text-xl font-bold text-warning">@appointments.Count(a => a.Status == "Pending")</div>
+        </div>
+        <div class="bg-gradient-to-br from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 rounded-xl p-3 border border-pink/20 shadow-sm">
+            <div class="text-xs text-gray-500 mb-1">✓ Confirmadas</div>
+            <div class="text-xl font-bold text-info">@appointments.Count(a => a.Status == "Confirmed")</div>
+        </div>
+        <div class="bg-base-200 rounded-lg p-4 border border-base-300">
+            <div class="text-xs text-gray-500 mb-1">Completadas</div>
+            <div class="text-2xl font-bold text-success">@appointments.Count(a => a.Status == "Completed")</div>
+        </div>
+        <div class="bg-base-200 rounded-lg p-4 border border-base-300">
+            <div class="text-xs text-gray-500 mb-1">Canceladas</div>
+            <div class="text-2xl font-bold text-error">@appointments.Count(a => a.Status == "Cancelled")</div>
+        </div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="mb-4 flex gap-2 flex-wrap">
+        <input type="text" id="searchAppointments" placeholder="Buscar por cliente..." 
+               class="input input-bordered flex-1 min-w-[200px]" onkeyup="filterAppointments()">
+        <select id="filterBarber" class="select select-bordered" onchange="filterAppointments()">
+            <option value="">Todos los salóns</option>
+            @foreach (var barber in barbers)
+            {
+                <option value="@barber.Id">@barber.Name</option>
+            }
+        </select>
+        <select id="filterStatus" class="select select-bordered" onchange="filterAppointments()">
+            <option value="">Todos los estados</option>
+            <option value="Pending">Pendientes</option>
+            <option value="Confirmed">Confirmadas</option>
+            <option value="Completed">Completadas</option>
+            <option value="Cancelled">Canceladas</option>
+        </select>
+        <input type="date" id="filterDate" class="input input-bordered" onchange="filterAppointments()">
+    </div>
+
+    <!-- Botones de Exportación -->
+    <div class="mb-4 flex gap-2 justify-end">
+        <button onclick="exportToExcel('appointments')" class="btn btn-sm btn-success gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+            Exportar Excel
+        </button>
+        <button onclick="exportToPDF('appointments')" class="btn btn-sm btn-error gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+            </svg>
+            Exportar PDF
+        </button>
+    </div>
+
+    <!-- Tabla de Citas -->
+    <div class="bg-base-100 rounded-lg border border-base-300 shadow-sm">
+        <div class="overflow-x-auto">
+            <table id="appointmentsTable" class="table table-sm">
+                <thead>
+                    <tr>
+                        <th class="text-xs">Cliente</th>
+                        <th class="text-xs">Salón</th>
+                        <th class="text-xs">Empleado</th>
+                        <th class="text-xs">Servicio</th>
+                        <th class="text-xs">Fecha</th>
+                        <th class="text-xs">Hora</th>
+                        <th class="text-xs text-center">Estado</th>
+                        <th class="text-xs text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="appointmentsTableBody">
+                    @foreach (var appointment in appointments)
+                    {
+                        var statusClass = appointment.Status switch
+                        {
+                            "Pending" => "badge-warning",
+                            "Confirmed" => "badge-info",
+                            "Completed" => "badge-success",
+                            "Cancelled" => "badge-error",
+                            _ => "badge-neutral"
+                        };
+                        
+                        <tr data-appointment-id="@appointment.Id" data-client="@appointment.ClientName.ToLower()" data-barber-id="@appointment.BarberId" data-status="@appointment.Status.ToLower()" data-date="@appointment.Date.ToString("yyyy-MM-dd")">
+                            <td class="text-sm font-medium">@appointment.ClientName</td>
+                            <td class="text-xs text-gray-500">@appointment.BarberName</td>
+                            <td class="text-xs text-gray-500">@(appointment.EmployeeName ?? "-")</td>
+                            <td class="text-xs">
+                                @if (appointment.Services != null && appointment.Services.Any())
+                                {
+                                    <span>@string.Join(", ", appointment.Services.Select(s => s.Name))</span>
+                                }
+                                else if (!string.IsNullOrEmpty(appointment.ServiceName))
+                                {
+                                    <span>@appointment.ServiceName</span>
+                                }
+                                else
+                                {
+                                    <span class="text-gray-400">Sin servicio</span>
+                                }
+                            </td>
+                            <td class="text-xs">@appointment.Date.ToString("dd/MM/yyyy")</td>
+                            <td class="text-xs">@appointment.Time.ToString(@"hh\:mm")</td>
+                            <td class="text-center">
+                                <span class="badge @statusClass badge-xs">@appointment.Status</span>
+                            </td>
+                            <td class="text-center">
+                                <div class="flex gap-1 justify-center">
+                                    <button onclick="viewAppointmentDetails(@appointment.Id, @appointment.BarberId)" 
+                                            class="btn btn-xs btn-primary" title="Ver Detalles">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    function filterAppointments() {
+        const search = document.getElementById('searchAppointments').value.toLowerCase();
+        const barberFilter = document.getElementById('filterBarber').value;
+        const statusFilter = document.getElementById('filterStatus').value.toLowerCase();
+        const dateFilter = document.getElementById('filterDate').value;
+        const rows = document.querySelectorAll('#appointmentsTableBody tr');
+        
+        rows.forEach(row => {
+            const client = row.dataset.client || '';
+            const barberId = row.dataset.barberId || '';
+            const status = row.dataset.status || '';
+            const date = row.dataset.date || '';
+            
+            const matchesSearch = client.includes(search);
+            const matchesBarber = !barberFilter || barberId === barberFilter;
+            const matchesStatus = !statusFilter || status === statusFilter;
+            const matchesDate = !dateFilter || date === dateFilter;
+            
+            row.style.display = (matchesSearch && matchesBarber && matchesStatus && matchesDate) ? '' : 'none';
+        });
+    }
+
+    function viewAppointmentDetails(appointmentId, barberId) {
+        window.location.href = `/admin/dashboard#barber-${barberId}`;
+    }
+
+    // Exportar a Excel
+    function exportToExcel(type) {
+        const table = document.getElementById('appointmentsTable');
+        if (!table) return;
+
+        let csv = '';
+        const rows = table.querySelectorAll('tr');
+
+        rows.forEach(row => {
+            const cols = row.querySelectorAll('th, td');
+            const rowData = Array.from(cols).map(col => {
+                let text = col.innerText.trim();
+                if (text.includes(',') || text.includes('"')) {
+                    text = '"' + text.replace(/"/g, '""') + '"';
+                }
+                return text;
+            });
+            csv += rowData.join(',') + '\n';
+        });
+
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `citas_${new Date().toISOString().split('T')[0]}.csv`;
+        link.click();
+    }
+
+    // Exportar a PDF
+    function exportToPDF(type) {
+        const table = document.getElementById('appointmentsTable');
+        if (!table) return;
+
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(`
+            <html>
+                <head>
+                    <title>Reporte de Citas</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; padding: 20px; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                        th { background-color: #f2f2f2; font-weight: bold; }
+                        h1 { color: #333; }
+                    </style>
+                </head>
+                <body>
+                    <h1>Reporte de Citas - ${new Date().toLocaleDateString()}</h1>
+                    ${table.outerHTML}
+                </body>
+            </html>
+        `);
+        printWindow.document.close();
+        printWindow.print();
+    }
+</script>
+

@@ -1,0 +1,369 @@
+@{
+    ViewData["Title"] = "Inicio de Sesión";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es" data-theme="business">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - GlowNic</title>
+    <script src="~/lib/tailwindcss/tailwind.min.js"></script>
+    <link href="~/lib/daisyui/full.min.css" rel="stylesheet" type="text/css" />
+    <!-- Fuente moderna Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Tipografía Poppins para todo */
+        * {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+        }
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+        }
+        .hero-pattern {
+            background: linear-gradient(135deg, #1a0a1a 0%, #2d1a2d 50%, #1a0a1a 100%);
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(236, 72, 153, 0.03) 2px, rgba(236, 72, 153, 0.03) 4px),
+                radial-gradient(circle at 20% 50%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(192, 38, 211, 0.1) 0%, transparent 50%);
+        }
+        .glow {
+            box-shadow: 0 0 50px rgba(236, 72, 153, 0.2), 0 0 100px rgba(192, 38, 211, 0.1);
+            border: 1px solid rgba(236, 72, 153, 0.2);
+        }
+        .input-glow:focus {
+            box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.3), 0 0 20px rgba(236, 72, 153, 0.1);
+            border-color: #ec4899;
+        }
+        .salon-icon {
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(236, 72, 153, 0.5));
+        }
+        @@keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #ec4899 0%, #c026d3 50%, #d946ef 100%);
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        .btn-gradient:hover {
+            background: linear-gradient(135deg, #d946ef 0%, #ec4899 50%, #c026d3 100%);
+            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        .salon-stripe {
+            background: repeating-linear-gradient(
+                90deg,
+                #ec4899 0px,
+                #ec4899 20px,
+                #c026d3 20px,
+                #c026d3 40px
+            );
+            height: 4px;
+            width: 100%;
+        }
+        .salon-pattern {
+            background-image: 
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ec4899' fill-opacity='0.05'%3E%3Cpath d='M30 30l-15-15v30l15-15zm15 0l-15-15v30l15-15z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .text-pink {
+            color: #ec4899;
+        }
+        .text-pink-light {
+            color: #f472b6;
+        }
+        .border-pink {
+            border-color: #ec4899;
+        }
+    </style>
+</head>
+<body class="min-h-screen hero-pattern">
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="flex flex-col lg:flex-row w-full max-w-5xl">
+            
+            <!-- Panel Izquierdo: Branding -->
+            <div class="hidden lg:flex lg:w-1/2 flex-col justify-center items-center p-12">
+                <div class="text-center">
+                    <!-- Logo GlowNic -->
+                    <div class="salon-icon mb-8">
+                        <img src="~/images/logo3.png" alt="GlowNic Logo" class="w-40 h-40 mx-auto object-contain" />
+                    </div>
+                    <div class="salon-stripe mb-6"></div>
+                    <h1 class="text-6xl font-black mb-4 tracking-wider" style="letter-spacing: 0.1em;">
+                        <span class="text-white">GLOW</span><span class="text-pink">NIC</span>
+                    </h1>
+                    <p class="text-xl text-pink-light mb-8 font-serif italic">Sistema de Gestión para Salones de Belleza</p>
+                    <div class="salon-stripe mb-8"></div>
+                    
+                    <!-- Features con iconos de salón de belleza -->
+                    <div class="space-y-5 text-left max-w-xs mx-auto">
+                        <div class="flex items-center gap-4 text-gray-200">
+                            <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-pink-600/30 to-purple-600/30 border border-pink/30 flex items-center justify-center">
+                                <svg class="w-6 h-6 text-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                            <span class="font-medium text-pink-light">Gestión de Citas</span>
+                        </div>
+                        <div class="flex items-center gap-4 text-gray-200">
+                            <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-pink-600/30 to-purple-600/30 border border-pink/30 flex items-center justify-center">
+                                <svg class="w-6 h-6 text-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                </svg>
+                            </div>
+                            <span class="font-medium text-pink-light">Gestión de Clientes</span>
+                        </div>
+                        <div class="flex items-center gap-4 text-gray-200">
+                            <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-pink-600/30 to-purple-600/30 border border-pink/30 flex items-center justify-center">
+                                <svg class="w-6 h-6 text-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <span class="font-medium text-pink-light">Control Financiero</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel Derecho: Login Form -->
+            <div class="w-full lg:w-1/2 flex items-center justify-center p-4 lg:p-12 salon-pattern">
+                <div class="card w-full max-w-md bg-gradient-to-br from-gray-900 to-black shadow-2xl glow border border-pink/20">
+                    <div class="card-body p-8">
+                        <!-- Logo móvil -->
+                        <div class="lg:hidden text-center mb-6">
+                            <div class="flex items-center justify-center gap-2 mb-4">
+                                <img src="~/images/logo3.png" alt="GlowNic Logo" class="w-12 h-12 object-contain" />
+                                <h1 class="text-3xl font-black tracking-wider">
+                                    <span class="text-white">GLOW</span><span class="text-pink">NIC</span>
+                                </h1>
+                            </div>
+                            <div class="salon-stripe mb-4"></div>
+                        </div>
+
+                        <div class="text-center mb-6">
+                            <h2 class="text-3xl font-bold mb-2 text-pink" style="letter-spacing: 0.05em;">BIENVENIDA</h2>
+                            <p class="text-gray-400 italic">Ingresa tus credenciales para continuar</p>
+                        </div>
+                        <div class="salon-stripe mb-6"></div>
+
+                        <!-- Mensajes de Error -->
+                        @if (!string.IsNullOrEmpty(ViewBag.Error as string))
+                        {
+                            <div class="alert alert-error mb-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span>@ViewBag.Error</span>
+                            </div>
+                        }
+
+                        <!-- Formulario -->
+                        <form action="/login" method="post" class="space-y-5" id="loginForm">
+                            @Html.AntiForgeryToken()
+                            
+                            @if (!string.IsNullOrEmpty(Context.Request.Query["ReturnUrl"].ToString()))
+                            {
+                                <input type="hidden" name="returnUrl" value="@Context.Request.Query["ReturnUrl"]" />
+                            }
+
+                            <!-- Usuario -->
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text font-medium">Usuario</span>
+                                </label>
+                                <div class="relative">
+                                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-500">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                        </svg>
+                                    </span>
+                                    <input 
+                                        type="text" 
+                                        name="NombreUsuario" 
+                                        placeholder="Ingresa tu usuario"
+                                        class="input input-bordered w-full pl-12 input-glow bg-gray-800 border-gray-700 text-white placeholder-gray-500 focus:border-pink"
+                                        required
+                                        autocomplete="username"
+                                        autofocus
+                                    />
+                                </div>
+                            </div>
+
+                            <!-- Contraseña -->
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text font-medium">Contraseña</span>
+                                </label>
+                                <div class="relative">
+                                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-500">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                                        </svg>
+                                    </span>
+                                    <input 
+                                        type="password" 
+                                        id="passwordInput"
+                                        name="Contrasena" 
+                                        placeholder="Ingresa tu contraseña"
+                                        class="input input-bordered w-full pl-12 pr-12 input-glow bg-gray-800 border-gray-700 text-white placeholder-gray-500 focus:border-pink"
+                                        required
+                                        autocomplete="current-password"
+                                    />
+                                    <button 
+                                        type="button"
+                                        id="togglePassword"
+                                        class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-pink transition-colors"
+                                        aria-label="Mostrar/Ocultar contraseña"
+                                    >
+                                        <!-- Icono de ojo cerrado (por defecto) -->
+                                        <svg id="eyeClosed" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
+                                        </svg>
+                                        <!-- Icono de ojo abierto (oculto por defecto) -->
+                                        <svg id="eyeOpen" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Botón -->
+                            <button 
+                                type="submit" 
+                                class="btn btn-block btn-gradient text-white border-0 text-lg font-bold h-14 mt-6 transition-all duration-300"
+                                style="letter-spacing: 0.05em;"
+                            >
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+                                </svg>
+                                INICIAR SESIÓN
+                            </button>
+                        </form>
+
+                        <!-- Footer -->
+                        <div class="salon-stripe mt-8 mb-4"></div>
+                        <p class="text-center text-xs text-gray-500">
+                            Desarrollado por <a href="https://www.cowib.es" target="_blank" rel="noopener noreferrer" class="font-bold text-pink hover:text-pink-light transition-colors">COWIB</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Loader para Login -->
+    <div id="globalLoader" class="hidden fixed inset-0 z-[9999] flex items-center justify-center bg-black/70 backdrop-blur-sm">
+        <div class="relative">
+            <!-- Círculo de fondo animado -->
+            <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-32 h-32 rounded-full border-4 border-pink-500/20 animate-pulse"></div>
+            </div>
+            
+            <!-- Spinner principal -->
+            <div class="relative flex flex-col items-center justify-center">
+                <!-- Logo animado -->
+                <div class="mb-6 relative">
+                    <div class="w-20 h-20 rounded-xl bg-gradient-to-br from-pink-600 to-purple-600 flex items-center justify-center shadow-2xl animate-bounce-slow border-2 border-pink overflow-hidden">
+                        <img src="~/images/logo3.png" alt="GlowNic Logo" class="w-16 h-16 object-contain" />
+                    </div>
+                    <!-- Anillos rotatorios -->
+                    <div class="absolute inset-0 border-4 border-transparent border-t-pink rounded-xl animate-spin-slow"></div>
+                    <div class="absolute inset-0 border-4 border-transparent border-r-purple-600 rounded-xl animate-spin-reverse"></div>
+                </div>
+                
+                <!-- Texto de carga -->
+                <div class="text-center">
+                    <h3 id="loaderTitle" class="text-xl font-bold text-white mb-2">Iniciando sesión...</h3>
+                    <p id="loaderMessage" class="text-sm text-white/70">Validando credenciales</p>
+                    
+                    <!-- Barra de progreso animada -->
+                    <div class="mt-4 w-64 h-1 bg-white/20 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-pink-500 via-purple-600 to-pink-500 rounded-full animate-progress"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <style>
+        @@keyframes bounce-slow {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.05); }
+        }
+        @@keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @@keyframes spin-reverse {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+        }
+        @@keyframes progress {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        .animate-bounce-slow { animation: bounce-slow 2s ease-in-out infinite; }
+        .animate-spin-slow { animation: spin-slow 3s linear infinite; }
+        .animate-spin-reverse { animation: spin-reverse 2s linear infinite; }
+        .animate-progress { animation: progress 1.5s ease-in-out infinite; }
+    </style>
+    
+    <script>
+        // Servicio global para manejar el loader
+        window.Loader = {
+            show: function(title = 'Procesando...', message = 'Por favor espere') {
+                const loader = document.getElementById('globalLoader');
+                const loaderTitle = document.getElementById('loaderTitle');
+                const loaderMessage = document.getElementById('loaderMessage');
+                
+                if (loader) {
+                    if (loaderTitle) loaderTitle.textContent = title;
+                    if (loaderMessage) loaderMessage.textContent = message;
+                    loader.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                }
+            },
+            hide: function() {
+                const loader = document.getElementById('globalLoader');
+                if (loader) {
+                    loader.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }
+            }
+        };
+        
+        // Mostrar loader al enviar formulario de login
+        document.getElementById('loginForm').addEventListener('submit', function() {
+            window.Loader.show('Iniciando sesión...', 'Validando credenciales');
+        });
+        
+        // Toggle mostrar/ocultar contraseña
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('passwordInput');
+        const eyeClosed = document.getElementById('eyeClosed');
+        const eyeOpen = document.getElementById('eyeOpen');
+        
+        if (togglePassword && passwordInput) {
+            togglePassword.addEventListener('click', function() {
+                const isPassword = passwordInput.type === 'password';
+                
+                // Cambiar tipo de input
+                passwordInput.type = isPassword ? 'text' : 'password';
+                
+                // Cambiar iconos
+                if (isPassword) {
+                    eyeClosed.classList.add('hidden');
+                    eyeOpen.classList.remove('hidden');
+                } else {
+                    eyeClosed.classList.remove('hidden');
+                    eyeOpen.classList.add('hidden');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
