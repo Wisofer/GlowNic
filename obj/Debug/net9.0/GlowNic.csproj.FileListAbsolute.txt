@@ -156,7 +156,6 @@
 /home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/scopedcss/bundle/GlowNic.styles.css
 /home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/8k01od572m-cs2tko070j.gz
 /home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/yjzyivzz9t-8vwyhmuz7h.gz
-/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/bwinyyr2x1-9nou8owxk7.gz
 /home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/mvsmhlzp6g-8lxzcclvsd.gz
 /home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/z2sc6ab1oh-m8pyp24flo.gz
 /home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/nwlhja9zm9-gwnbypaunk.gz
@@ -193,3 +192,4 @@
 /home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/GlowNic.genruntimeconfig.cache
 /home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/ref/GlowNic.dll
 /home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/GlowNic.sourcelink.json
+/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/bwinyyr2x1-5xj5m602ks.gz

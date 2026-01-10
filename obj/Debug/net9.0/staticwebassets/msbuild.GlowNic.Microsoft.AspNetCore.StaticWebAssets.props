@@ -120,8 +120,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>9nou8owxk7</Fingerprint>
-      <Integrity>u38lMAC6bgW6ub5p8XLdje/VbLU6078EotMFOpjduVs=</Integrity>
+      <Fingerprint>5xj5m602ks</Fingerprint>
+      <Integrity>GSLogz72nQY8KgoCP7+U0jCWXYZI8id/tXfPSLt6PC4=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\admin\barbers-management.js'))</OriginalItemSpec>

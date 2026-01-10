@@ -297,13 +297,13 @@ public class AdminController : Controller
             var dashboard = await _dashboardService.GetAdminDashboardAsync();
             ViewBag.Barbers = dashboard.RecentBarbers;
             ViewBag.Nombre = SecurityHelper.GetUserFullName(User);
-            return View();
+            return View("Barbers");
         }
         catch (Exception)
         {
             ViewBag.Barbers = new List<GlowNic.Models.DTOs.Responses.BarberSummaryDto>();
             ViewBag.Nombre = SecurityHelper.GetUserFullName(User);
-            return View();
+            return View("Barbers");
         }
     }
 

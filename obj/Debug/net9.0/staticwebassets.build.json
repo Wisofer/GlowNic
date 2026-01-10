@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "EekM5ZwFsebxfu3BASzHcvFmhaAAHcPYlULHmQoHdzA=",
+  "Hash": "eQ+LbzikBrgD55zqGRBQJC4Z4Svw8bK9rVL8JTGGr8E=",
   "Source": "GlowNic",
   "BasePath": "_content/GlowNic",
   "Mode": "Default",
@@ -143,12 +143,12 @@
       "OriginalItemSpec": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/lib/chart.js/chart.umd.min.js"
     },
     {
-      "Identity": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/bwinyyr2x1-9nou8owxk7.gz",
+      "Identity": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/bwinyyr2x1-5xj5m602ks.gz",
       "SourceId": "GlowNic",
       "SourceType": "Discovered",
       "ContentRoot": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/",
       "BasePath": "_content/GlowNic",
-      "RelativePath": "js/admin/barbers-management#[.{fingerprint=9nou8owxk7}]?.js.gz",
+      "RelativePath": "js/admin/barbers-management#[.{fingerprint=5xj5m602ks}]?.js.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -157,8 +157,8 @@
       "RelatedAsset": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/js/admin/barbers-management.js",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "fw236l1lsw",
-      "Integrity": "kUSuJSzXQOedKfRY/NN+GgQUGl8zdifoZgwjrDLJtr8=",
+      "Fingerprint": "5169xk77g7",
+      "Integrity": "N7jd3UJzF4SGzSw50+uqP9YValCF7+I4ZROErg38mqw=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/js/admin/barbers-management.js"
@@ -640,8 +640,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "9nou8owxk7",
-      "Integrity": "u38lMAC6bgW6ub5p8XLdje/VbLU6078EotMFOpjduVs=",
+      "Fingerprint": "5xj5m602ks",
+      "Integrity": "GSLogz72nQY8KgoCP7+U0jCWXYZI8id/tXfPSLt6PC4=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/js/admin/barbers-management.js"
@@ -2035,8 +2035,8 @@
       ]
     },
     {
-      "Route": "js/admin/barbers-management.9nou8owxk7.js",
-      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/bwinyyr2x1-9nou8owxk7.gz",
+      "Route": "js/admin/barbers-management.5xj5m602ks.js",
+      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/bwinyyr2x1-5xj5m602ks.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
@@ -2055,11 +2055,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"kUSuJSzXQOedKfRY/NN+GgQUGl8zdifoZgwjrDLJtr8=\""
+          "Value": "\"N7jd3UJzF4SGzSw50+uqP9YValCF7+I4ZROErg38mqw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 Jan 2026 20:35:09 GMT"
+          "Value": "Sat, 10 Jan 2026 08:03:13 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2079,13 +2079,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"u38lMAC6bgW6ub5p8XLdje/VbLU6078EotMFOpjduVs=\""
+          "Value": "W/\"GSLogz72nQY8KgoCP7+U0jCWXYZI8id/tXfPSLt6PC4=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "9nou8owxk7"
+          "Value": "5xj5m602ks"
         },
         {
           "Name": "label",
@@ -2093,12 +2093,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-u38lMAC6bgW6ub5p8XLdje/VbLU6078EotMFOpjduVs="
+          "Value": "sha256-GSLogz72nQY8KgoCP7+U0jCWXYZI8id/tXfPSLt6PC4="
         }
       ]
     },
     {
-      "Route": "js/admin/barbers-management.9nou8owxk7.js",
+      "Route": "js/admin/barbers-management.5xj5m602ks.js",
       "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/js/admin/barbers-management.js",
       "Selectors": [],
       "ResponseHeaders": [
@@ -2108,7 +2108,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "34097"
+          "Value": "34068"
         },
         {
           "Name": "Content-Type",
@@ -2116,11 +2116,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"u38lMAC6bgW6ub5p8XLdje/VbLU6078EotMFOpjduVs=\""
+          "Value": "\"GSLogz72nQY8KgoCP7+U0jCWXYZI8id/tXfPSLt6PC4=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 Jan 2026 20:35:09 GMT"
+          "Value": "Sat, 10 Jan 2026 08:03:13 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2130,7 +2130,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "9nou8owxk7"
+          "Value": "5xj5m602ks"
         },
         {
           "Name": "label",
@@ -2138,13 +2138,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-u38lMAC6bgW6ub5p8XLdje/VbLU6078EotMFOpjduVs="
+          "Value": "sha256-GSLogz72nQY8KgoCP7+U0jCWXYZI8id/tXfPSLt6PC4="
         }
       ]
     },
     {
-      "Route": "js/admin/barbers-management.9nou8owxk7.js.gz",
-      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/bwinyyr2x1-9nou8owxk7.gz",
+      "Route": "js/admin/barbers-management.5xj5m602ks.js.gz",
+      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/bwinyyr2x1-5xj5m602ks.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2161,11 +2161,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"kUSuJSzXQOedKfRY/NN+GgQUGl8zdifoZgwjrDLJtr8=\""
+          "Value": "\"N7jd3UJzF4SGzSw50+uqP9YValCF7+I4ZROErg38mqw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 Jan 2026 20:35:09 GMT"
+          "Value": "Sat, 10 Jan 2026 08:03:13 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2183,7 +2183,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "9nou8owxk7"
+          "Value": "5xj5m602ks"
         },
         {
           "Name": "label",
@@ -2191,13 +2191,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-kUSuJSzXQOedKfRY/NN+GgQUGl8zdifoZgwjrDLJtr8="
+          "Value": "sha256-N7jd3UJzF4SGzSw50+uqP9YValCF7+I4ZROErg38mqw="
         }
       ]
     },
     {
       "Route": "js/admin/barbers-management.js",
-      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/bwinyyr2x1-9nou8owxk7.gz",
+      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/bwinyyr2x1-5xj5m602ks.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
@@ -2216,11 +2216,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"kUSuJSzXQOedKfRY/NN+GgQUGl8zdifoZgwjrDLJtr8=\""
+          "Value": "\"N7jd3UJzF4SGzSw50+uqP9YValCF7+I4ZROErg38mqw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 Jan 2026 20:35:09 GMT"
+          "Value": "Sat, 10 Jan 2026 08:03:13 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2240,13 +2240,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"u38lMAC6bgW6ub5p8XLdje/VbLU6078EotMFOpjduVs=\""
+          "Value": "W/\"GSLogz72nQY8KgoCP7+U0jCWXYZI8id/tXfPSLt6PC4=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-u38lMAC6bgW6ub5p8XLdje/VbLU6078EotMFOpjduVs="
+          "Value": "sha256-GSLogz72nQY8KgoCP7+U0jCWXYZI8id/tXfPSLt6PC4="
         }
       ]
     },
@@ -2261,7 +2261,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "34097"
+          "Value": "34068"
         },
         {
           "Name": "Content-Type",
@@ -2269,11 +2269,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"u38lMAC6bgW6ub5p8XLdje/VbLU6078EotMFOpjduVs=\""
+          "Value": "\"GSLogz72nQY8KgoCP7+U0jCWXYZI8id/tXfPSLt6PC4=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 Jan 2026 20:35:09 GMT"
+          "Value": "Sat, 10 Jan 2026 08:03:13 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2283,13 +2283,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-u38lMAC6bgW6ub5p8XLdje/VbLU6078EotMFOpjduVs="
+          "Value": "sha256-GSLogz72nQY8KgoCP7+U0jCWXYZI8id/tXfPSLt6PC4="
         }
       ]
     },
     {
       "Route": "js/admin/barbers-management.js.gz",
-      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/bwinyyr2x1-9nou8owxk7.gz",
+      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/bwinyyr2x1-5xj5m602ks.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2306,11 +2306,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"kUSuJSzXQOedKfRY/NN+GgQUGl8zdifoZgwjrDLJtr8=\""
+          "Value": "\"N7jd3UJzF4SGzSw50+uqP9YValCF7+I4ZROErg38mqw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 Jan 2026 20:35:09 GMT"
+          "Value": "Sat, 10 Jan 2026 08:03:13 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2328,7 +2328,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-kUSuJSzXQOedKfRY/NN+GgQUGl8zdifoZgwjrDLJtr8="
+          "Value": "sha256-N7jd3UJzF4SGzSw50+uqP9YValCF7+I4ZROErg38mqw="
         }
       ]
     },

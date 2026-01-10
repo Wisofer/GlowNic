@@ -34,15 +34,15 @@
     // ============================================
 
     function showCreateBarberModal() {
-        document.getElementById("modalCrearBarbero").showModal();
+        document.getElementById("modalCrearSalón").showModal();
     }
 
     function closeCreateBarberModal() {
-        document.getElementById("modalCrearBarbero").close();
+        document.getElementById("modalCrearSalón").close();
     }
 
     function closeEditBarberModal() {
-        document.getElementById("modalEditarBarbero").close();
+        document.getElementById("modalEditarSalón").close();
     }
 
     // ============================================
@@ -53,14 +53,14 @@
         document.getElementById("barberDetailsTitle").textContent = "Detalles: " + name;
         document.getElementById("barberDetailsLoading").classList.remove("hidden");
         document.getElementById("barberDetailsContent").classList.add("hidden");
-        document.getElementById("modalVerBarbero").showModal();
+        document.getElementById("modalVerSalón").showModal();
         
         // Obtener dashboard del salón
-        fetch("/admin/barbers/" + id + "/dashboard")
+        fetch("/admin/salons/" + id + "/dashboard")
         .then(function(response) { return response.ok ? response.json() : null; })
         .then(function(dashboard) {
             // Obtener resumen financiero
-            return fetch("/admin/barbers/" + id + "/finances/summary")
+            return fetch("/admin/salons/" + id + "/finances/summary")
             .then(function(response) { return response.ok ? response.json() : null; })
             .then(function(finance) {
                 return { dashboard: dashboard, finance: finance };
@@ -68,7 +68,7 @@
         })
         .then(function(data) {
             // Obtener servicios
-            return fetch("/admin/barbers/" + id + "/services")
+            return fetch("/admin/salons/" + id + "/services")
             .then(function(response) { return response.ok ? response.json() : []; })
             .then(function(services) {
                 data.services = services;
@@ -77,7 +77,7 @@
         })
         .then(function(data) {
             // Obtener citas
-            return fetch("/admin/barbers/" + id + "/appointments")
+            return fetch("/admin/salons/" + id + "/appointments")
             .then(function(response) { return response.ok ? response.json() : []; })
             .then(function(appointments) {
                 data.appointments = appointments;
@@ -226,7 +226,7 @@
         // Limpiar campo de contraseña al abrir el modal
         document.getElementById("editPasswordInput").value = "";
         document.getElementById("copyEditPasswordBtn").style.display = "none";
-        document.getElementById("modalEditarBarbero").showModal();
+        document.getElementById("modalEditarSalón").showModal();
     }
 
     function generateEditPassword() {
@@ -310,7 +310,7 @@
             return;
         }
 
-        fetch("/admin/barbers/" + id + "/status", {
+        fetch("/admin/salons/" + id + "/status", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ isActive: !isActive })
@@ -331,12 +331,12 @@
 
     function confirmDeleteBarber(id, name) {
         document.getElementById("barberNameToDelete").textContent = name || "este salón";
-        document.getElementById("modalEliminarBarbero").setAttribute("data-barber-id", id);
-        document.getElementById("modalEliminarBarbero").showModal();
+        document.getElementById("modalEliminarSalón").setAttribute("data-barber-id", id);
+        document.getElementById("modalEliminarSalón").showModal();
     }
 
     function deleteBarber() {
-        var modal = document.getElementById("modalEliminarBarbero");
+        var modal = document.getElementById("modalEliminarSalón");
         var id = modal.getAttribute("data-barber-id");
         
         if (!id) {
@@ -344,19 +344,19 @@
             return;
         }
 
-        fetch("/admin/barbers/" + id, {
+        fetch("/admin/salons/" + id, {
             method: "DELETE"
         })
         .then(function(response) {
             if (response.status === 204 || response.ok) {
-                return { success: true, message: "Barbero eliminado exitosamente" };
+                return { success: true, message: "Salón eliminado exitosamente" };
             }
             if (response.status === 404) {
-                return fetch("/admin/barbers/" + id + "/delete", {
+                return fetch("/admin/salons/" + id + "/delete", {
                     method: "POST"
                 }).then(function(r) {
                     if (r.ok || r.status === 204) {
-                        return { success: true, message: "Barbero eliminado exitosamente" };
+                        return { success: true, message: "Salón eliminado exitosamente" };
                     }
                     return r.json();
                 });
@@ -365,7 +365,7 @@
         })
         .then(function(result) {
             if (result.success) {
-                alert("Barbero eliminado exitosamente");
+                alert("Salón eliminado exitosamente");
                 modal.close();
                 location.reload();
             } else {
@@ -559,7 +559,7 @@
         var tokenInput = document.querySelector('input[name="__RequestVerificationToken"]');
         var token = tokenInput ? tokenInput.value : "";
         
-        fetch("/admin/createbarber", {
+        fetch("/admin/createsalon", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -572,8 +572,8 @@
             console.log("Respuesta del servidor:", result);
             if (result.success) {
                 var barberName = result.barber && result.barber.name ? result.barber.name : "";
-                alert("Barbero creado exitosamente: " + barberName);
-                document.getElementById("modalCrearBarbero").close();
+                alert("Salón creado exitosamente: " + barberName);
+                document.getElementById("modalCrearSalón").close();
                 e.target.reset();
                 setTimeout(function() {
                     location.reload();
@@ -625,7 +625,7 @@
         var tokenInput = document.querySelector('input[name="__RequestVerificationToken"]');
         var token = tokenInput ? tokenInput.value : "";
         
-        fetch("/admin/barbers/" + id, {
+        fetch("/admin/salons/" + id, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -636,8 +636,8 @@
         .then(function(response) { return response.json(); })
         .then(function(result) {
             if (result.success) {
-                alert("Barbero actualizado exitosamente");
-                document.getElementById("modalEditarBarbero").close();
+                alert("Salón actualizado exitosamente");
+                document.getElementById("modalEditarSalón").close();
                 setTimeout(function() {
                     location.reload();
                 }, 500);
@@ -657,7 +657,7 @@
 
     document.addEventListener("DOMContentLoaded", function() {
         // Botón crear salón
-        var btnCrear = document.getElementById("btnCrearBarbero");
+        var btnCrear = document.getElementById("btnCrearSalón");
         if (btnCrear) {
             btnCrear.addEventListener("click", showCreateBarberModal);
         }
@@ -676,7 +676,7 @@
         var btnCloseView = document.getElementById("btnCloseViewModal");
         if (btnCloseView) {
             btnCloseView.addEventListener("click", function() {
-                document.getElementById("modalVerBarbero").close();
+                document.getElementById("modalVerSalón").close();
             });
         }
 
@@ -736,17 +736,17 @@
         var btnCancelDelete = document.getElementById("btnCancelDelete");
         if (btnCancelDelete) {
             btnCancelDelete.addEventListener("click", function() {
-                document.getElementById("modalEliminarBarbero").close();
+                document.getElementById("modalEliminarSalón").close();
             });
         }
 
         // Formularios
-        var formCrear = document.getElementById("formCrearBarbero");
+        var formCrear = document.getElementById("formCrearSalón");
         if (formCrear) {
             formCrear.addEventListener("submit", handleCreateBarberForm);
         }
 
-        var formEditar = document.getElementById("formEditarBarbero");
+        var formEditar = document.getElementById("formEditarSalón");
         if (formEditar) {
             formEditar.addEventListener("submit", handleEditBarberForm);
         }
