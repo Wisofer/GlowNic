@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "eQ+LbzikBrgD55zqGRBQJC4Z4Svw8bK9rVL8JTGGr8E=",
+  "Hash": "gDYmJLaZ+pANpSDxSPTForJFOCen/RR5t+oRtwu54Ho=",
   "Source": "GlowNic",
   "BasePath": "_content/GlowNic",
   "Mode": "Default",
@@ -605,12 +605,12 @@
       "OriginalItemSpec": "wwwroot/images/logo3.png"
     },
     {
-      "Identity": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/images/logo4.png",
+      "Identity": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/images/logo5.png",
       "SourceId": "GlowNic",
       "SourceType": "Discovered",
       "ContentRoot": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/",
       "BasePath": "_content/GlowNic",
-      "RelativePath": "images/logo4#[.{fingerprint}]?.png",
+      "RelativePath": "images/logo5#[.{fingerprint}]?.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -619,11 +619,11 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "8tb9ipwu1d",
-      "Integrity": "9IWv19m3ixqGBNc/r+2qdGX0cKgBKz3e8yxjpM04Iyo=",
+      "Fingerprint": "e3aexntywl",
+      "Integrity": "mvdJz5MSdFck+Cki1LpgUXVHAat+2kRrXG+LxP5UxbI=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/images/logo4.png"
+      "OriginalItemSpec": "wwwroot/images/logo5.png"
     },
     {
       "Identity": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/js/admin/barbers-management.js",
@@ -1953,8 +1953,8 @@
       ]
     },
     {
-      "Route": "images/logo4.8tb9ipwu1d.png",
-      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/images/logo4.png",
+      "Route": "images/logo5.e3aexntywl.png",
+      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/images/logo5.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1963,7 +1963,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "483254"
+          "Value": "302802"
         },
         {
           "Name": "Content-Type",
@@ -1971,11 +1971,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"9IWv19m3ixqGBNc/r+2qdGX0cKgBKz3e8yxjpM04Iyo=\""
+          "Value": "\"mvdJz5MSdFck+Cki1LpgUXVHAat+2kRrXG+LxP5UxbI=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 Jan 2026 22:08:26 GMT"
+          "Value": "Sat, 10 Jan 2026 08:42:06 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1985,21 +1985,21 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "8tb9ipwu1d"
+          "Value": "e3aexntywl"
         },
         {
           "Name": "label",
-          "Value": "images/logo4.png"
+          "Value": "images/logo5.png"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-9IWv19m3ixqGBNc/r+2qdGX0cKgBKz3e8yxjpM04Iyo="
+          "Value": "sha256-mvdJz5MSdFck+Cki1LpgUXVHAat+2kRrXG+LxP5UxbI="
         }
       ]
     },
     {
-      "Route": "images/logo4.png",
-      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/images/logo4.png",
+      "Route": "images/logo5.png",
+      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/images/logo5.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2008,7 +2008,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "483254"
+          "Value": "302802"
         },
         {
           "Name": "Content-Type",
@@ -2016,11 +2016,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"9IWv19m3ixqGBNc/r+2qdGX0cKgBKz3e8yxjpM04Iyo=\""
+          "Value": "\"mvdJz5MSdFck+Cki1LpgUXVHAat+2kRrXG+LxP5UxbI=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 Jan 2026 22:08:26 GMT"
+          "Value": "Sat, 10 Jan 2026 08:42:06 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2030,7 +2030,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-9IWv19m3ixqGBNc/r+2qdGX0cKgBKz3e8yxjpM04Iyo="
+          "Value": "sha256-mvdJz5MSdFck+Cki1LpgUXVHAat+2kRrXG+LxP5UxbI="
         }
       ]
     },

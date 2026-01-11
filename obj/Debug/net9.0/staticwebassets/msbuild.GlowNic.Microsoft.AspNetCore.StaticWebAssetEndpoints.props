@@ -60,17 +60,17 @@
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-LWgmC\u002B23zOKxS8xCBaS1C4S33MMWHgu8Y/89RSZOgLE="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"791914"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022LWgmC\u002B23zOKxS8xCBaS1C4S33MMWHgu8Y/89RSZOgLE=\u0022"},{"Name":"Last-Modified","Value":"Wed, 07 Jan 2026 19:58:14 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/GlowNic/images/logo4.8tb9ipwu1d.png">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\logo4.png'))</AssetFile>
+    <StaticWebAssetEndpoint Include="_content/GlowNic/images/logo5.e3aexntywl.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\logo5.png'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"8tb9ipwu1d"},{"Name":"integrity","Value":"sha256-9IWv19m3ixqGBNc/r\u002B2qdGX0cKgBKz3e8yxjpM04Iyo="},{"Name":"label","Value":"_content/GlowNic/images/logo4.png"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"483254"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u00229IWv19m3ixqGBNc/r\u002B2qdGX0cKgBKz3e8yxjpM04Iyo=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 Jan 2026 22:08:26 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"e3aexntywl"},{"Name":"integrity","Value":"sha256-mvdJz5MSdFck\u002BCki1LpgUXVHAat\u002B2kRrXG\u002BLxP5UxbI="},{"Name":"label","Value":"_content/GlowNic/images/logo5.png"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"302802"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022mvdJz5MSdFck\u002BCki1LpgUXVHAat\u002B2kRrXG\u002BLxP5UxbI=\u0022"},{"Name":"Last-Modified","Value":"Sat, 10 Jan 2026 08:42:06 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/GlowNic/images/logo4.png">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\logo4.png'))</AssetFile>
+    <StaticWebAssetEndpoint Include="_content/GlowNic/images/logo5.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\logo5.png'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-9IWv19m3ixqGBNc/r\u002B2qdGX0cKgBKz3e8yxjpM04Iyo="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"483254"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u00229IWv19m3ixqGBNc/r\u002B2qdGX0cKgBKz3e8yxjpM04Iyo=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 Jan 2026 22:08:26 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-mvdJz5MSdFck\u002BCki1LpgUXVHAat\u002B2kRrXG\u002BLxP5UxbI="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"302802"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022mvdJz5MSdFck\u002BCki1LpgUXVHAat\u002B2kRrXG\u002BLxP5UxbI=\u0022"},{"Name":"Last-Modified","Value":"Sat, 10 Jan 2026 08:42:06 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/GlowNic/js/admin/barbers-management.5xj5m602ks.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\admin\barbers-management.js'))</AssetFile>
