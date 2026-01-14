@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GlowNic")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6675f80c460ef0456ffc9b5be7b4b487150f0e3d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9143251dca3faae18c987545c5213dfe4ffe1f4e")]
 [assembly: System.Reflection.AssemblyProductAttribute("GlowNic")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GlowNic")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

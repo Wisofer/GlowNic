@@ -356,6 +356,64 @@ public class BarberController : ControllerBase
     }
 
     /// <summary>
+    /// Obtener URL de WhatsApp para notificar rechazo/cancelación de cita
+    /// </summary>
+    [HttpGet("appointments/{id}/whatsapp-url-reject")]
+    public async Task<ActionResult<WhatsAppUrlResponse>> GetWhatsAppUrlReject(int id)
+    {
+        try
+        {
+            var barberId = await GetBarberIdAsync();
+            var appointment = await _appointmentService.GetAppointmentByIdAsync(id);
+            
+            if (appointment == null || appointment.BarberId != barberId)
+                return NotFound(new { message = "Cita no encontrada" });
+
+            // Formatear fecha y hora
+            var fecha = appointment.Date.ToString("dd/MM/yyyy");
+            var hora = appointment.Time.ToString("HH:mm");
+            
+            // Limpiar número de teléfono (remover espacios, guiones, etc.)
+            var phoneNumber = appointment.ClientPhone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "");
+            
+            // Si no empieza con código de país, agregar 505 (Nicaragua)
+            if (!phoneNumber.StartsWith("505"))
+            {
+                phoneNumber = phoneNumber.StartsWith("+") ? phoneNumber.Substring(1) : phoneNumber;
+                if (!phoneNumber.StartsWith("505"))
+                    phoneNumber = "505" + phoneNumber;
+            }
+
+            // Construir mensaje de disculpa
+            var mensaje = $"Hola {appointment.ClientName}! 👋\n\n" +
+                         $"Lamentamos informarte que no podemos atenderte el {fecha} a las {hora}. " +
+                         $"¿Te gustaría reagendar para otro horario? Estaremos encantados de atenderte. 💅";
+
+            // Codificar mensaje para URL
+            var mensajeCodificado = Uri.EscapeDataString(mensaje);
+            
+            // Construir URL de WhatsApp
+            var whatsappUrl = $"https://wa.me/{phoneNumber}?text={mensajeCodificado}";
+
+            return Ok(new WhatsAppUrlResponse
+            {
+                Url = whatsappUrl,
+                PhoneNumber = phoneNumber,
+                Message = mensaje
+            });
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound(new { message = "Cita no encontrada" });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al generar URL de WhatsApp de rechazo para cita {Id}", id);
+            return StatusCode(500, new { message = "Error interno del servidor" });
+        }
+    }
+
+    /// <summary>
     /// Eliminar cita (solo del salón autenticado)
     /// </summary>
     [HttpDelete("appointments/{id}")]

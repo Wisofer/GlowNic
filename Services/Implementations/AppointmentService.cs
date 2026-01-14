@@ -230,12 +230,15 @@ public class AppointmentService : IAppointmentService
         // Obtener el servicio actualizado (el que se asignó o el que ya tenía)
         service = service ?? appointment.Service;
 
-        // Si cambia el estado a Confirmed o Completed, crear ingresos automáticamente
+        // Si cambia el estado a Completed, crear ingresos automáticamente
+        // SOLO se crean ingresos cuando se completa la cita (no al confirmar)
         if (request.Status.HasValue && 
-            (request.Status.Value == AppointmentStatus.Confirmed || request.Status.Value == AppointmentStatus.Completed) && 
-            appointment.Status != AppointmentStatus.Confirmed && 
+            request.Status.Value == AppointmentStatus.Completed && 
             appointment.Status != AppointmentStatus.Completed)
         {
+            // Guardar cambios antes de verificar AppointmentServices
+            await _context.SaveChangesAsync();
+
             // Obtener todos los servicios asociados a esta cita desde la tabla intermedia
             var appointmentServices = await _context.AppointmentServices
                 .Include(aps => aps.Service)
@@ -264,6 +267,7 @@ public class AppointmentService : IAppointmentService
                     service.Price,
                     $"Cita - {service.Name} - {appointment.ClientName}");
             }
+            // Si no hay servicios ni ServiceId, no se crea ingreso automático
         }
 
         // Actualizar campos
@@ -343,13 +347,15 @@ public class AppointmentService : IAppointmentService
         // Obtener el servicio actualizado (el que se asignó o el que ya tenía)
         var currentService = appointment.Service;
 
-        // Si cambia el estado a Confirmed o Completed, crear ingresos automáticamente
+        // Si cambia el estado a Completed, crear ingresos automáticamente
+        // SOLO se crean ingresos cuando se completa la cita (no al confirmar)
+        // Esto permite crear ingresos al completar desde cualquier estado anterior (Pending, Confirmed, etc.)
         if (request.Status.HasValue && 
-            (request.Status.Value == AppointmentStatus.Confirmed || request.Status.Value == AppointmentStatus.Completed) && 
-            appointment.Status != AppointmentStatus.Confirmed && 
+            request.Status.Value == AppointmentStatus.Completed && 
             appointment.Status != AppointmentStatus.Completed)
         {
             // Guardar cambios antes de verificar AppointmentServices
+            // Esto asegura que los servicios agregados en ServiceIds estén guardados
             await _context.SaveChangesAsync();
 
             // Obtener todos los servicios asociados a esta cita desde la tabla intermedia
