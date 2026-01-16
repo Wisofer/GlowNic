@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "gDYmJLaZ+pANpSDxSPTForJFOCen/RR5t+oRtwu54Ho=",
+  "Hash": "6rKvRiGRYnKah6dd2LU5LyFC97L+TXQwaOIuclbhF8Q=",
   "Source": "GlowNic",
   "BasePath": "_content/GlowNic",
   "Mode": "Default",
@@ -17,12 +17,12 @@
   ],
   "Assets": [
     {
-      "Identity": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/0p5slisg54-8tfznbgwvq.gz",
+      "Identity": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/0p5slisg54-4q901k5j9k.gz",
       "SourceId": "GlowNic",
       "SourceType": "Discovered",
       "ContentRoot": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/",
       "BasePath": "_content/GlowNic",
-      "RelativePath": "js/notifications#[.{fingerprint=8tfznbgwvq}]?.js.gz",
+      "RelativePath": "js/notifications#[.{fingerprint=4q901k5j9k}]?.js.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -31,8 +31,8 @@
       "RelatedAsset": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/js/notifications.js",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "ztx41l537s",
-      "Integrity": "R6l5Inh0JKhA/nKqk6+z+7Y6+nLLD8Dl4RyL1KrrW3E=",
+      "Fingerprint": "j9u3ejexna",
+      "Integrity": "99W70hkiQ0xGLh8nmKsFlcAhmwEoG3yfUAf5zLj8w+M=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/js/notifications.js"
@@ -80,12 +80,12 @@
       "OriginalItemSpec": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/js/layout/layout-sidebar.js"
     },
     {
-      "Identity": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/8k01od572m-cs2tko070j.gz",
+      "Identity": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/8k01od572m-kdzk5rhbty.gz",
       "SourceId": "GlowNic",
       "SourceType": "Discovered",
       "ContentRoot": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/",
       "BasePath": "_content/GlowNic",
-      "RelativePath": "css/notifications#[.{fingerprint=cs2tko070j}]?.css.gz",
+      "RelativePath": "css/notifications#[.{fingerprint=kdzk5rhbty}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -94,8 +94,8 @@
       "RelatedAsset": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/css/notifications.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "o7ynxzfycb",
-      "Integrity": "DFZOms7PjsDo9GxLVZgUv5PoAWpY1VObTzXj4oSajmI=",
+      "Fingerprint": "ge2s4e6lpz",
+      "Integrity": "KBc628lv7cd9waMn6mzSMXMJgG6EGIWHEiVc4QZEU0w=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/css/notifications.css"
@@ -162,6 +162,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/js/admin/barbers-management.js"
+    },
+    {
+      "Identity": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/c2clesu5rg-uqhi1q1yaw.gz",
+      "SourceId": "GlowNic",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/",
+      "BasePath": "_content/GlowNic",
+      "RelativePath": "js/notificacion/notifications#[.{fingerprint=uqhi1q1yaw}]?.js.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/js/notificacion/notifications.js",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "yhrprufvcz",
+      "Integrity": "isWWrWMaXW+feT5VduVKGIimgGtihKVQDHbfG7zt/sc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/js/notificacion/notifications.js"
     },
     {
       "Identity": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/d30aulbdqj-7tuwbzof75.gz",
@@ -416,12 +437,12 @@
       "OriginalItemSpec": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/lib/daisyui/full.min.css"
     },
     {
-      "Identity": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/x52f61aj05-b9rlst3wxy.gz",
+      "Identity": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/x52f61aj05-j8gwdo4nb8.gz",
       "SourceId": "GlowNic",
       "SourceType": "Discovered",
       "ContentRoot": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/",
       "BasePath": "_content/GlowNic",
-      "RelativePath": "js/layout/layout-notifications#[.{fingerprint=b9rlst3wxy}]?.js.gz",
+      "RelativePath": "js/layout/layout-notifications#[.{fingerprint=j8gwdo4nb8}]?.js.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -430,8 +451,8 @@
       "RelatedAsset": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/js/layout/layout-notifications.js",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "g1lzflnb9f",
-      "Integrity": "RGjFCvtr1jRaKOBDiRFU2Nh1slA4TI5qceoyMv7cn58=",
+      "Fingerprint": "nv3n255v1k",
+      "Integrity": "nQZxL5Pw6MTWugrjII8jJzMTIW8cAwVaaA35mikhJik=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/js/layout/layout-notifications.js"
@@ -514,8 +535,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "cs2tko070j",
-      "Integrity": "pJjbfHY8rJf+5uoActYN1HskCHK6xTXWNrt7/+KP8Tg=",
+      "Fingerprint": "kdzk5rhbty",
+      "Integrity": "GDGAimwAOxZKvEAgDZ+1/qNSJEqBVI7B6RJ0NCH8yCI=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/css/notifications.css"
@@ -808,8 +829,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "b9rlst3wxy",
-      "Integrity": "wSLwhwn+kE+9Q6VbPwUwEG46sKXLzbJRSy09Vtjy/1A=",
+      "Fingerprint": "j8gwdo4nb8",
+      "Integrity": "zViNPQ19MNuZaoAmpDXHypTYrC8EiOiPcwSYFt2TLb8=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/js/layout/layout-notifications.js"
@@ -920,6 +941,27 @@
       "OriginalItemSpec": "wwwroot/js/layout/layout-theme.js"
     },
     {
+      "Identity": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/js/notificacion/notifications.js",
+      "SourceId": "GlowNic",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/",
+      "BasePath": "_content/GlowNic",
+      "RelativePath": "js/notificacion/notifications#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "uqhi1q1yaw",
+      "Integrity": "qvzWS4nYiD+mM130LdNyewIxBTbv7WMqoY4yw3Rcneg=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/notificacion/notifications.js"
+    },
+    {
       "Identity": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/js/notifications.js",
       "SourceId": "GlowNic",
       "SourceType": "Discovered",
@@ -934,8 +976,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "8tfznbgwvq",
-      "Integrity": "NEKk1UKSxa+ufmeK6XX1oL58WVutmnB50Aeu9a1riCQ=",
+      "Fingerprint": "4q901k5j9k",
+      "Integrity": "xE0+A31zTjfqPTIhcrpxcWWqbM9CM7f9U1PdZ9Rkq2c=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/js/notifications.js"
@@ -1111,13 +1153,13 @@
   ],
   "Endpoints": [
     {
-      "Route": "css/notifications.cs2tko070j.css",
-      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/8k01od572m-cs2tko070j.gz",
+      "Route": "css/notifications.css",
+      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/8k01od572m-kdzk5rhbty.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000514403292"
+          "Quality": "0.001256281407"
         }
       ],
       "ResponseHeaders": [
@@ -1127,19 +1169,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1943"
+          "Value": "795"
         },
         {
           "Name": "ETag",
-          "Value": "\"DFZOms7PjsDo9GxLVZgUv5PoAWpY1VObTzXj4oSajmI=\""
+          "Value": "\"KBc628lv7cd9waMn6mzSMXMJgG6EGIWHEiVc4QZEU0w=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 29 Dec 2025 19:51:20 GMT"
+          "Value": "Thu, 15 Jan 2026 23:16:06 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
+          "Value": "no-cache"
         },
         {
           "Name": "Content-Encoding",
@@ -1155,26 +1197,18 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"pJjbfHY8rJf+5uoActYN1HskCHK6xTXWNrt7/+KP8Tg=\""
+          "Value": "W/\"GDGAimwAOxZKvEAgDZ+1/qNSJEqBVI7B6RJ0NCH8yCI=\""
         }
       ],
       "EndpointProperties": [
         {
-          "Name": "fingerprint",
-          "Value": "cs2tko070j"
-        },
-        {
-          "Name": "label",
-          "Value": "css/notifications.css"
-        },
-        {
           "Name": "integrity",
-          "Value": "sha256-pJjbfHY8rJf+5uoActYN1HskCHK6xTXWNrt7/+KP8Tg="
+          "Value": "sha256-GDGAimwAOxZKvEAgDZ+1/qNSJEqBVI7B6RJ0NCH8yCI="
         }
       ]
     },
     {
-      "Route": "css/notifications.cs2tko070j.css",
+      "Route": "css/notifications.css",
       "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/css/notifications.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -1184,7 +1218,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "7491"
+          "Value": "2504"
         },
         {
           "Name": "Content-Type",
@@ -1192,11 +1226,156 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"pJjbfHY8rJf+5uoActYN1HskCHK6xTXWNrt7/+KP8Tg=\""
+          "Value": "\"GDGAimwAOxZKvEAgDZ+1/qNSJEqBVI7B6RJ0NCH8yCI=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 29 Dec 2025 19:51:20 GMT"
+          "Value": "Thu, 15 Jan 2026 23:16:06 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-GDGAimwAOxZKvEAgDZ+1/qNSJEqBVI7B6RJ0NCH8yCI="
+        }
+      ]
+    },
+    {
+      "Route": "css/notifications.css.gz",
+      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/8k01od572m-kdzk5rhbty.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "795"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KBc628lv7cd9waMn6mzSMXMJgG6EGIWHEiVc4QZEU0w=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 15 Jan 2026 23:16:06 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-KBc628lv7cd9waMn6mzSMXMJgG6EGIWHEiVc4QZEU0w="
+        }
+      ]
+    },
+    {
+      "Route": "css/notifications.kdzk5rhbty.css",
+      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/8k01od572m-kdzk5rhbty.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.001256281407"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "795"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KBc628lv7cd9waMn6mzSMXMJgG6EGIWHEiVc4QZEU0w=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 15 Jan 2026 23:16:06 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"GDGAimwAOxZKvEAgDZ+1/qNSJEqBVI7B6RJ0NCH8yCI=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "kdzk5rhbty"
+        },
+        {
+          "Name": "label",
+          "Value": "css/notifications.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-GDGAimwAOxZKvEAgDZ+1/qNSJEqBVI7B6RJ0NCH8yCI="
+        }
+      ]
+    },
+    {
+      "Route": "css/notifications.kdzk5rhbty.css",
+      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/css/notifications.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2504"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"GDGAimwAOxZKvEAgDZ+1/qNSJEqBVI7B6RJ0NCH8yCI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 15 Jan 2026 23:16:06 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1206,7 +1385,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "cs2tko070j"
+          "Value": "kdzk5rhbty"
         },
         {
           "Name": "label",
@@ -1214,13 +1393,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-pJjbfHY8rJf+5uoActYN1HskCHK6xTXWNrt7/+KP8Tg="
+          "Value": "sha256-GDGAimwAOxZKvEAgDZ+1/qNSJEqBVI7B6RJ0NCH8yCI="
         }
       ]
     },
     {
-      "Route": "css/notifications.cs2tko070j.css.gz",
-      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/8k01od572m-cs2tko070j.gz",
+      "Route": "css/notifications.kdzk5rhbty.css.gz",
+      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/8k01od572m-kdzk5rhbty.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1229,7 +1408,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1943"
+          "Value": "795"
         },
         {
           "Name": "Content-Type",
@@ -1237,11 +1416,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"DFZOms7PjsDo9GxLVZgUv5PoAWpY1VObTzXj4oSajmI=\""
+          "Value": "\"KBc628lv7cd9waMn6mzSMXMJgG6EGIWHEiVc4QZEU0w=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 29 Dec 2025 19:51:20 GMT"
+          "Value": "Thu, 15 Jan 2026 23:16:06 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1259,7 +1438,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "cs2tko070j"
+          "Value": "kdzk5rhbty"
         },
         {
           "Name": "label",
@@ -1267,144 +1446,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-DFZOms7PjsDo9GxLVZgUv5PoAWpY1VObTzXj4oSajmI="
-        }
-      ]
-    },
-    {
-      "Route": "css/notifications.css",
-      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/8k01od572m-cs2tko070j.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.000514403292"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1943"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"DFZOms7PjsDo9GxLVZgUv5PoAWpY1VObTzXj4oSajmI=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 29 Dec 2025 19:51:20 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"pJjbfHY8rJf+5uoActYN1HskCHK6xTXWNrt7/+KP8Tg=\""
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-pJjbfHY8rJf+5uoActYN1HskCHK6xTXWNrt7/+KP8Tg="
-        }
-      ]
-    },
-    {
-      "Route": "css/notifications.css",
-      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/css/notifications.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "7491"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"pJjbfHY8rJf+5uoActYN1HskCHK6xTXWNrt7/+KP8Tg=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 29 Dec 2025 19:51:20 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-pJjbfHY8rJf+5uoActYN1HskCHK6xTXWNrt7/+KP8Tg="
-        }
-      ]
-    },
-    {
-      "Route": "css/notifications.css.gz",
-      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/8k01od572m-cs2tko070j.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1943"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"DFZOms7PjsDo9GxLVZgUv5PoAWpY1VObTzXj4oSajmI=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 29 Dec 2025 19:51:20 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-DFZOms7PjsDo9GxLVZgUv5PoAWpY1VObTzXj4oSajmI="
+          "Value": "sha256-KBc628lv7cd9waMn6mzSMXMJgG6EGIWHEiVc4QZEU0w="
         }
       ]
     },
@@ -4419,13 +4461,13 @@
       ]
     },
     {
-      "Route": "js/layout/layout-notifications.b9rlst3wxy.js",
-      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/x52f61aj05-b9rlst3wxy.gz",
+      "Route": "js/layout/layout-notifications.j8gwdo4nb8.js",
+      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/x52f61aj05-j8gwdo4nb8.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.002717391304"
+          "Quality": "0.001988071571"
         }
       ],
       "ResponseHeaders": [
@@ -4435,15 +4477,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "367"
+          "Value": "502"
         },
         {
           "Name": "ETag",
-          "Value": "\"RGjFCvtr1jRaKOBDiRFU2Nh1slA4TI5qceoyMv7cn58=\""
+          "Value": "\"nQZxL5Pw6MTWugrjII8jJzMTIW8cAwVaaA35mikhJik=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 Jan 2026 20:35:09 GMT"
+          "Value": "Thu, 15 Jan 2026 23:04:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4463,13 +4505,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"wSLwhwn+kE+9Q6VbPwUwEG46sKXLzbJRSy09Vtjy/1A=\""
+          "Value": "W/\"zViNPQ19MNuZaoAmpDXHypTYrC8EiOiPcwSYFt2TLb8=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "b9rlst3wxy"
+          "Value": "j8gwdo4nb8"
         },
         {
           "Name": "label",
@@ -4477,12 +4519,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-wSLwhwn+kE+9Q6VbPwUwEG46sKXLzbJRSy09Vtjy/1A="
+          "Value": "sha256-zViNPQ19MNuZaoAmpDXHypTYrC8EiOiPcwSYFt2TLb8="
         }
       ]
     },
     {
-      "Route": "js/layout/layout-notifications.b9rlst3wxy.js",
+      "Route": "js/layout/layout-notifications.j8gwdo4nb8.js",
       "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/js/layout/layout-notifications.js",
       "Selectors": [],
       "ResponseHeaders": [
@@ -4492,7 +4534,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1136"
+          "Value": "1291"
         },
         {
           "Name": "Content-Type",
@@ -4500,11 +4542,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"wSLwhwn+kE+9Q6VbPwUwEG46sKXLzbJRSy09Vtjy/1A=\""
+          "Value": "\"zViNPQ19MNuZaoAmpDXHypTYrC8EiOiPcwSYFt2TLb8=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 Jan 2026 20:35:09 GMT"
+          "Value": "Thu, 15 Jan 2026 23:04:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4514,7 +4556,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "b9rlst3wxy"
+          "Value": "j8gwdo4nb8"
         },
         {
           "Name": "label",
@@ -4522,13 +4564,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-wSLwhwn+kE+9Q6VbPwUwEG46sKXLzbJRSy09Vtjy/1A="
+          "Value": "sha256-zViNPQ19MNuZaoAmpDXHypTYrC8EiOiPcwSYFt2TLb8="
         }
       ]
     },
     {
-      "Route": "js/layout/layout-notifications.b9rlst3wxy.js.gz",
-      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/x52f61aj05-b9rlst3wxy.gz",
+      "Route": "js/layout/layout-notifications.j8gwdo4nb8.js.gz",
+      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/x52f61aj05-j8gwdo4nb8.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4537,7 +4579,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "367"
+          "Value": "502"
         },
         {
           "Name": "Content-Type",
@@ -4545,11 +4587,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"RGjFCvtr1jRaKOBDiRFU2Nh1slA4TI5qceoyMv7cn58=\""
+          "Value": "\"nQZxL5Pw6MTWugrjII8jJzMTIW8cAwVaaA35mikhJik=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 Jan 2026 20:35:09 GMT"
+          "Value": "Thu, 15 Jan 2026 23:04:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4567,7 +4609,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "b9rlst3wxy"
+          "Value": "j8gwdo4nb8"
         },
         {
           "Name": "label",
@@ -4575,18 +4617,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-RGjFCvtr1jRaKOBDiRFU2Nh1slA4TI5qceoyMv7cn58="
+          "Value": "sha256-nQZxL5Pw6MTWugrjII8jJzMTIW8cAwVaaA35mikhJik="
         }
       ]
     },
     {
       "Route": "js/layout/layout-notifications.js",
-      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/x52f61aj05-b9rlst3wxy.gz",
+      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/x52f61aj05-j8gwdo4nb8.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.002717391304"
+          "Quality": "0.001988071571"
         }
       ],
       "ResponseHeaders": [
@@ -4596,15 +4638,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "367"
+          "Value": "502"
         },
         {
           "Name": "ETag",
-          "Value": "\"RGjFCvtr1jRaKOBDiRFU2Nh1slA4TI5qceoyMv7cn58=\""
+          "Value": "\"nQZxL5Pw6MTWugrjII8jJzMTIW8cAwVaaA35mikhJik=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 Jan 2026 20:35:09 GMT"
+          "Value": "Thu, 15 Jan 2026 23:04:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4624,13 +4666,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"wSLwhwn+kE+9Q6VbPwUwEG46sKXLzbJRSy09Vtjy/1A=\""
+          "Value": "W/\"zViNPQ19MNuZaoAmpDXHypTYrC8EiOiPcwSYFt2TLb8=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-wSLwhwn+kE+9Q6VbPwUwEG46sKXLzbJRSy09Vtjy/1A="
+          "Value": "sha256-zViNPQ19MNuZaoAmpDXHypTYrC8EiOiPcwSYFt2TLb8="
         }
       ]
     },
@@ -4645,7 +4687,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1136"
+          "Value": "1291"
         },
         {
           "Name": "Content-Type",
@@ -4653,11 +4695,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"wSLwhwn+kE+9Q6VbPwUwEG46sKXLzbJRSy09Vtjy/1A=\""
+          "Value": "\"zViNPQ19MNuZaoAmpDXHypTYrC8EiOiPcwSYFt2TLb8=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 Jan 2026 20:35:09 GMT"
+          "Value": "Thu, 15 Jan 2026 23:04:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4667,13 +4709,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-wSLwhwn+kE+9Q6VbPwUwEG46sKXLzbJRSy09Vtjy/1A="
+          "Value": "sha256-zViNPQ19MNuZaoAmpDXHypTYrC8EiOiPcwSYFt2TLb8="
         }
       ]
     },
     {
       "Route": "js/layout/layout-notifications.js.gz",
-      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/x52f61aj05-b9rlst3wxy.gz",
+      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/x52f61aj05-j8gwdo4nb8.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4682,7 +4724,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "367"
+          "Value": "502"
         },
         {
           "Name": "Content-Type",
@@ -4690,11 +4732,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"RGjFCvtr1jRaKOBDiRFU2Nh1slA4TI5qceoyMv7cn58=\""
+          "Value": "\"nQZxL5Pw6MTWugrjII8jJzMTIW8cAwVaaA35mikhJik=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 Jan 2026 20:35:09 GMT"
+          "Value": "Thu, 15 Jan 2026 23:04:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4712,7 +4754,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-RGjFCvtr1jRaKOBDiRFU2Nh1slA4TI5qceoyMv7cn58="
+          "Value": "sha256-nQZxL5Pw6MTWugrjII8jJzMTIW8cAwVaaA35mikhJik="
         }
       ]
     },
@@ -6207,13 +6249,13 @@
       ]
     },
     {
-      "Route": "js/notifications.8tfznbgwvq.js",
-      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/0p5slisg54-8tfznbgwvq.gz",
+      "Route": "js/notificacion/notifications.js",
+      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/c2clesu5rg-uqhi1q1yaw.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000340599455"
+          "Quality": "0.000269251481"
         }
       ],
       "ResponseHeaders": [
@@ -6223,15 +6265,152 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2935"
+          "Value": "3713"
         },
         {
           "Name": "ETag",
-          "Value": "\"R6l5Inh0JKhA/nKqk6+z+7Y6+nLLD8Dl4RyL1KrrW3E=\""
+          "Value": "\"isWWrWMaXW+feT5VduVKGIimgGtihKVQDHbfG7zt/sc=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 Jan 2026 20:35:09 GMT"
+          "Value": "Fri, 16 Jan 2026 00:17:00 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"qvzWS4nYiD+mM130LdNyewIxBTbv7WMqoY4yw3Rcneg=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-qvzWS4nYiD+mM130LdNyewIxBTbv7WMqoY4yw3Rcneg="
+        }
+      ]
+    },
+    {
+      "Route": "js/notificacion/notifications.js",
+      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/js/notificacion/notifications.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "16062"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"qvzWS4nYiD+mM130LdNyewIxBTbv7WMqoY4yw3Rcneg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 16 Jan 2026 00:17:00 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-qvzWS4nYiD+mM130LdNyewIxBTbv7WMqoY4yw3Rcneg="
+        }
+      ]
+    },
+    {
+      "Route": "js/notificacion/notifications.js.gz",
+      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/c2clesu5rg-uqhi1q1yaw.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3713"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"isWWrWMaXW+feT5VduVKGIimgGtihKVQDHbfG7zt/sc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 16 Jan 2026 00:17:00 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-isWWrWMaXW+feT5VduVKGIimgGtihKVQDHbfG7zt/sc="
+        }
+      ]
+    },
+    {
+      "Route": "js/notificacion/notifications.uqhi1q1yaw.js",
+      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/c2clesu5rg-uqhi1q1yaw.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000269251481"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3713"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"isWWrWMaXW+feT5VduVKGIimgGtihKVQDHbfG7zt/sc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 16 Jan 2026 00:17:00 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6251,13 +6430,174 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"NEKk1UKSxa+ufmeK6XX1oL58WVutmnB50Aeu9a1riCQ=\""
+          "Value": "W/\"qvzWS4nYiD+mM130LdNyewIxBTbv7WMqoY4yw3Rcneg=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "8tfznbgwvq"
+          "Value": "uqhi1q1yaw"
+        },
+        {
+          "Name": "label",
+          "Value": "js/notificacion/notifications.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-qvzWS4nYiD+mM130LdNyewIxBTbv7WMqoY4yw3Rcneg="
+        }
+      ]
+    },
+    {
+      "Route": "js/notificacion/notifications.uqhi1q1yaw.js",
+      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/js/notificacion/notifications.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "16062"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"qvzWS4nYiD+mM130LdNyewIxBTbv7WMqoY4yw3Rcneg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 16 Jan 2026 00:17:00 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "uqhi1q1yaw"
+        },
+        {
+          "Name": "label",
+          "Value": "js/notificacion/notifications.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-qvzWS4nYiD+mM130LdNyewIxBTbv7WMqoY4yw3Rcneg="
+        }
+      ]
+    },
+    {
+      "Route": "js/notificacion/notifications.uqhi1q1yaw.js.gz",
+      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/c2clesu5rg-uqhi1q1yaw.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3713"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"isWWrWMaXW+feT5VduVKGIimgGtihKVQDHbfG7zt/sc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 16 Jan 2026 00:17:00 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "uqhi1q1yaw"
+        },
+        {
+          "Name": "label",
+          "Value": "js/notificacion/notifications.js.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-isWWrWMaXW+feT5VduVKGIimgGtihKVQDHbfG7zt/sc="
+        }
+      ]
+    },
+    {
+      "Route": "js/notifications.4q901k5j9k.js",
+      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/0p5slisg54-4q901k5j9k.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.001206272618"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "828"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"99W70hkiQ0xGLh8nmKsFlcAhmwEoG3yfUAf5zLj8w+M=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 15 Jan 2026 23:04:11 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"xE0+A31zTjfqPTIhcrpxcWWqbM9CM7f9U1PdZ9Rkq2c=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "4q901k5j9k"
         },
         {
           "Name": "label",
@@ -6265,12 +6605,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-NEKk1UKSxa+ufmeK6XX1oL58WVutmnB50Aeu9a1riCQ="
+          "Value": "sha256-xE0+A31zTjfqPTIhcrpxcWWqbM9CM7f9U1PdZ9Rkq2c="
         }
       ]
     },
     {
-      "Route": "js/notifications.8tfznbgwvq.js",
+      "Route": "js/notifications.4q901k5j9k.js",
       "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/wwwroot/js/notifications.js",
       "Selectors": [],
       "ResponseHeaders": [
@@ -6280,7 +6620,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "11728"
+          "Value": "2583"
         },
         {
           "Name": "Content-Type",
@@ -6288,11 +6628,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"NEKk1UKSxa+ufmeK6XX1oL58WVutmnB50Aeu9a1riCQ=\""
+          "Value": "\"xE0+A31zTjfqPTIhcrpxcWWqbM9CM7f9U1PdZ9Rkq2c=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 Jan 2026 20:35:09 GMT"
+          "Value": "Thu, 15 Jan 2026 23:04:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6302,7 +6642,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "8tfznbgwvq"
+          "Value": "4q901k5j9k"
         },
         {
           "Name": "label",
@@ -6310,13 +6650,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-NEKk1UKSxa+ufmeK6XX1oL58WVutmnB50Aeu9a1riCQ="
+          "Value": "sha256-xE0+A31zTjfqPTIhcrpxcWWqbM9CM7f9U1PdZ9Rkq2c="
         }
       ]
     },
     {
-      "Route": "js/notifications.8tfznbgwvq.js.gz",
-      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/0p5slisg54-8tfznbgwvq.gz",
+      "Route": "js/notifications.4q901k5j9k.js.gz",
+      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/0p5slisg54-4q901k5j9k.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6325,7 +6665,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2935"
+          "Value": "828"
         },
         {
           "Name": "Content-Type",
@@ -6333,11 +6673,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"R6l5Inh0JKhA/nKqk6+z+7Y6+nLLD8Dl4RyL1KrrW3E=\""
+          "Value": "\"99W70hkiQ0xGLh8nmKsFlcAhmwEoG3yfUAf5zLj8w+M=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 Jan 2026 20:35:09 GMT"
+          "Value": "Thu, 15 Jan 2026 23:04:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6355,7 +6695,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "8tfznbgwvq"
+          "Value": "4q901k5j9k"
         },
         {
           "Name": "label",
@@ -6363,18 +6703,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-R6l5Inh0JKhA/nKqk6+z+7Y6+nLLD8Dl4RyL1KrrW3E="
+          "Value": "sha256-99W70hkiQ0xGLh8nmKsFlcAhmwEoG3yfUAf5zLj8w+M="
         }
       ]
     },
     {
       "Route": "js/notifications.js",
-      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/0p5slisg54-8tfznbgwvq.gz",
+      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/0p5slisg54-4q901k5j9k.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000340599455"
+          "Quality": "0.001206272618"
         }
       ],
       "ResponseHeaders": [
@@ -6384,15 +6724,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2935"
+          "Value": "828"
         },
         {
           "Name": "ETag",
-          "Value": "\"R6l5Inh0JKhA/nKqk6+z+7Y6+nLLD8Dl4RyL1KrrW3E=\""
+          "Value": "\"99W70hkiQ0xGLh8nmKsFlcAhmwEoG3yfUAf5zLj8w+M=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 Jan 2026 20:35:09 GMT"
+          "Value": "Thu, 15 Jan 2026 23:04:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6412,13 +6752,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"NEKk1UKSxa+ufmeK6XX1oL58WVutmnB50Aeu9a1riCQ=\""
+          "Value": "W/\"xE0+A31zTjfqPTIhcrpxcWWqbM9CM7f9U1PdZ9Rkq2c=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-NEKk1UKSxa+ufmeK6XX1oL58WVutmnB50Aeu9a1riCQ="
+          "Value": "sha256-xE0+A31zTjfqPTIhcrpxcWWqbM9CM7f9U1PdZ9Rkq2c="
         }
       ]
     },
@@ -6433,7 +6773,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "11728"
+          "Value": "2583"
         },
         {
           "Name": "Content-Type",
@@ -6441,11 +6781,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"NEKk1UKSxa+ufmeK6XX1oL58WVutmnB50Aeu9a1riCQ=\""
+          "Value": "\"xE0+A31zTjfqPTIhcrpxcWWqbM9CM7f9U1PdZ9Rkq2c=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 Jan 2026 20:35:09 GMT"
+          "Value": "Thu, 15 Jan 2026 23:04:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6455,13 +6795,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-NEKk1UKSxa+ufmeK6XX1oL58WVutmnB50Aeu9a1riCQ="
+          "Value": "sha256-xE0+A31zTjfqPTIhcrpxcWWqbM9CM7f9U1PdZ9Rkq2c="
         }
       ]
     },
     {
       "Route": "js/notifications.js.gz",
-      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/0p5slisg54-8tfznbgwvq.gz",
+      "AssetFile": "/home/william/Documentos/aplicaciones/GlowNic/obj/Debug/net9.0/compressed/0p5slisg54-4q901k5j9k.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6470,7 +6810,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2935"
+          "Value": "828"
         },
         {
           "Name": "Content-Type",
@@ -6478,11 +6818,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"R6l5Inh0JKhA/nKqk6+z+7Y6+nLLD8Dl4RyL1KrrW3E=\""
+          "Value": "\"99W70hkiQ0xGLh8nmKsFlcAhmwEoG3yfUAf5zLj8w+M=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 Jan 2026 20:35:09 GMT"
+          "Value": "Thu, 15 Jan 2026 23:04:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6500,7 +6840,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-R6l5Inh0JKhA/nKqk6+z+7Y6+nLLD8Dl4RyL1KrrW3E="
+          "Value": "sha256-99W70hkiQ0xGLh8nmKsFlcAhmwEoG3yfUAf5zLj8w+M="
         }
       ]
     },

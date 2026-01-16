@@ -1,16 +1,16 @@
 ﻿<Project>
   <ItemGroup>
-    <StaticWebAssetEndpoint Include="_content/GlowNic/css/notifications.cs2tko070j.css">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\notifications.css'))</AssetFile>
-      <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"cs2tko070j"},{"Name":"integrity","Value":"sha256-pJjbfHY8rJf\u002B5uoActYN1HskCHK6xTXWNrt7/\u002BKP8Tg="},{"Name":"label","Value":"_content/GlowNic/css/notifications.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"7491"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022pJjbfHY8rJf\u002B5uoActYN1HskCHK6xTXWNrt7/\u002BKP8Tg=\u0022"},{"Name":"Last-Modified","Value":"Mon, 29 Dec 2025 19:51:20 GMT"}]]]></ResponseHeaders>
-    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/GlowNic/css/notifications.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\notifications.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-pJjbfHY8rJf\u002B5uoActYN1HskCHK6xTXWNrt7/\u002BKP8Tg="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"7491"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022pJjbfHY8rJf\u002B5uoActYN1HskCHK6xTXWNrt7/\u002BKP8Tg=\u0022"},{"Name":"Last-Modified","Value":"Mon, 29 Dec 2025 19:51:20 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-GDGAimwAOxZKvEAgDZ\u002B1/qNSJEqBVI7B6RJ0NCH8yCI="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"2504"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022GDGAimwAOxZKvEAgDZ\u002B1/qNSJEqBVI7B6RJ0NCH8yCI=\u0022"},{"Name":"Last-Modified","Value":"Thu, 15 Jan 2026 23:16:06 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/GlowNic/css/notifications.kdzk5rhbty.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\notifications.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"kdzk5rhbty"},{"Name":"integrity","Value":"sha256-GDGAimwAOxZKvEAgDZ\u002B1/qNSJEqBVI7B6RJ0NCH8yCI="},{"Name":"label","Value":"_content/GlowNic/css/notifications.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"2504"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022GDGAimwAOxZKvEAgDZ\u002B1/qNSJEqBVI7B6RJ0NCH8yCI=\u0022"},{"Name":"Last-Modified","Value":"Thu, 15 Jan 2026 23:16:06 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/GlowNic/css/tailwind.8vwyhmuz7h.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\tailwind.css'))</AssetFile>
@@ -168,17 +168,17 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"v80chxnmsu"},{"Name":"integrity","Value":"sha256-P1EDPg\u002BQY1Zvjiy/PiO3PXHq26a5ce/6JpVR\u002Bz\u002B9KJY="},{"Name":"label","Value":"_content/GlowNic/js/layout/layout-keepalive.js"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"4127"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022P1EDPg\u002BQY1Zvjiy/PiO3PXHq26a5ce/6JpVR\u002Bz\u002B9KJY=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 Jan 2026 20:35:09 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/GlowNic/js/layout/layout-notifications.b9rlst3wxy.js">
+    <StaticWebAssetEndpoint Include="_content/GlowNic/js/layout/layout-notifications.j8gwdo4nb8.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\layout\layout-notifications.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"b9rlst3wxy"},{"Name":"integrity","Value":"sha256-wSLwhwn\u002BkE\u002B9Q6VbPwUwEG46sKXLzbJRSy09Vtjy/1A="},{"Name":"label","Value":"_content/GlowNic/js/layout/layout-notifications.js"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1136"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022wSLwhwn\u002BkE\u002B9Q6VbPwUwEG46sKXLzbJRSy09Vtjy/1A=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 Jan 2026 20:35:09 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"j8gwdo4nb8"},{"Name":"integrity","Value":"sha256-zViNPQ19MNuZaoAmpDXHypTYrC8EiOiPcwSYFt2TLb8="},{"Name":"label","Value":"_content/GlowNic/js/layout/layout-notifications.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1291"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022zViNPQ19MNuZaoAmpDXHypTYrC8EiOiPcwSYFt2TLb8=\u0022"},{"Name":"Last-Modified","Value":"Thu, 15 Jan 2026 23:04:11 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/GlowNic/js/layout/layout-notifications.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\layout\layout-notifications.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-wSLwhwn\u002BkE\u002B9Q6VbPwUwEG46sKXLzbJRSy09Vtjy/1A="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1136"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022wSLwhwn\u002BkE\u002B9Q6VbPwUwEG46sKXLzbJRSy09Vtjy/1A=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 Jan 2026 20:35:09 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-zViNPQ19MNuZaoAmpDXHypTYrC8EiOiPcwSYFt2TLb8="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1291"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022zViNPQ19MNuZaoAmpDXHypTYrC8EiOiPcwSYFt2TLb8=\u0022"},{"Name":"Last-Modified","Value":"Thu, 15 Jan 2026 23:04:11 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/GlowNic/js/layout/layout-sidebar-inline.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\layout\layout-sidebar-inline.js'))</AssetFile>
@@ -240,17 +240,29 @@
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-slIK5prgbst8rCprtOYjgGetrQmSStdlaIvIHkJRKp8="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1295"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022slIK5prgbst8rCprtOYjgGetrQmSStdlaIvIHkJRKp8=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 Jan 2026 20:35:09 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/GlowNic/js/notifications.8tfznbgwvq.js">
+    <StaticWebAssetEndpoint Include="_content/GlowNic/js/notificacion/notifications.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\notificacion\notifications.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-qvzWS4nYiD\u002BmM130LdNyewIxBTbv7WMqoY4yw3Rcneg="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"16062"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022qvzWS4nYiD\u002BmM130LdNyewIxBTbv7WMqoY4yw3Rcneg=\u0022"},{"Name":"Last-Modified","Value":"Fri, 16 Jan 2026 00:17:00 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/GlowNic/js/notificacion/notifications.uqhi1q1yaw.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\notificacion\notifications.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"uqhi1q1yaw"},{"Name":"integrity","Value":"sha256-qvzWS4nYiD\u002BmM130LdNyewIxBTbv7WMqoY4yw3Rcneg="},{"Name":"label","Value":"_content/GlowNic/js/notificacion/notifications.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"16062"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022qvzWS4nYiD\u002BmM130LdNyewIxBTbv7WMqoY4yw3Rcneg=\u0022"},{"Name":"Last-Modified","Value":"Fri, 16 Jan 2026 00:17:00 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/GlowNic/js/notifications.4q901k5j9k.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\notifications.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"8tfznbgwvq"},{"Name":"integrity","Value":"sha256-NEKk1UKSxa\u002BufmeK6XX1oL58WVutmnB50Aeu9a1riCQ="},{"Name":"label","Value":"_content/GlowNic/js/notifications.js"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"11728"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022NEKk1UKSxa\u002BufmeK6XX1oL58WVutmnB50Aeu9a1riCQ=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 Jan 2026 20:35:09 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"4q901k5j9k"},{"Name":"integrity","Value":"sha256-xE0\u002BA31zTjfqPTIhcrpxcWWqbM9CM7f9U1PdZ9Rkq2c="},{"Name":"label","Value":"_content/GlowNic/js/notifications.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"2583"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022xE0\u002BA31zTjfqPTIhcrpxcWWqbM9CM7f9U1PdZ9Rkq2c=\u0022"},{"Name":"Last-Modified","Value":"Thu, 15 Jan 2026 23:04:11 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/GlowNic/js/notifications.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\notifications.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-NEKk1UKSxa\u002BufmeK6XX1oL58WVutmnB50Aeu9a1riCQ="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"11728"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022NEKk1UKSxa\u002BufmeK6XX1oL58WVutmnB50Aeu9a1riCQ=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 Jan 2026 20:35:09 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-xE0\u002BA31zTjfqPTIhcrpxcWWqbM9CM7f9U1PdZ9Rkq2c="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"2583"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022xE0\u002BA31zTjfqPTIhcrpxcWWqbM9CM7f9U1PdZ9Rkq2c=\u0022"},{"Name":"Last-Modified","Value":"Thu, 15 Jan 2026 23:04:11 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/GlowNic/js/pagos-crear.jctfavohoy.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\pagos-crear.js'))</AssetFile>

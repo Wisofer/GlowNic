@@ -14,11 +14,56 @@ using Npgsql.EntityFrameworkCore.PostgreSQL;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 
 // Configurar Npgsql para manejar DateTime correctamente con PostgreSQL
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
+// Inicializar Firebase - Soporta variable de entorno (Docker/Producción) o archivo local (Desarrollo)
+void InitializeFirebase()
+{
+    try
+    {
+        if (FirebaseApp.DefaultInstance != null) return;
+
+        GoogleCredential? credential = null;
+
+        // Prioridad 1: Variable de entorno FIREBASE_CREDENTIALS_JSON (para Docker/Producción)
+        var firebaseCredentialsJson = Environment.GetEnvironmentVariable("FIREBASE_CREDENTIALS_JSON");
+        if (!string.IsNullOrEmpty(firebaseCredentialsJson))
+        {
+            credential = GoogleCredential.FromJson(firebaseCredentialsJson);
+        }
+        // Prioridad 2: Archivo local (para desarrollo)
+        else
+        {
+            var firebaseCredentialsPath = Path.Combine(Directory.GetCurrentDirectory(), "Secrets", "firebase_credentials.json");
+            if (File.Exists(firebaseCredentialsPath))
+            {
+                credential = GoogleCredential.FromFile(firebaseCredentialsPath);
+            }
+        }
+
+        if (credential != null)
+        {
+            var appOptions = new AppOptions()
+            {
+                Credential = credential
+            };
+            FirebaseApp.Create(appOptions);
+        }
+    }
+    catch (Exception)
+    {
+        // No lanzar excepción aquí para que la app pueda iniciar
+    }
+}
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Inicializar Firebase al inicio
+InitializeFirebase();
 
 // Agregar servicios al contenedor
 builder.Services.AddControllers()
@@ -195,6 +240,7 @@ builder.Services.AddScoped<IExportService, ExportService>();
 builder.Services.AddScoped<IHelpSupportService, HelpSupportService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IReportService, ReportService>();
+builder.Services.AddScoped<IPushNotificationService, PushNotificationService>();
 
 // Registrar servicios antiguos (MVC web - mantener compatibilidad)
         builder.Services.AddScoped<GlowNic.Services.IServices.IAuthService, GlowNic.Services.AuthService>();
@@ -202,6 +248,12 @@ builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IConfiguracionService, ConfiguracionService>();
 
 var app = builder.Build();
+
+// Verificar Firebase después de construir la app (fallback si no se inicializó antes)
+if (FirebaseApp.DefaultInstance == null)
+{
+    InitializeFirebase();
+}
 
 // Aplicar migraciones e inicializar datos
 using (var scope = app.Services.CreateScope())

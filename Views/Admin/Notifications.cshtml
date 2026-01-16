@@ -1,0 +1,169 @@
+@{
+    ViewData["Title"] = "Notificaciones Push";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mx-auto p-3 sm:p-4 max-w-7xl">
+    <!-- Header -->
+    <div class="mb-4">
+        <h1 class="text-xl sm:text-2xl font-bold text-pink mb-1">🔔 Notificaciones Push</h1>
+        <p class="text-xs text-gray-400">Gestiona plantillas y envía notificaciones a los salones</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs tabs-boxed mb-4">
+        <a class="tab tab-active" onclick="showTab('templates')">📝 Plantillas</a>
+        <a class="tab" onclick="showTab('send')">📤 Enviar Notificación</a>
+        <a class="tab" onclick="showTab('logs')">📋 Logs</a>
+    </div>
+
+    <!-- Tab: Plantillas -->
+    <div id="tab-templates" class="tab-content">
+        <div class="bg-base-200 rounded-xl p-4 mb-4">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-semibold">Plantillas de Notificaciones</h2>
+                <button class="btn btn-primary btn-sm" onclick="openCreateTemplateModal()">
+                    ➕ Nueva Plantilla
+                </button>
+            </div>
+            <div id="templates-list" class="space-y-2">
+                <!-- Las plantillas se cargarán aquí -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab: Enviar Notificación -->
+    <div id="tab-send" class="tab-content hidden">
+        <div class="bg-base-200 rounded-xl p-4">
+            <h2 class="text-lg font-semibold mb-4">Enviar Notificación</h2>
+            <form id="send-notification-form" class="space-y-4">
+                <!-- Selección de Plantilla -->
+                <div>
+                    <label class="label">
+                        <span class="label-text font-semibold">Seleccionar Plantilla *</span>
+                    </label>
+                    <select id="template-select" class="select select-bordered w-full" onchange="loadTemplatePreview()" required>
+                        <option value="">-- Seleccionar plantilla --</option>
+                    </select>
+                    <div class="label">
+                        <span class="label-text-alt text-gray-400">La plantilla contiene el título y mensaje que se enviará</span>
+                    </div>
+                </div>
+
+                <!-- Vista Previa de la Plantilla -->
+                <div id="template-preview" class="hidden bg-base-100 rounded-lg p-4 border border-base-300">
+                    <h3 class="font-semibold mb-2">📋 Vista Previa:</h3>
+                    <div class="space-y-2">
+                        <div>
+                            <span class="text-xs text-gray-400">Título:</span>
+                            <p id="preview-title" class="font-semibold"></p>
+                        </div>
+                        <div>
+                            <span class="text-xs text-gray-400">Mensaje:</span>
+                            <p id="preview-body" class="text-sm"></p>
+                        </div>
+                        <div id="preview-image-container" class="hidden">
+                            <span class="text-xs text-gray-400">Imagen:</span>
+                            <img id="preview-image" src="" alt="Preview" class="mt-2 rounded-lg max-w-xs">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabla de Destinatarios -->
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="label">
+                            <span class="label-text font-semibold">Destinatarios *</span>
+                        </label>
+                        <label class="label cursor-pointer gap-2">
+                            <span class="label-text text-sm">Seleccionar todo</span>
+                            <input type="checkbox" id="select-all-salons" class="checkbox checkbox-primary checkbox-sm" onchange="toggleSelectAll(event)">
+                        </label>
+                    </div>
+                    <div class="border border-base-300 rounded-lg overflow-hidden">
+                        <div class="overflow-x-auto max-h-96 overflow-y-auto">
+                            <table class="table table-zebra table-sm">
+                                <thead class="sticky top-0 bg-base-200 z-10">
+                                    <tr>
+                                        <th class="w-12">
+                                            <input type="checkbox" id="select-all-checkbox" class="checkbox checkbox-primary checkbox-sm" onchange="toggleSelectAll(event)">
+                                        </th>
+                                        <th>Salón</th>
+                                        <th>Negocio</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="salons-table-body">
+                                    <!-- Los salones se cargarán aquí -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="label">
+                        <span class="label-text-alt text-gray-400" id="selected-count">0 salones seleccionados</span>
+                    </div>
+                    <div class="alert alert-info alert-sm mt-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span class="text-xs">Solo se muestran salones con dispositivos registrados y token FCM activo</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-full" id="btn-send-notification">
+                    📤 Enviar Notificación
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tab: Logs -->
+    <div id="tab-logs" class="tab-content hidden">
+        <div class="bg-base-200 rounded-xl p-4">
+            <h2 class="text-lg font-semibold mb-4">Historial de Notificaciones</h2>
+            <div id="logs-list" class="space-y-2">
+                <!-- Los logs se cargarán aquí -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Crear/Editar Plantilla -->
+<div id="template-modal" class="modal">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg mb-4" id="modal-title">Nueva Plantilla</h3>
+        <form id="template-form">
+            <input type="hidden" id="template-id">
+            <div class="form-control mb-4">
+                <label class="label">
+                    <span class="label-text">Nombre</span>
+                </label>
+                <input type="text" id="template-name" class="input input-bordered" placeholder="Nombre descriptivo">
+            </div>
+            <div class="form-control mb-4">
+                <label class="label">
+                    <span class="label-text">Título</span>
+                </label>
+                <input type="text" id="template-title" class="input input-bordered" placeholder="Título de la notificación" required>
+            </div>
+            <div class="form-control mb-4">
+                <label class="label">
+                    <span class="label-text">Mensaje</span>
+                </label>
+                <textarea id="template-body" class="textarea textarea-bordered" rows="4" placeholder="Cuerpo del mensaje" required></textarea>
+            </div>
+            <div class="form-control mb-4">
+                <label class="label">
+                    <span class="label-text">URL de Imagen (opcional)</span>
+                </label>
+                <input type="url" id="template-image" class="input input-bordered" placeholder="https://ejemplo.com/imagen.jpg">
+            </div>
+            <div class="modal-action">
+                <button type="button" class="btn" onclick="closeTemplateModal()">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </form>
+    </div>
+    <div class="modal-backdrop" onclick="closeTemplateModal()"></div>
+</div>
+
+@section Scripts {
+    <script src="~/js/notificacion/notifications.js"></script>
+}

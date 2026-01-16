@@ -12,8 +12,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>cs2tko070j</Fingerprint>
-      <Integrity>pJjbfHY8rJf+5uoActYN1HskCHK6xTXWNrt7/+KP8Tg=</Integrity>
+      <Fingerprint>kdzk5rhbty</Fingerprint>
+      <Integrity>GDGAimwAOxZKvEAgDZ+1/qNSJEqBVI7B6RJ0NCH8yCI=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\notifications.css'))</OriginalItemSpec>
@@ -264,8 +264,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>b9rlst3wxy</Fingerprint>
-      <Integrity>wSLwhwn+kE+9Q6VbPwUwEG46sKXLzbJRSy09Vtjy/1A=</Integrity>
+      <Fingerprint>j8gwdo4nb8</Fingerprint>
+      <Integrity>zViNPQ19MNuZaoAmpDXHypTYrC8EiOiPcwSYFt2TLb8=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\layout\layout-notifications.js'))</OriginalItemSpec>
@@ -360,6 +360,24 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\layout\layout-theme.js'))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\notificacion\notifications.js'))">
+      <SourceType>Package</SourceType>
+      <SourceId>GlowNic</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/GlowNic</BasePath>
+      <RelativePath>js/notificacion/notifications.js</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>uqhi1q1yaw</Fingerprint>
+      <Integrity>qvzWS4nYiD+mM130LdNyewIxBTbv7WMqoY4yw3Rcneg=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\notificacion\notifications.js'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\notifications.js'))">
       <SourceType>Package</SourceType>
       <SourceId>GlowNic</SourceId>
@@ -372,8 +390,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>8tfznbgwvq</Fingerprint>
-      <Integrity>NEKk1UKSxa+ufmeK6XX1oL58WVutmnB50Aeu9a1riCQ=</Integrity>
+      <Fingerprint>4q901k5j9k</Fingerprint>
+      <Integrity>xE0+A31zTjfqPTIhcrpxcWWqbM9CM7f9U1PdZ9Rkq2c=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\notifications.js'))</OriginalItemSpec>

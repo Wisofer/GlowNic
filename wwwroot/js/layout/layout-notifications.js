@@ -1,36 +1,34 @@
-/**
- * Layout Notifications
- * Convertir TempData a notificaciones con sonidos
- */
+// Integración de notificaciones en el layout
+// Este archivo se carga en todas las páginas para mostrar notificaciones del sistema
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Detectar notificaciones de TempData (toasts de DaisyUI)
-    const successMsg = document.getElementById('successMessage');
-    const errorMsg = document.getElementById('errorMessage');
-    const warningMsg = document.getElementById('warningMessage');
-    
-    if (successMsg) {
-        const message = successMsg.querySelector('span')?.textContent || successMsg.textContent;
-        if (message) {
-            Notify.success(message);
-            successMsg.style.display = 'none';
-        }
+    // Verificar si hay mensajes de TempData para mostrar
+    if (window.tempDataMessages && window.tempDataMessages.length > 0) {
+        window.tempDataMessages.forEach(msg => {
+            if (window.NotificationSystem) {
+                window.NotificationSystem.show(msg.message, msg.type || 'info');
+            }
+        });
     }
     
-    if (errorMsg) {
-        const message = errorMsg.querySelector('span')?.textContent || errorMsg.textContent;
-        if (message) {
-            Notify.error(message);
-            errorMsg.style.display = 'none';
+    // Escuchar eventos de notificaciones desde otros scripts
+    window.addEventListener('showNotification', function(event) {
+        if (window.NotificationSystem && event.detail) {
+            window.NotificationSystem.show(
+                event.detail.message,
+                event.detail.type || 'info',
+                event.detail.duration
+            );
         }
-    }
-    
-    if (warningMsg) {
-        const message = warningMsg.querySelector('span')?.textContent || warningMsg.textContent;
-        if (message) {
-            Notify.warning(message);
-            warningMsg.style.display = 'none';
-        }
-    }
+    });
 });
 
+// Función helper global para mostrar notificaciones desde cualquier parte
+window.showNotification = function(message, type = 'info', duration = 5000) {
+    if (window.NotificationSystem) {
+        window.NotificationSystem.show(message, type, duration);
+    } else {
+        console.warn('NotificationSystem no está disponible');
+        alert(message);
+    }
+};

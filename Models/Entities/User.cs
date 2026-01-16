@@ -16,6 +16,7 @@ public class User
     // Relaciones
     public Barber? Barber { get; set; } // 1:1 con Barber (si es dueño)
     public Employee? Employee { get; set; } // 1:1 con Employee (si es trabajador)
+    public ICollection<Device> Devices { get; set; } = new List<Device>();
 }
 
 /// <summary>

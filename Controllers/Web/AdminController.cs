@@ -3,6 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using GlowNic.Utils;
 using GlowNic.Services.Interfaces;
 using GlowNic.Models.DTOs.Requests;
+using GlowNic.Models.DTOs.Responses;
+using GlowNic.Models.Entities;
+using GlowNic.Data;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace GlowNic.Controllers.Web;
@@ -17,6 +21,8 @@ public class AdminController : Controller
     private readonly IAppointmentService _appointmentService;
     private readonly IEmployeeService _employeeService;
     private readonly IReportService _reportService;
+    private readonly ApplicationDbContext _context;
+    private readonly IPushNotificationService _pushNotificationService;
 
     public AdminController(
         IDashboardService dashboardService, 
@@ -25,7 +31,9 @@ public class AdminController : Controller
         IServiceService serviceService,
         IAppointmentService appointmentService,
         IEmployeeService employeeService,
-        IReportService reportService)
+        IReportService reportService,
+        ApplicationDbContext context,
+        IPushNotificationService pushNotificationService)
     {
         _dashboardService = dashboardService;
         _barberService = barberService;
@@ -34,6 +42,8 @@ public class AdminController : Controller
         _appointmentService = appointmentService;
         _employeeService = employeeService;
         _reportService = reportService;
+        _context = context;
+        _pushNotificationService = pushNotificationService;
     }
 
     [HttpGet("admin/dashboard")]
@@ -589,6 +599,332 @@ public class AdminController : Controller
         catch
         {
             return Json(new { labels = new string[0], values = new int[0] });
+        }
+    }
+
+    #endregion
+
+    #region Notificaciones Push
+
+    [HttpGet("admin/notifications")]
+    public IActionResult Notifications()
+    {
+        if (!SecurityHelper.IsAdministrator(User))
+        {
+            return Redirect("/access-denied");
+        }
+        
+        ViewBag.Nombre = SecurityHelper.GetUserFullName(User);
+        return View();
+    }
+
+    [HttpGet("admin/notifications/templates")]
+    public async Task<IActionResult> GetTemplates()
+    {
+        if (!SecurityHelper.IsAdministrator(User))
+        {
+            return Json(new { success = false, message = "No autorizado" });
+        }
+
+        try
+        {
+            var templates = await _context.Templates
+                .OrderByDescending(t => t.CreatedAt)
+                .Select(t => new TemplateDto
+                {
+                    Id = t.Id,
+                    Title = t.Title,
+                    Body = t.Body,
+                    ImageUrl = t.ImageUrl,
+                    Name = t.Name,
+                    CreatedAt = t.CreatedAt,
+                    UpdatedAt = t.UpdatedAt
+                })
+                .ToListAsync();
+
+            return Json(templates);
+        }
+        catch (Exception ex)
+        {
+            return Json(new { success = false, message = $"Error: {ex.Message}" });
+        }
+    }
+
+    [HttpPost("admin/notifications/templates")]
+    public async Task<IActionResult> CreateTemplate([FromBody] CreateTemplateRequest request)
+    {
+        if (!SecurityHelper.IsAdministrator(User))
+        {
+            return Json(new { success = false, message = "No autorizado" });
+        }
+
+        if (!ModelState.IsValid)
+        {
+            return Json(new { success = false, message = "Datos inválidos" });
+        }
+
+        try
+        {
+            var template = new Template
+            {
+                Title = request.Title,
+                Body = request.Body,
+                ImageUrl = request.ImageUrl,
+                Name = request.Name
+            };
+
+            _context.Templates.Add(template);
+            await _context.SaveChangesAsync();
+
+            var templateDto = new TemplateDto
+            {
+                Id = template.Id,
+                Title = template.Title,
+                Body = template.Body,
+                ImageUrl = template.ImageUrl,
+                Name = template.Name,
+                CreatedAt = template.CreatedAt,
+                UpdatedAt = template.UpdatedAt
+            };
+
+            return Json(templateDto);
+        }
+        catch (Exception ex)
+        {
+            return Json(new { success = false, message = $"Error: {ex.Message}" });
+        }
+    }
+
+    [HttpPut("admin/notifications/templates/{id}")]
+    public async Task<IActionResult> UpdateTemplate(int id, [FromBody] CreateTemplateRequest request)
+    {
+        if (!SecurityHelper.IsAdministrator(User))
+        {
+            return Json(new { success = false, message = "No autorizado" });
+        }
+
+        if (!ModelState.IsValid)
+        {
+            return Json(new { success = false, message = "Datos inválidos" });
+        }
+
+        try
+        {
+            var template = await _context.Templates.FindAsync(id);
+            if (template == null)
+            {
+                return Json(new { success = false, message = "Plantilla no encontrada" });
+            }
+
+            template.Title = request.Title;
+            template.Body = request.Body;
+            template.ImageUrl = request.ImageUrl;
+            template.Name = request.Name;
+            template.UpdatedAt = DateTime.UtcNow;
+
+            _context.Templates.Update(template);
+            await _context.SaveChangesAsync();
+
+            var templateDto = new TemplateDto
+            {
+                Id = template.Id,
+                Title = template.Title,
+                Body = template.Body,
+                ImageUrl = template.ImageUrl,
+                Name = template.Name,
+                CreatedAt = template.CreatedAt,
+                UpdatedAt = template.UpdatedAt
+            };
+
+            return Json(templateDto);
+        }
+        catch (Exception ex)
+        {
+            return Json(new { success = false, message = $"Error: {ex.Message}" });
+        }
+    }
+
+    [HttpDelete("admin/notifications/templates/{id}")]
+    public async Task<IActionResult> DeleteTemplate(int id)
+    {
+        if (!SecurityHelper.IsAdministrator(User))
+        {
+            return Json(new { success = false, message = "No autorizado" });
+        }
+
+        try
+        {
+            var template = await _context.Templates.FindAsync(id);
+            if (template == null)
+            {
+                return Json(new { success = false, message = "Plantilla no encontrada" });
+            }
+
+            _context.Templates.Remove(template);
+            await _context.SaveChangesAsync();
+
+            return Json(new { success = true });
+        }
+        catch (Exception ex)
+        {
+            return Json(new { success = false, message = $"Error: {ex.Message}" });
+        }
+    }
+
+    [HttpPost("admin/notifications/send")]
+    public async Task<IActionResult> SendNotification([FromBody] SendNotificationRequest request)
+    {
+        if (!SecurityHelper.IsAdministrator(User))
+        {
+            return Json(new { success = false, message = "No autorizado" });
+        }
+
+        try
+        {
+            Template? template = null;
+
+            // Si se proporciona TemplateId, obtener la plantilla
+            if (request.TemplateId.HasValue)
+            {
+                template = await _context.Templates.FindAsync(request.TemplateId.Value);
+                if (template == null)
+                {
+                    return Json(new { success = false, message = "Plantilla no encontrada" });
+                }
+            }
+            // Si no, crear template temporal con Title y Body
+            else if (!string.IsNullOrWhiteSpace(request.Title) && !string.IsNullOrWhiteSpace(request.Body))
+            {
+                template = new Template
+                {
+                    Title = request.Title,
+                    Body = request.Body,
+                    ImageUrl = request.ImageUrl,
+                    Name = "Notificación manual"
+                };
+                _context.Templates.Add(template);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                return Json(new { success = false, message = "Debe proporcionar TemplateId o Title y Body" });
+            }
+
+            // Obtener dispositivos
+            List<Device> devices;
+            if (request.UserIds != null && request.UserIds.Any())
+            {
+                // Convertir IDs de salones a UserIds
+                // request.UserIds contiene IDs de salones (BarberId), necesitamos obtener los UserIds
+                var barbers = await _context.Barbers
+                    .Where(b => request.UserIds.Contains(b.Id))
+                    .Select(b => b.UserId)
+                    .ToListAsync();
+                
+                // Dispositivos de usuarios específicos
+                devices = await _context.Devices
+                    .Where(d => barbers.Contains(d.UserId) && !string.IsNullOrWhiteSpace(d.FcmToken))
+                    .ToListAsync();
+            }
+            else
+            {
+                // Todos los dispositivos
+                devices = await _context.Devices
+                    .Where(d => !string.IsNullOrWhiteSpace(d.FcmToken))
+                    .ToListAsync();
+            }
+
+            if (!devices.Any())
+            {
+                return Json(new { success = false, message = "No hay dispositivos registrados para enviar notificaciones" });
+            }
+
+            // Enviar notificación
+            await _pushNotificationService.SendPushNotificationAsync(
+                template,
+                devices,
+                request.ExtraData,
+                request.DataOnly);
+
+            return Json(new SendNotificationResponse
+            {
+                Success = true,
+                Message = "Notificación enviada exitosamente",
+                UserCount = devices.Select(d => d.UserId).Distinct().Count(),
+                SentCount = devices.Count
+            });
+        }
+        catch (Exception ex)
+        {
+            return Json(new { success = false, message = $"Error: {ex.Message}" });
+        }
+    }
+
+    [HttpGet("admin/notifications/logs")]
+    public async Task<IActionResult> GetNotificationLogs([FromQuery] int page = 1, [FromQuery] int pageSize = 50)
+    {
+        if (!SecurityHelper.IsAdministrator(User))
+        {
+            return Json(new { success = false, message = "No autorizado" });
+        }
+
+        try
+        {
+            var logs = await _context.NotificationLogs
+                .OrderByDescending(nl => nl.SentAt)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .Select(nl => new NotificationLogDto
+                {
+                    Id = nl.Id,
+                    Status = nl.Status,
+                    Payload = nl.Payload,
+                    SentAt = nl.SentAt,
+                    DeviceId = nl.DeviceId,
+                    TemplateId = nl.TemplateId,
+                    UserId = nl.UserId,
+                    CreatedAt = nl.CreatedAt
+                })
+                .ToListAsync();
+
+            return Json(logs);
+        }
+        catch (Exception ex)
+        {
+            return Json(new { success = false, message = $"Error: {ex.Message}" });
+        }
+    }
+
+    [HttpGet("admin/notifications/salons")]
+    public async Task<IActionResult> GetSalonsForNotifications()
+    {
+        if (!SecurityHelper.IsAdministrator(User))
+        {
+            return Json(new { success = false, message = "No autorizado" });
+        }
+
+        try
+        {
+            // Obtener solo salones que tienen dispositivos con token FCM registrado
+            var salonsWithDevices = await _context.Barbers
+                .Where(b => b.UserId != null && 
+                           _context.Devices.Any(d => d.UserId == b.UserId && 
+                                                    !string.IsNullOrWhiteSpace(d.FcmToken)))
+                .Select(b => new { 
+                    id = b.Id, 
+                    name = b.Name,
+                    businessName = b.BusinessName ?? "Sin nombre de negocio",
+                    deviceCount = _context.Devices.Count(d => d.UserId == b.UserId && 
+                                                             !string.IsNullOrWhiteSpace(d.FcmToken))
+                })
+                .OrderBy(s => s.name)
+                .ToListAsync();
+
+            return Json(salonsWithDevices);
+        }
+        catch (Exception ex)
+        {
+            return Json(new { success = false, message = $"Error: {ex.Message}" });
         }
     }
 

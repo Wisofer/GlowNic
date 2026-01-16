@@ -16,17 +16,20 @@ public class AppointmentService : IAppointmentService
     private readonly IBarberService _barberService;
     private readonly IAvailabilityService _availabilityService;
     private readonly IFinanceService _financeService;
+    private readonly IServiceScopeFactory _serviceScopeFactory;
 
     public AppointmentService(
         ApplicationDbContext context,
         IBarberService barberService,
         IAvailabilityService availabilityService,
-        IFinanceService financeService)
+        IFinanceService financeService,
+        IServiceScopeFactory serviceScopeFactory)
     {
         _context = context;
         _barberService = barberService;
         _availabilityService = availabilityService;
         _financeService = financeService;
+        _serviceScopeFactory = serviceScopeFactory;
     }
 
     public async Task<AppointmentDto> CreateAppointmentAsync(CreateAppointmentRequest request)
@@ -98,6 +101,60 @@ public class AppointmentService : IAppointmentService
             }
             await _context.SaveChangesAsync();
         }
+
+        // Enviar notificación push al barbero en segundo plano
+        _ = Task.Run(async () =>
+        {
+            try
+            {
+                using (var scope = _serviceScopeFactory.CreateScope())
+                {
+                    var scopedContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                    var scopedPushService = scope.ServiceProvider.GetRequiredService<IPushNotificationService>();
+                    
+                    // Obtener dispositivos del barbero
+                    var devices = await scopedContext.Devices
+                        .Where(d => d.UserId == barber.UserId && !string.IsNullOrWhiteSpace(d.FcmToken))
+                        .ToListAsync();
+
+                    if (devices.Any())
+                    {
+                        // Crear template temporal
+                        var fecha = request.Date.ToString("dd/MM/yyyy");
+                        var hora = request.Time.ToString("HH:mm");
+                        var template = new Template
+                        {
+                            Title = "Nueva cita agendada",
+                            Body = $"{request.ClientName} agendó una cita para el {fecha} a las {hora}",
+                            Name = "Nueva cita"
+                        };
+
+                        scopedContext.Templates.Add(template);
+                        await scopedContext.SaveChangesAsync();
+
+                        // Datos adicionales
+                        var extraData = new Dictionary<string, string>
+                        {
+                            ["type"] = "appointment",
+                            ["appointmentId"] = appointment.Id.ToString(),
+                            ["clientName"] = request.ClientName,
+                            ["date"] = request.Date.ToString("yyyy-MM-dd"),
+                            ["time"] = request.Time.ToString("HH:mm")
+                        };
+
+                        await scopedPushService.SendPushNotificationAsync(
+                            template,
+                            devices,
+                            extraData,
+                            dataOnly: false);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // Error silencioso - no fallar la creación de la cita
+            }
+        });
 
         return await GetAppointmentByIdAsync(appointment.Id) ?? throw new Exception("Error al crear la cita");
     }

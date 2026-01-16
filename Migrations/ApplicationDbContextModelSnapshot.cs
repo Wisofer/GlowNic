@@ -227,6 +227,46 @@ namespace GlowNic.Migrations
                     b.ToTable("Configuraciones");
                 });
 
+            modelBuilder.Entity("GlowNic.Models.Entities.Device", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("FcmToken")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<DateTime?>("LastActiveAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Platform")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FcmToken")
+                        .IsUnique();
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Devices");
+                });
+
             modelBuilder.Entity("GlowNic.Models.Entities.Employee", b =>
                 {
                     b.Property<int>("Id")
@@ -269,6 +309,51 @@ namespace GlowNic.Migrations
                     b.ToTable("Employees");
                 });
 
+            modelBuilder.Entity("GlowNic.Models.Entities.NotificationLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int?>("DeviceId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Payload")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("SentAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<int?>("TemplateId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DeviceId");
+
+                    b.HasIndex("TemplateId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("NotificationLogs");
+                });
+
             modelBuilder.Entity("GlowNic.Models.Entities.Service", b =>
                 {
                     b.Property<int>("Id")
@@ -302,6 +387,43 @@ namespace GlowNic.Migrations
                     b.HasIndex("BarberId");
 
                     b.ToTable("Services");
+                });
+
+            modelBuilder.Entity("GlowNic.Models.Entities.Template", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("ImageUrl")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Templates");
                 });
 
             modelBuilder.Entity("GlowNic.Models.Entities.Transaction", b =>
@@ -521,6 +643,17 @@ namespace GlowNic.Migrations
                     b.Navigation("Barber");
                 });
 
+            modelBuilder.Entity("GlowNic.Models.Entities.Device", b =>
+                {
+                    b.HasOne("GlowNic.Models.Entities.User", "User")
+                        .WithMany("Devices")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("GlowNic.Models.Entities.Employee", b =>
                 {
                     b.HasOne("GlowNic.Models.Entities.Barber", "OwnerBarber")
@@ -536,6 +669,31 @@ namespace GlowNic.Migrations
                         .IsRequired();
 
                     b.Navigation("OwnerBarber");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("GlowNic.Models.Entities.NotificationLog", b =>
+                {
+                    b.HasOne("GlowNic.Models.Entities.Device", "Device")
+                        .WithMany()
+                        .HasForeignKey("DeviceId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("GlowNic.Models.Entities.Template", "Template")
+                        .WithMany()
+                        .HasForeignKey("TemplateId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("GlowNic.Models.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Device");
+
+                    b.Navigation("Template");
 
                     b.Navigation("User");
                 });
@@ -622,6 +780,8 @@ namespace GlowNic.Migrations
             modelBuilder.Entity("GlowNic.Models.Entities.User", b =>
                 {
                     b.Navigation("Barber");
+
+                    b.Navigation("Devices");
 
                     b.Navigation("Employee");
                 });
