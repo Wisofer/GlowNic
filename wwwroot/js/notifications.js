@@ -34,11 +34,11 @@ class NotificationSystem {
         // Auto-remover después de la duración
         setTimeout(() => {
             notification.classList.add('animate-slide-out');
-            setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.parentNode.removeChild(notification);
-                }
-            }, 300);
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
         }, duration);
 
         return notification;

@@ -2,11 +2,11 @@
 @keyframes slide-in {
     from {
         transform: translateX(100%);
-        opacity: 0;
-    }
+    opacity: 0;
+}
     to {
         transform: translateX(0);
-        opacity: 1;
+    opacity: 1;
     }
 }
 
@@ -42,7 +42,7 @@
 /* Estilos para el panel de notificaciones */
 .tab-content {
     animation: fadeIn 0.3s ease-in;
-}
+    }
 
 @keyframes fadeIn {
     from {
@@ -127,4 +127,4 @@
 input[type="checkbox"]:indeterminate {
     background-color: hsl(var(--p));
     border-color: hsl(var(--p));
-}
+    }

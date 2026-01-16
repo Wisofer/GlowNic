@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
         window.tempDataMessages.forEach(msg => {
             if (window.NotificationSystem) {
                 window.NotificationSystem.show(msg.message, msg.type || 'info');
-            }
+        }
         });
     }
     
