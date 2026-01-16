@@ -20,29 +20,206 @@ namespace GlowNic.Controllers.Api;
 public class PushNotificationController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
-    private readonly IPushNotificationService _pushNotificationService;
+    private readonly IPushNotificationService _pushService;
     private readonly ILogger<PushNotificationController> _logger;
 
     public PushNotificationController(
         ApplicationDbContext context,
-        IPushNotificationService pushNotificationService,
+        IPushNotificationService pushService,
         ILogger<PushNotificationController> logger)
     {
         _context = context;
-        _pushNotificationService = pushNotificationService;
+        _pushService = pushService;
         _logger = logger;
     }
 
-    private async Task<int> GetUserIdAsync()
+    private Task<int> GetUserIdAsync()
     {
         var userId = JwtHelper.GetUserId(User);
         if (!userId.HasValue)
             throw new UnauthorizedAccessException("Usuario no identificado");
-        return userId.Value;
+        return Task.FromResult(userId.Value);
+    }
+
+    #region Templates
+
+    /// <summary>
+    /// Obtener todas las plantillas (solo Admin)
+    /// </summary>
+    [HttpGet("templates")]
+    [Authorize(Roles = "Admin")]
+    public async Task<ActionResult<List<TemplateDto>>> GetTemplates()
+    {
+        try
+        {
+            var templates = await _context.Templates
+                .OrderByDescending(t => t.CreatedAt)
+                .Select(t => new TemplateDto
+                {
+                    Id = t.Id,
+                    Title = t.Title,
+                    Body = t.Body,
+                    ImageUrl = t.ImageUrl,
+                    Name = t.Name,
+                    CreatedAt = t.CreatedAt,
+                    UpdatedAt = t.UpdatedAt
+                })
+                .ToListAsync();
+
+            return Ok(templates);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al obtener plantillas");
+            return StatusCode(500, new { message = "Error interno del servidor" });
+        }
     }
 
     /// <summary>
-    /// Registrar dispositivo para recibir notificaciones push
+    /// Obtener plantilla por ID (solo Admin)
+    /// </summary>
+    [HttpGet("templates/{id}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<ActionResult<TemplateDto>> GetTemplate(int id)
+    {
+        try
+        {
+            var template = await _context.Templates.FindAsync(id);
+            if (template == null)
+                return NotFound(new { message = "Plantilla no encontrada" });
+
+            return Ok(new TemplateDto
+            {
+                Id = template.Id,
+                Title = template.Title,
+                Body = template.Body,
+                ImageUrl = template.ImageUrl,
+                Name = template.Name,
+                CreatedAt = template.CreatedAt,
+                UpdatedAt = template.UpdatedAt
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al obtener plantilla {Id}", id);
+            return StatusCode(500, new { message = "Error interno del servidor" });
+        }
+    }
+
+    /// <summary>
+    /// Crear nueva plantilla (solo Admin)
+    /// </summary>
+    [HttpPost("templates")]
+    [Authorize(Roles = "Admin")]
+    public async Task<ActionResult<TemplateDto>> CreateTemplate([FromBody] CreateTemplateRequest request)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        try
+        {
+            var template = new Template
+            {
+                Title = request.Title,
+                Body = request.Body,
+                ImageUrl = request.ImageUrl,
+                Name = request.Name
+            };
+
+            _context.Templates.Add(template);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetTemplate), new { id = template.Id }, new TemplateDto
+            {
+                Id = template.Id,
+                Title = template.Title,
+                Body = template.Body,
+                ImageUrl = template.ImageUrl,
+                Name = template.Name,
+                CreatedAt = template.CreatedAt,
+                UpdatedAt = template.UpdatedAt
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al crear plantilla");
+            return StatusCode(500, new { message = "Error interno del servidor" });
+        }
+    }
+
+    /// <summary>
+    /// Actualizar plantilla (solo Admin)
+    /// </summary>
+    [HttpPut("templates/{id}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<ActionResult<TemplateDto>> UpdateTemplate(int id, [FromBody] CreateTemplateRequest request)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        try
+        {
+            var template = await _context.Templates.FindAsync(id);
+            if (template == null)
+                return NotFound(new { message = "Plantilla no encontrada" });
+
+            template.Title = request.Title;
+            template.Body = request.Body;
+            template.ImageUrl = request.ImageUrl;
+            template.Name = request.Name;
+            template.UpdatedAt = DateTime.UtcNow;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new TemplateDto
+            {
+                Id = template.Id,
+                Title = template.Title,
+                Body = template.Body,
+                ImageUrl = template.ImageUrl,
+                Name = template.Name,
+                CreatedAt = template.CreatedAt,
+                UpdatedAt = template.UpdatedAt
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al actualizar plantilla {Id}", id);
+            return StatusCode(500, new { message = "Error interno del servidor" });
+        }
+    }
+
+    /// <summary>
+    /// Eliminar plantilla (solo Admin)
+    /// </summary>
+    [HttpDelete("templates/{id}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<ActionResult> DeleteTemplate(int id)
+    {
+        try
+        {
+            var template = await _context.Templates.FindAsync(id);
+            if (template == null)
+                return NotFound(new { message = "Plantilla no encontrada" });
+
+            _context.Templates.Remove(template);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al eliminar plantilla {Id}", id);
+            return StatusCode(500, new { message = "Error interno del servidor" });
+        }
+    }
+
+    #endregion
+
+    #region Devices
+
+    /// <summary>
+    /// Registrar dispositivo para recibir notificaciones
     /// </summary>
     [HttpPost("devices")]
     public async Task<ActionResult<DeviceDto>> RegisterDevice([FromBody] RegisterDeviceRequest request)
@@ -138,13 +315,13 @@ public class PushNotificationController : ControllerBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error al obtener dispositivo");
+            _logger.LogError(ex, "Error al obtener dispositivo {Id}", id);
             return StatusCode(500, new { message = "Error interno del servidor" });
         }
     }
 
     /// <summary>
-    /// Obtener todos los dispositivos del usuario
+    /// Obtener todos los dispositivos del usuario actual
     /// </summary>
     [HttpGet("devices")]
     public async Task<ActionResult<List<DeviceDto>>> GetDevices()
@@ -154,6 +331,7 @@ public class PushNotificationController : ControllerBase
             var userId = await GetUserIdAsync();
             var devices = await _context.Devices
                 .Where(d => d.UserId == userId)
+                .OrderByDescending(d => d.LastActiveAt)
                 .Select(d => new DeviceDto
                 {
                     Id = d.Id,
@@ -171,6 +349,50 @@ public class PushNotificationController : ControllerBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error al obtener dispositivos");
+            return StatusCode(500, new { message = "Error interno del servidor" });
+        }
+    }
+
+    /// <summary>
+    /// Actualizar token FCM del dispositivo
+    /// </summary>
+    [HttpPost("devices/refresh-token")]
+    public async Task<ActionResult<DeviceDto>> RefreshDeviceToken([FromBody] UpdateDeviceTokenRequest request)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        try
+        {
+            var userId = await GetUserIdAsync();
+
+            var device = await _context.Devices
+                .FirstOrDefaultAsync(d => d.FcmToken == request.CurrentFcmToken && d.UserId == userId);
+
+            if (device == null)
+                return NotFound(new { message = "Dispositivo no encontrado" });
+
+            device.FcmToken = request.NewFcmToken;
+            device.Platform = request.Platform;
+            device.LastActiveAt = DateTime.UtcNow;
+            device.UpdatedAt = DateTime.UtcNow;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new DeviceDto
+            {
+                Id = device.Id,
+                FcmToken = device.FcmToken,
+                Platform = device.Platform,
+                LastActiveAt = device.LastActiveAt,
+                UserId = device.UserId,
+                CreatedAt = device.CreatedAt,
+                UpdatedAt = device.UpdatedAt
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al actualizar token del dispositivo");
             return StatusCode(500, new { message = "Error interno del servidor" });
         }
     }
@@ -197,110 +419,76 @@ public class PushNotificationController : ControllerBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error al eliminar dispositivo");
+            _logger.LogError(ex, "Error al eliminar dispositivo {Id}", id);
             return StatusCode(500, new { message = "Error interno del servidor" });
         }
     }
 
+    #endregion
+
+    #region Send Notifications
+
     /// <summary>
-    /// Actualizar token FCM del dispositivo
+    /// Enviar notificación push al usuario actual (solo Admin)
     /// </summary>
-    [HttpPost("devices/refresh-token")]
-    public async Task<ActionResult<DeviceDto>> RefreshDeviceToken([FromBody] UpdateDeviceTokenRequest request)
+    [HttpPost("send")]
+    [Authorize(Roles = "Admin")]
+    public async Task<ActionResult<SendNotificationResponse>> SendNotification([FromBody] SendNotificationRequest request)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
         try
         {
+            var template = await _context.Templates.FindAsync(request.TemplateId);
+
+            if (template == null)
+                return NotFound(new { message = "Plantilla no encontrada" });
+
             var userId = await GetUserIdAsync();
 
-            // Buscar dispositivo del usuario (cualquiera de sus dispositivos)
-            var device = await _context.Devices
-                .FirstOrDefaultAsync(d => d.UserId == userId);
+            var devices = await _context.Devices
+                .Where(d => d.UserId == userId && !string.IsNullOrWhiteSpace(d.FcmToken))
+                .ToListAsync();
 
-            if (device == null)
-                return NotFound(new { message = "No se encontró ningún dispositivo para actualizar" });
+            if (!devices.Any())
+                return BadRequest(new { message = "No hay dispositivos registrados para este usuario" });
 
-            // Actualizar token
-            device.FcmToken = request.FcmToken;
-            device.LastActiveAt = DateTime.UtcNow;
-            device.UpdatedAt = DateTime.UtcNow;
+            await _pushService.SendPushNotificationAsync(
+                template,
+                devices,
+                request.ExtraData,
+                request.DataOnly);
 
-            await _context.SaveChangesAsync();
-
-            return Ok(new DeviceDto
+            return Ok(new SendNotificationResponse
             {
-                Id = device.Id,
-                FcmToken = device.FcmToken,
-                Platform = device.Platform,
-                LastActiveAt = device.LastActiveAt,
-                UserId = device.UserId,
-                CreatedAt = device.CreatedAt,
-                UpdatedAt = device.UpdatedAt
+                Success = true,
+                Message = "Notificación enviada exitosamente",
+                SentCount = devices.Count,
+                UserCount = 1
             });
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error al actualizar token del dispositivo");
+            _logger.LogError(ex, "Error al enviar notificación");
             return StatusCode(500, new { message = "Error interno del servidor" });
         }
     }
 
-    /// <summary>
-    /// Actualizar token FCM de un dispositivo específico
-    /// </summary>
-    [HttpPut("devices/{id}/token")]
-    public async Task<ActionResult<DeviceDto>> UpdateDeviceToken(int id, [FromBody] UpdateDeviceTokenRequest request)
-    {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
+    #endregion
 
-        try
-        {
-            var userId = await GetUserIdAsync();
-            var device = await _context.Devices
-                .FirstOrDefaultAsync(d => d.Id == id && d.UserId == userId);
-
-            if (device == null)
-                return NotFound(new { message = "Dispositivo no encontrado" });
-
-            // Actualizar token
-            device.FcmToken = request.FcmToken;
-            device.LastActiveAt = DateTime.UtcNow;
-            device.UpdatedAt = DateTime.UtcNow;
-
-            await _context.SaveChangesAsync();
-
-            return Ok(new DeviceDto
-            {
-                Id = device.Id,
-                FcmToken = device.FcmToken,
-                Platform = device.Platform,
-                LastActiveAt = device.LastActiveAt,
-                UserId = device.UserId,
-                CreatedAt = device.CreatedAt,
-                UpdatedAt = device.UpdatedAt
-            });
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error al actualizar token del dispositivo");
-            return StatusCode(500, new { message = "Error interno del servidor" });
-        }
-    }
+    #region Notification Logs
 
     /// <summary>
-    /// Obtener logs de notificaciones del usuario
+    /// Obtener logs de notificaciones del usuario actual
     /// </summary>
     [HttpGet("logs")]
-    public async Task<ActionResult<List<NotificationLogDto>>> GetNotificationLogs(
-        [FromQuery] int page = 1, 
-        [FromQuery] int pageSize = 50)
+    public async Task<ActionResult<List<NotificationLogDto>>> GetNotificationLogs([FromQuery] int page = 1, [FromQuery] int pageSize = 50)
     {
         try
         {
             var userId = await GetUserIdAsync();
+
             var logs = await _context.NotificationLogs
                 .Where(nl => nl.UserId == userId)
                 .OrderByDescending(nl => nl.SentAt)
@@ -329,40 +517,6 @@ public class PushNotificationController : ControllerBase
     }
 
     /// <summary>
-    /// Obtener log de notificación por ID
-    /// </summary>
-    [HttpGet("logs/{id}")]
-    public async Task<ActionResult<NotificationLogDto>> GetNotificationLog(int id)
-    {
-        try
-        {
-            var userId = await GetUserIdAsync();
-            var log = await _context.NotificationLogs
-                .FirstOrDefaultAsync(nl => nl.Id == id && nl.UserId == userId);
-
-            if (log == null)
-                return NotFound(new { message = "Log de notificación no encontrado" });
-
-            return Ok(new NotificationLogDto
-            {
-                Id = log.Id,
-                Status = log.Status,
-                Payload = log.Payload,
-                SentAt = log.SentAt,
-                DeviceId = log.DeviceId,
-                TemplateId = log.TemplateId,
-                UserId = log.UserId,
-                CreatedAt = log.CreatedAt
-            });
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error al obtener log de notificación");
-            return StatusCode(500, new { message = "Error interno del servidor" });
-        }
-    }
-
-    /// <summary>
     /// Marcar notificación como leída
     /// </summary>
     [HttpPost("logs/{id}/opened")]
@@ -371,13 +525,13 @@ public class PushNotificationController : ControllerBase
         try
         {
             var userId = await GetUserIdAsync();
+
             var log = await _context.NotificationLogs
                 .FirstOrDefaultAsync(nl => nl.Id == id && nl.UserId == userId);
 
             if (log == null)
-                return NotFound(new { message = "Log de notificación no encontrado" });
+                return NotFound(new { message = "Notificación no encontrada" });
 
-            // Marcar como leída
             log.Status = "opened";
             log.UpdatedAt = DateTime.UtcNow;
 
@@ -387,7 +541,35 @@ public class PushNotificationController : ControllerBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error al marcar notificación como leída");
+            _logger.LogError(ex, "Error al marcar notificación como leída {Id}", id);
+            return StatusCode(500, new { message = "Error interno del servidor" });
+        }
+    }
+
+    /// <summary>
+    /// Eliminar notificación
+    /// </summary>
+    [HttpDelete("logs/{id}")]
+    public async Task<ActionResult> DeleteNotificationLog(int id)
+    {
+        try
+        {
+            var userId = await GetUserIdAsync();
+
+            var log = await _context.NotificationLogs
+                .FirstOrDefaultAsync(nl => nl.Id == id && nl.UserId == userId);
+
+            if (log == null)
+                return NotFound(new { message = "Notificación no encontrada" });
+
+            _context.NotificationLogs.Remove(log);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error al eliminar notificación {Id}", id);
             return StatusCode(500, new { message = "Error interno del servidor" });
         }
     }
@@ -401,12 +583,10 @@ public class PushNotificationController : ControllerBase
         try
         {
             var userId = await GetUserIdAsync();
+
             var logs = await _context.NotificationLogs
                 .Where(nl => nl.UserId == userId && nl.Status != "opened")
                 .ToListAsync();
-
-            if (!logs.Any())
-                return Ok(new { message = "No hay notificaciones pendientes de marcar como leídas", count = 0 });
 
             foreach (var log in logs)
             {
@@ -416,7 +596,7 @@ public class PushNotificationController : ControllerBase
 
             await _context.SaveChangesAsync();
 
-            return Ok(new { message = "Todas las notificaciones fueron marcadas como leídas", count = logs.Count });
+            return Ok(new { message = $"{logs.Count} notificaciones marcadas como leídas", count = logs.Count });
         }
         catch (Exception ex)
         {
@@ -426,29 +606,33 @@ public class PushNotificationController : ControllerBase
     }
 
     /// <summary>
-    /// Eliminar log de notificación
+    /// Eliminar todas las notificaciones del usuario
     /// </summary>
-    [HttpDelete("logs/{id}")]
-    public async Task<ActionResult> DeleteNotificationLog(int id)
+    [HttpDelete("logs/delete-all")]
+    public async Task<ActionResult> DeleteAllNotificationLogs()
     {
         try
         {
             var userId = await GetUserIdAsync();
-            var log = await _context.NotificationLogs
-                .FirstOrDefaultAsync(nl => nl.Id == id && nl.UserId == userId);
 
-            if (log == null)
-                return NotFound(new { message = "Log de notificación no encontrado" });
+            var logs = await _context.NotificationLogs
+                .Where(nl => nl.UserId == userId)
+                .ToListAsync();
 
-            _context.NotificationLogs.Remove(log);
+            if (!logs.Any())
+                return Ok(new { message = "No hay notificaciones para eliminar", count = 0 });
+
+            _context.NotificationLogs.RemoveRange(logs);
             await _context.SaveChangesAsync();
 
-            return Ok(new { message = "Notificación eliminada exitosamente" });
+            return Ok(new { message = $"Todas las notificaciones fueron eliminadas exitosamente", count = logs.Count });
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error al eliminar log de notificación");
+            _logger.LogError(ex, "Error al eliminar todas las notificaciones");
             return StatusCode(500, new { message = "Error interno del servidor" });
         }
     }
+
+    #endregion
 }
